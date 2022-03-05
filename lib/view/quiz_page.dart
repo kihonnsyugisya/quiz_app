@@ -4,6 +4,8 @@ import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/dialogs.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
 import 'package:quiz_app/utils/quiz/quiz_list.dart';
+import 'package:quiz_app/utils/result.dart';
+import 'package:quiz_app/view/result_page.dart';
 import '../utils/ad.dart';
 import '../utils/buttons.dart';
 import '../utils/quiz/quiz.dart';
@@ -19,8 +21,10 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   int quizCount = 0;
+
   @override
   Widget build(BuildContext context) {
+    final quizCollection = QuizList.list[widget.listNum][quizCount];
     final double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: OriginalThemeColor.themeColor,
@@ -32,10 +36,10 @@ class _QuizPageState extends State<QuizPage> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 8),
                       child: Text(
                         Buttons.modeList[widget.listNum].buttonText,
-                        style: OriginalThemeFont.mainFont,
+                        style: OriginalThemeFont.basicFont,
                       ),
                     ),
                     Text(
@@ -46,7 +50,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
             ),
             Expanded(
-                flex: 3,
+                flex: 2,
                 child: Column(
                   children: [
                     Expanded(
@@ -54,21 +58,21 @@ class _QuizPageState extends State<QuizPage> {
                         width: deviceWidth * 0.8,
                         child: Center(
                           child: Text(
-                            QuizList.list[widget.listNum][quizCount].quiz,
+                            quizCollection.quiz,
                             maxLines: null,
-                            style: OriginalThemeFont.mainFont,
+                            style: OriginalThemeFont.quizFont,
                           ),
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
-                      child: Text('${quizCount+1} / 10'),
+                      child: Text('${quizCount+1} / ${QuizList.list[widget.listNum].length}'),
                     ),
                   ],
                 )),
             Expanded(
-                flex: 5,
+                flex: 4,
                 child: SizedBox(
                   width: deviceWidth * 0.8,
                   child: Column(
@@ -77,53 +81,71 @@ class _QuizPageState extends State<QuizPage> {
                       ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: QuizList.list[widget.listNum][quizCount].answer.length,
+                          itemCount: quizCollection.answer.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Buttons.ModeButton(
-                                buttonText: QuizList.list[widget.listNum][quizCount].answer[index],
+                                buttonText: quizCollection.answer[index],
+                                color: null,
                                 page: (){
                                   if(QuizLogic.isSuccess(tapIndex: index, listNum: widget.listNum, quizNum: quizCount)){
+                                    Result.addResultCount();
                                     return setState(() {
                                       Dialogs.successResultDialog(
                                           context: context,
-                                          text: QuizList.firstList[0].answer[QuizList.firstList[0].answerOfNum],
+                                          text: quizCollection.answer[quizCollection.answerOfNum],
+                                          btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(quizCount: quizCount, quizLength: QuizList.list[widget.listNum].length)),
                                           onTap: (){
-                                            setState(() {
-                                              quizCount++;
-                                            });
-                                            Navigator.of(context).pop();
+                                            if(Result.isMoveToResultPage(quizCount: quizCount, quizLength: QuizList.list[widget.listNum].length)){
+                                              Navigator.of(context).pop();
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(widget.listNum)));
+                                            }else{
+                                              setState(() {
+                                                quizCount++;
+                                                Navigator.of(context).pop();
+                                              });
+                                            }
                                           },
                                           );
                                     });
                                   } else{
                                     return setState(() {
                                       Dialogs.missResultDialog(
-                                          context: context,
-                                          text: QuizList.firstList[0].answer[QuizList.firstList[0].answerOfNum],
-                                          onTap: (){
-                                            setState(() {
-                                              quizCount++;
-                                            });
-                                            Navigator.of(context).pop();
+                                        context: context,
+                                        text: quizCollection.answer[quizCollection.answerOfNum],
+                                        btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(quizCount: quizCount, quizLength: QuizList.list[widget.listNum].length)),
+                                        onTap: (){
+                                            if(Result.isMoveToResultPage(quizCount: quizCount, quizLength: QuizList.list[widget.listNum].length)){
+                                              Navigator.of(context).pop();
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(widget.listNum)));
+                                            }else{
+                                              setState(() {
+                                                quizCount++;
+                                                Navigator.of(context).pop();
+                                              });
+                                            }
                                           },
                                           );
                                     });
                                   }
                                 },
-                                color: null
                             );
                           }
                       ),
                       Buttons.originalTextButton(
                           text: 'RETIRE',
                           onPress: (){
+                            Navigator.popUntil(context, (route) => route.isFirst);
+                            Result.resetResultCount();
                           }
                           ),
                     ],
                   ),
                 )
             ),
-            Expanded(flex: 1,child: Ad.adArea),
+            Expanded(flex: 1,child: Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Ad.adArea,
+            )),
           ],
         ),
       ),
