@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
 import 'color/original_theme_color.dart';
 
@@ -10,6 +11,7 @@ class Buttons{
   {
     return TextButton(
         onPressed: onPress,
+        style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
         child: Text(
           text,
           style: OriginalThemeFont.subFont,
@@ -51,6 +53,20 @@ class Buttons{
     ModeButtonEntity(buttonText: '第2章', color: null),
     ModeButtonEntity(buttonText: '第3章', color: null),
   ];
+  static TextButton twitterButton({VoidCallback? onPressed}){
+    return TextButton(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(FontAwesomeIcons.twitter,size: 20),
+          Text('シェアしてね！',style: OriginalThemeFont.moderateFont,),
+        ],
+      ),
+      onPressed: onPressed,
+      style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
+    );
+  }
 }
 
 class ModeButtonEntity{

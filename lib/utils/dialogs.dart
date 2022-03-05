@@ -8,7 +8,7 @@ import 'package:quiz_app/utils/original_theme_font.dart';
 
 class Dialogs{
   static  successResultDialog(
-      {required BuildContext context, required String text,required VoidCallback? onTap}){
+      {required BuildContext context, required String text,required VoidCallback? onTap,required String btnText}){
     return CoolAlert.show(
         title: '正解',
         context: context,
@@ -16,14 +16,14 @@ class Dialogs{
         text: text,
         barrierDismissible: false,
         backgroundColor: OriginalThemeColor.white,
-        confirmBtnColor: OriginalThemeColor.themeColor,
-        confirmBtnText: '次の問題',
-        confirmBtnTextStyle: OriginalThemeFont.mainFont,
+        confirmBtnColor: OriginalThemeColor.secondColor,
+        confirmBtnText: btnText,
+        confirmBtnTextStyle: OriginalThemeFont.quizFont,
         onConfirmBtnTap: onTap,
     );
   }
   static Future<dynamic> missResultDialog(
-      {required BuildContext context,required String text,required VoidCallback? onTap}){
+      {required BuildContext context,required String text,required VoidCallback? onTap,required String btnText}){
     return CoolAlert.show(
       title: '不正解',
       context: context,
@@ -31,11 +31,18 @@ class Dialogs{
       text: '正解 : $text',
       barrierDismissible: false,
       backgroundColor: OriginalThemeColor.white,
-      confirmBtnColor: OriginalThemeColor.themeColor,
-      confirmBtnText: '次の問題',
-      confirmBtnTextStyle: OriginalThemeFont.mainFont,
+      confirmBtnColor: OriginalThemeColor.secondColor,
+      confirmBtnText: btnText,
+      confirmBtnTextStyle: OriginalThemeFont.quizFont,
       onConfirmBtnTap: onTap,
     );
+  }
+  static String confirmBtnText(bool isMoveToResultPage){
+    if(isMoveToResultPage){
+      return '結果へ';
+    } else{
+      return '次の問題';
+    }
   }
   static Future<dynamic> infoDialog(BuildContext context){
     return showAnimatedDialog(
