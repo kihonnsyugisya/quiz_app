@@ -1,6 +1,5 @@
 
 import 'package:cool_alert/cool_alert.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
@@ -62,6 +61,25 @@ class Dialogs{
       },
       animationType: DialogTransitionType.slideFromBottomFade,
       duration: const Duration(seconds: 1),
+    );
+  }
+  static void licenseDialog(BuildContext context){
+    return showLicensePage(
+      context: context,
+      applicationName: 'タイトル',
+      applicationVersion: '1.0.0',
+      applicationIcon: Column(
+        children: const [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: CircleAvatar(
+
+              backgroundImage: AssetImage('images/logo.png'),
+              radius: 40,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

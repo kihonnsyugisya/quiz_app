@@ -1,4 +1,6 @@
 
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
@@ -77,5 +79,44 @@ class ModeButtonEntity{
     required this.color,
   });
 }
+
+class MoreButton extends StatelessWidget {
+  static List<Widget> list = [
+
+  ];
+  static Divider bottomLine = Divider(color: OriginalThemeColor.black,height: 0.5,);
+  final Text text;
+  final GestureTapCallback? onTap;
+  final Icon icon;
+  MoreButton({Key? key, required this.text,required this.onTap,required this.icon,}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                icon,
+                const SizedBox(width: 8,),
+                text,
+              ],
+            ),
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
 
 
