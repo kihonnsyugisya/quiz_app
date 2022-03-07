@@ -41,6 +41,10 @@ dependencies:
   cool_alert: ^1.1.0
   animated_text_kit: ^4.2.1
   animate_do: ^2.1.0
+  url_launcher: ^6.0.20
+  launch_review: ^3.0.1
+  package_info_plus: ^1.4.0
+  marquee: ^2.2.1
 
 dev_dependencies:
   flutter_test:
