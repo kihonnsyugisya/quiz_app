@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/utils/url_launcher.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
 import 'package:quiz_app/utils/result.dart';
-
 import '../utils/buttons.dart';
 import '../utils/quiz/quiz_list.dart';
 
@@ -56,7 +56,9 @@ class ResultPage extends StatelessWidget {
               Column(
                 children: [
                   Buttons.twitterButton(
-                    onPressed: (){}
+                    onPressed: ()async{
+                      UrlLauncher.tweet(text: 'text',);
+                    }
                   ),
                   Buttons.originalTextButton(
                       text: 'HOME',
