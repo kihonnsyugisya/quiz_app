@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/view/home_page.dart';
+import 'package:quiz_app/view/more_page.dart';
 
 class Navigation{
   static int selectIndex = 0;
@@ -9,8 +10,8 @@ class Navigation{
     selectIndex = index;
   }
   static List<Widget> widgetPages = [
-    const Home(),
-    const Text('2'),
+    const HomePage(),
+    const MorePage(),
   ];
   static BottomNavigationBar bottomItems(function){
     return BottomNavigationBar(

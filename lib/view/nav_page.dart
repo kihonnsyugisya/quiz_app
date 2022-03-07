@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/dialogs.dart';
 import '../utils/ad.dart';
-import '../utils/bottom_navigation.dart';
+import '../utils/navigation.dart';
 
 class NavPage extends StatefulWidget {
   const NavPage({Key? key}) : super(key: key);

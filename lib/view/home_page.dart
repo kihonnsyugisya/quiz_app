@@ -5,8 +5,8 @@ import 'package:quiz_app/utils/quiz/quiz_list.dart';
 import 'package:quiz_app/view/quiz_page.dart';
 import '../utils/buttons.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
