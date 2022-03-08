@@ -11,6 +11,9 @@ class Info{
     '1.0.3': {'pr': '1.0.3のpr文がきます。'},
   };
 
+  // TODO: TOPに表示される告知を適宜更新する。（アップデート時）
+  static String information ='[次回アップデートのお知らせ] 次回アップデート予定は、アニメ第●話放送後に実装予定です。たくさんアニメを見てクイズを追加していきます！';
+
   static bool isShowInfoDialog(){
     // ignore: unrelated_type_equality_checks
     if(SharedPreference().status == PackageInfo.version){

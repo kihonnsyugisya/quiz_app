@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:marquee/marquee.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/dialogs.dart';
 import 'package:quiz_app/utils/shared_preference.dart';
@@ -45,13 +46,22 @@ class _NavPageState extends State<NavPage> {
           children: [
             Container(
               child: Center(
-                  child: Text(
-                    // TODO: 適宜更新する。名言でもあり。
-                    'info',
+                  child: Marquee(
+                    text: Info.information,
                     style: TextStyle(color: OriginalThemeColor.white),
-                  )),
+                    scrollAxis: Axis.horizontal,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    blankSpace: 20.0,
+                    velocity: 30.0,
+                    startPadding: 10.0,
+                    accelerationDuration: Duration(seconds: 1),
+                    accelerationCurve: Curves.linear,
+                    decelerationDuration: Duration(milliseconds: 500),
+                    decelerationCurve: Curves.easeOut,
+                  )
+              ),
               color: OriginalThemeColor.black,
-              height: 50,
+              height: 24,
             ),
             Expanded(flex:9,child: Center(
               child: SingleChildScrollView(
