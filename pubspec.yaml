@@ -45,6 +45,7 @@ dependencies:
   launch_review: ^3.0.1
   package_info_plus: ^1.4.0
   marquee: ^2.2.1
+  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:
