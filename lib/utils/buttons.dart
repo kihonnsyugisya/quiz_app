@@ -48,7 +48,7 @@ class Buttons{
       ),
     );
   }
-
+// TODO: 第3章以降を追加する場合は、適宜追加する。quizListに問題を追加した上で。
   // ※画面に表示されるボタンの数は、クイズリストの数に起因するようにしている。
   static List<dynamic> modeList = [
     ModeButtonEntity(buttonText: '第1章', color: null),

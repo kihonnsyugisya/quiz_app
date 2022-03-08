@@ -39,6 +39,7 @@ class _NavPageState extends State<NavPage> {
             Container(
               child: Center(
                   child: Text(
+                    // TODO: 適宜更新する。名言でもあり。
                     'info',
                     style: TextStyle(color: OriginalThemeColor.white),
                   )),
@@ -56,6 +57,7 @@ class _NavPageState extends State<NavPage> {
                         height: deviceWidth * 0.4,
                         width: deviceWidth * 0.4,
                         child: Image.asset(
+                          // TODO: ロゴイメージの差し替え（ファイル名はそのままが望ましい。サイズは600＊600のpng）
                           'images/logo.png',
                           fit: BoxFit.cover,
                         ),

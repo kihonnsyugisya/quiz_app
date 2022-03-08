@@ -9,6 +9,7 @@ import 'package:quiz_app/utils/url_launcher.dart';
 import '../utils/buttons.dart';
 import '../utils/color/original_theme_color.dart';
 import '../utils/dialogs.dart';
+import '../utils/package_info.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class MorePage extends StatelessWidget {
             width: deviceWidth * 0.85,
             decoration: BoxDecoration(
               color: OriginalThemeColor.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(8),
               border: Border.all(
                   color: OriginalThemeColor.gray,
                   width: 0.5
@@ -46,6 +47,7 @@ class MorePage extends StatelessWidget {
                 MoreButton(
                   text: const Text('シェアする'), 
                   onTap: (){
+                    // TODO: PR文をかく。
                     UrlLauncher.tweet(text: 'text');
                   }, 
                   icon: Icon(FontAwesomeIcons.twitter,size: 20,color: OriginalThemeColor.twitter,),),
@@ -66,6 +68,7 @@ class MorePage extends StatelessWidget {
                 MoreButton(
                     text: const Text('アプリを評価する'),
                     onTap: (){
+                      // TODO: IDを変更する。アンドロイドもやる場合は、そのIDも追加する。
                       LaunchReview.launch(
                           writeReview: false,iOSAppId: "1608191430"
                       );
@@ -76,7 +79,7 @@ class MorePage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(4.0),
-            child: Text('Version : 1.0.0',style: OriginalThemeFont.miniFont,),
+            child: Text('Version : ${PackageInfo.version}',style: OriginalThemeFont.miniFont,),
           ),
         ],
       ),

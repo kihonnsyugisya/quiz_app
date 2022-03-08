@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncher  {
   static List<String> twitterHashTags = [
+    // TODO: ハッシュタグを決める。
     '題材名が入ります',
     '題材名が入ります'
   ];
@@ -29,12 +30,9 @@ class UrlLauncher  {
         ? await launch(tweetScheme.toString())
         : await launch(tweetIntentUrl.toString());
   }
-  
-  static void tiiit()async{
-    await launch('https://kihonnsyugisya.github.io/privacy_policy_quiz_app/');
-  }
 
   static void privacyPolicy()async{
+    // TODO: ファイヤベースなど、新たに追加する場合は、下記のリンクに適宜文言を追加する
     if(await canLaunch('https://kihonnsyugisya.github.io/privacy_policy_quiz_app/')){
       await launch('https://kihonnsyugisya.github.io/privacy_policy_quiz_app/');
     }else{

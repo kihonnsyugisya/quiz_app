@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
+import 'package:quiz_app/utils/package_info.dart';
 
 class Dialogs{
   static  successResultDialog(
@@ -66,20 +67,8 @@ class Dialogs{
   static void licenseDialog(BuildContext context){
     return showLicensePage(
       context: context,
-      applicationName: 'タイトル',
-      applicationVersion: '1.0.0',
-      applicationIcon: Column(
-        children: const [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: CircleAvatar(
-
-              backgroundImage: AssetImage('images/logo.png'),
-              radius: 40,
-            ),
-          ),
-        ],
-      ),
+      applicationName: PackageInfo.title,
+      applicationVersion: PackageInfo.version,
     );
   }
 }
