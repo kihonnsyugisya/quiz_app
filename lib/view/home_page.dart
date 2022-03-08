@@ -29,9 +29,10 @@ class HomePage extends StatelessWidget {
               return Buttons.ModeButton(
                   buttonText: Buttons.modeList[index].buttonText,
                   color: Buttons.modeList[index].color,
-                  page: (){
+                  page: ()async{
                     // ignore: avoid_print
                     print(index);
+                    await QuizList.list[index].shuffle();
                     Navigator.push(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: index,)));
                   },
               );

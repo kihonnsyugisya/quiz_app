@@ -54,9 +54,9 @@ class _NavPageState extends State<NavPage> {
                     blankSpace: 20.0,
                     velocity: 30.0,
                     startPadding: 10.0,
-                    accelerationDuration: Duration(seconds: 1),
+                    accelerationDuration: const Duration(seconds: 1),
                     accelerationCurve: Curves.linear,
-                    decelerationDuration: Duration(milliseconds: 500),
+                    decelerationDuration: const Duration(milliseconds: 500),
                     decelerationCurve: Curves.easeOut,
                   )
               ),
