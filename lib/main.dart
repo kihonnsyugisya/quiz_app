@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/utils/shared_preference.dart';
 import 'package:quiz_app/view/nav_page.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreference().init();
   runApp(const MyApp());
 }
 

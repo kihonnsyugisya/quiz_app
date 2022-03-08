@@ -2,9 +2,13 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:quiz_app/utils/buttons.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
 import 'package:quiz_app/utils/package_info.dart';
+import 'package:quiz_app/utils/shared_preference.dart';
+
+import 'info.dart';
 
 class Dialogs{
   static  successResultDialog(
@@ -49,15 +53,22 @@ class Dialogs{
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return ClassicGeneralDialogWidget(
-          titleText: 'Title',
-          contentText: 'content',
-          onPositiveClick: () {
-            Navigator.of(context).pop();
-          },
-          onNegativeClick: () {
-            Navigator.of(context).pop();
-          },
+        return AlertDialog(
+          title: const Text('お知らせ'),
+          content: Text(Info.getPr()),
+          actions: <Widget>[
+            // ボタン領域
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Buttons.nextButton(
+                  text: '閉じる',
+                  onPress: (){
+                    SharedPreference().setStatus();
+                    Navigator.pop(context);
+                  },
+              ),
+            )
+          ],
         );
       },
       animationType: DialogTransitionType.slideFromBottomFade,

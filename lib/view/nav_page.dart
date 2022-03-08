@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/dialogs.dart';
+import 'package:quiz_app/utils/shared_preference.dart';
 import '../utils/ad.dart';
+import '../utils/info.dart';
 import '../utils/navigation.dart';
 
 class NavPage extends StatefulWidget {
@@ -23,8 +25,13 @@ class _NavPageState extends State<NavPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    SchedulerBinding.instance!.addPostFrameCallback((_) => Dialogs.infoDialog(context));
+    Future(() async {
+      await SharedPreference().getStatus;
+      // SharedPreference().getRestStatus();
+      if(Info.isShowInfoDialog()){
+        SchedulerBinding.instance!.addPostFrameCallback((_) => Dialogs.infoDialog(context));
+      }
+    });
     super.initState();
   }
 

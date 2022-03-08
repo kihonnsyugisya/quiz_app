@@ -22,6 +22,21 @@ class Buttons{
     );
   }
 
+  static TextButton nextButton({
+    required String text,
+    required VoidCallback? onPress})
+  {
+    return TextButton(
+      onPressed: onPress,
+      style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
+      child: Text(
+        text,
+        style: OriginalThemeFont.quizFont,
+      ),
+      // onFocusChange: ,
+    );
+  }
+
   // ignore: non_constant_identifier_names
   static Widget ModeButton({
     required String buttonText,

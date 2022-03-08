@@ -45,6 +45,16 @@ class MorePage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 MoreButton(
+                    text: const Text('アプリを評価する'),
+                    onTap: (){
+                      // TODO: IDを変更する。アンドロイドもやる場合は、そのIDも追加する。
+                      LaunchReview.launch(
+                          writeReview: false,iOSAppId: "1608191430"
+                      );
+                    },
+                    icon: Icon(Icons.star,color: OriginalThemeColor.star,)),
+                MoreButton.bottomLine,
+                MoreButton(
                   text: const Text('シェアする'), 
                   onTap: (){
                     // TODO: PR文をかく。
@@ -64,16 +74,6 @@ class MorePage extends StatelessWidget {
                       UrlLauncher.privacyPolicy();
                       },
                     icon: const Icon(Icons.privacy_tip_outlined)),
-                MoreButton.bottomLine,
-                MoreButton(
-                    text: const Text('アプリを評価する'),
-                    onTap: (){
-                      // TODO: IDを変更する。アンドロイドもやる場合は、そのIDも追加する。
-                      LaunchReview.launch(
-                          writeReview: false,iOSAppId: "1608191430"
-                      );
-                    },
-                    icon: Icon(Icons.star,color: OriginalThemeColor.star,)),
               ]
             ),
           ),
