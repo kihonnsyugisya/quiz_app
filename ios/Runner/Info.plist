@@ -5,6 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
+	 // TODO: iosのディスプレイネームを変更する(AndroidManifestのandroid:label="quiz_app"も同様に（なぜかコメント書き込めなかったので、こっちに書いた）)
 	<string>Quiz App</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
