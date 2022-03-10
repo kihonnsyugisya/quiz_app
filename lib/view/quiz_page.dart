@@ -13,7 +13,8 @@ import '../utils/quiz/quiz.dart';
 // ignore: must_be_immutable
 class QuizPage extends StatefulWidget {
   int listNum;
-  QuizPage({Key? key, required this.listNum}) : super(key: key);
+  bool isHard;
+  QuizPage({Key? key, required this.listNum, required this.isHard}) : super(key: key);
 
   @override
   _QuizPageState createState() => _QuizPageState();
@@ -24,7 +25,17 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    final quizCollection = QuizList.list[widget.listNum][quizCount];
+    final normalQuizDoc = QuizList.normalList[widget.listNum];
+    final hardQuizDoc = QuizList.hardList[widget.listNum];
+
+    quizDoc(){
+      if(widget.isHard){
+        return hardQuizDoc;
+      }else{
+        return normalQuizDoc;
+      }
+    }
+
     final double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: OriginalThemeColor.themeColor,
@@ -38,8 +49,12 @@ class _QuizPageState extends State<QuizPage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Text(
-                        Buttons.modeList[widget.listNum].buttonText,
-                        style: OriginalThemeFont.basicFont,
+                        widget.isHard
+                            ? Buttons.hardModeList[widget.listNum].buttonText
+                            : Buttons.normalModeList[widget.listNum].buttonText,
+                        style: widget.isHard
+                            ? OriginalThemeFont.modeFont
+                            : OriginalThemeFont.basicFont,
                       ),
                     ),
                     Text(
@@ -58,7 +73,7 @@ class _QuizPageState extends State<QuizPage> {
                         width: deviceWidth * 0.8,
                         child: Center(
                           child: Text(
-                            quizCollection.quiz,
+                            quizDoc()[quizCount].quiz,
                             maxLines: null,
                             style: OriginalThemeFont.quizFont,
                           ),
@@ -67,7 +82,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
-                      child: Text('${quizCount+1} / ${QuizList.list[widget.listNum].length}'),
+                      child: Text('${quizCount+1} / ${quizDoc().length}'),
                     ),
                   ],
                 )),
@@ -81,23 +96,23 @@ class _QuizPageState extends State<QuizPage> {
                       ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: quizCollection.answer.length,
+                          itemCount: quizDoc()[quizCount].answer.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Buttons.ModeButton(
-                                buttonText: quizCollection.answer[index],
+                                buttonText: quizDoc()[quizCount].answer[index],
                                 color: null,
                                 page: (){
-                                  if(QuizLogic.isSuccess(tapIndex: index, listNum: widget.listNum, quizNum: quizCount)){
+                                  if(QuizLogic.isSuccess(tapIndex: index, listNum: widget.listNum, quizNum: quizCount, isHard: widget.isHard)){
                                     Result.addResultCount();
                                     return setState(() {
                                       Dialogs.successResultDialog(
                                           context: context,
-                                          text: quizCollection.answer[quizCollection.answerOfNum],
-                                          btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(quizCount: quizCount, quizLength: QuizList.list[widget.listNum].length)),
+                                          text: quizDoc()[quizCount].answer[quizDoc()[quizCount].answerOfNum],
+                                          btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(isSuccess: true,isHard: widget.isHard,quizCount: quizCount, quizLength: normalQuizDoc.length)),
                                           onTap: (){
-                                            if(Result.isMoveToResultPage(quizCount: quizCount, quizLength: QuizList.list[widget.listNum].length)){
+                                            if(Result.isMoveToResultPage(isHard: widget.isHard,quizCount: quizCount, quizLength: normalQuizDoc.length, isSuccess: true)){
                                               Navigator.of(context).pop();
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(widget.listNum)));
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(isHard: widget.isHard,listNum: widget.listNum)));
                                             }else{
                                               setState(() {
                                                 quizCount++;
@@ -111,12 +126,15 @@ class _QuizPageState extends State<QuizPage> {
                                     return setState(() {
                                       Dialogs.missResultDialog(
                                         context: context,
-                                        text: quizCollection.answer[quizCollection.answerOfNum],
-                                        btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(quizCount: quizCount, quizLength: QuizList.list[widget.listNum].length)),
+                                        text: quizDoc()[quizCount].answer[quizDoc()[quizCount].answerOfNum],
+                                        btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(quizCount: quizCount, quizLength: quizDoc().length, isHard: widget.isHard, isSuccess: false)),
                                         onTap: (){
-                                            if(Result.isMoveToResultPage(quizCount: quizCount, quizLength: QuizList.list[widget.listNum].length)){
+                                            if(Result.isMoveToResultPage(quizCount: quizCount, quizLength: quizDoc().length, isHard: widget.isHard, isSuccess: false)){
                                               Navigator.of(context).pop();
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(widget.listNum)));
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(listNum: widget.listNum,isHard: widget.isHard,)));
+                                            } else if(widget.isHard){
+                                              Navigator.of(context).pop();
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(listNum: widget.listNum,isHard: widget.isHard,)));
                                             }else{
                                               setState(() {
                                                 quizCount++;

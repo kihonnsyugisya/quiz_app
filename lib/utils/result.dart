@@ -10,12 +10,22 @@ class Result{
     print( '正解数 : ${resultCount}' );
   }
   static bool isMoveToResultPage({
+    required bool isHard,
+    required bool isSuccess,
     required int quizCount,
     required int quizLength}){
-    if(quizCount == quizLength -1){
-      return true;
+    if(isHard){
+      if(isSuccess){
+        return false;
+      }else{
+        return true;
+      }
     }else{
-      return false;
+      if(quizCount == quizLength -1){
+        return true;
+      }else{
+        return false;
+      }
     }
   }
 }

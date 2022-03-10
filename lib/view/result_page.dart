@@ -10,8 +10,9 @@ import '../utils/quiz/quiz_list.dart';
 // ignore: use_key_in_widget_constructors, must_be_immutable
 class ResultPage extends StatelessWidget {
   int listNum;
+  bool isHard;
   // ignore: use_key_in_widget_constructors
-  ResultPage(this.listNum);
+  ResultPage({required this.listNum, required this.isHard});
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
@@ -28,7 +29,12 @@ class ResultPage extends StatelessWidget {
               SizedBox(height: deviceHeight * 0.08,),
               Column(
                 children: [
-                  Text(Buttons.modeList[listNum].buttonText,style: OriginalThemeFont.basicFont,),
+                  Text(isHard
+                      ? Buttons.hardModeList[listNum].buttonText
+                      : Buttons.normalModeList[listNum].buttonText,
+                    style: isHard
+                        ? OriginalThemeFont.modeFont
+                        : OriginalThemeFont.basicFont,),
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
                     child: Text('結果',style: OriginalThemeFont.basicFont,),
@@ -37,7 +43,11 @@ class ResultPage extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Text('${QuizList.list[listNum].length}問中',style: OriginalThemeFont.basicFont,),
+                  Text('${
+                      isHard
+                      ? QuizList.hardList[listNum].length
+                      : QuizList.normalList[listNum].length}問中',
+                    style: OriginalThemeFont.basicFont,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,

@@ -50,9 +50,7 @@ class Buttons{
         child: ElevatedButton(
           child: Text(
             buttonText,
-            style: const TextStyle(
-              fontSize: 20,
-            ),
+            style: OriginalThemeFont.modeFont
           ),
           style: ElevatedButton.styleFrom(
             primary: color ?? OriginalThemeColor.themeSubColor,
@@ -65,11 +63,19 @@ class Buttons{
   }
 // TODO: 第3章以降を追加する場合は、適宜追加する。quizListに問題を追加した上で。
   // ※画面に表示されるボタンの数は、クイズリストの数に起因するようにしている。
-  static List<dynamic> modeList = [
+  static List<dynamic> normalModeList = [
     ModeButtonEntity(buttonText: '第1章', color: null),
     ModeButtonEntity(buttonText: '第2章', color: null),
     ModeButtonEntity(buttonText: '第3章', color: null),
   ];
+
+  static List<dynamic> hardModeList = [
+    ModeButtonEntity(buttonText: 'VERY HARD', color: null),
+    ModeButtonEntity(buttonText: 'VERY HARD', color: null),
+    ModeButtonEntity(buttonText: '第1章', color: null),
+
+  ];
+
   static TextButton twitterButton({VoidCallback? onPressed}){
     return TextButton(
       child: Row(

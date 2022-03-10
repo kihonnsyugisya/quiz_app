@@ -9,11 +9,19 @@ class QuizEntity{
 }
 
 class QuizLogic{
-  static bool isSuccess({required int tapIndex,required int listNum,required int quizNum}){
-    if(tapIndex == QuizList.list[listNum][quizNum].answerOfNum){
-      return true;
+  static bool isSuccess({required int tapIndex,required int listNum,required int quizNum,required bool isHard}){
+    if(isHard){
+      if(tapIndex == QuizList.hardList[listNum][quizNum].answerOfNum){
+        return true;
+      }else{
+        return false;
+      }
     }else{
-      return false;
+      if(tapIndex == QuizList.normalList[listNum][quizNum].answerOfNum){
+        return true;
+      }else{
+        return false;
+      }
     }
   }
 }

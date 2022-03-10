@@ -17,6 +17,10 @@ class OriginalThemeFont{
 
 //  第何問目かのやつ
   static TextStyle titleFont = GoogleFonts.oswald(textStyle: const TextStyle(fontSize: 24,fontWeight: FontWeight.w500));
+
+  //  モードボタンのフォント
+  static TextStyle modeFont = GoogleFonts.oswald(textStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500));
+
 //  結果ページの正解数
   static TextStyle accentFont = GoogleFonts.oswald(textStyle: TextStyle(fontSize: 40,fontWeight: FontWeight.w500,color: OriginalThemeColor.black));
 
