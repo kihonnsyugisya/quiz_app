@@ -1,10 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/utils/quiz/quiz.dart';
 import 'package:quiz_app/utils/url_launcher.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
 import 'package:quiz_app/utils/result.dart';
 import 'package:quiz_app/view/nav_page.dart';
+import 'package:quiz_app/view/quiz_page.dart';
 import '../utils/buttons.dart';
 import '../utils/quiz/quiz_list.dart';
 
@@ -71,11 +73,15 @@ class ResultPage extends StatelessWidget {
                       UrlLauncher.tweet(text: 'text',);
                     }
                   ),
+                  isHard == true && QuizList.hardList[listNum].length != Result.resultCount
+                      ? Buttons.revivalButton(onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: listNum,isHard: true,)));})
+                      : const SizedBox(),
                   Buttons.originalTextButton(
                       text: 'HOME',
                       onPress: (){
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
                         Result.resetResultCount();
+                        QuizLogic.resetQuizCount();
                       }
                   ),
                 ],

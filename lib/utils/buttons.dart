@@ -90,6 +90,21 @@ class Buttons{
       style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
     );
   }
+  static TextButton revivalButton({VoidCallback? onPressed}){
+    return TextButton(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.live_tv_sharp,size: 20,color: OriginalThemeColor.black,),
+          const SizedBox(width: 4,),
+          Text('CMを視聴して復活する',style: OriginalThemeFont.moderateFont,),
+        ],
+      ),
+      onPressed: onPressed,
+      style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
+    );
+  }
 }
 
 class ModeButtonEntity{
