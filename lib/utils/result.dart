@@ -15,7 +15,9 @@ class Result{
     required int quizCount,
     required int quizLength}){
     if(isHard){
-      if(isSuccess){
+      if(quizCount == quizLength -1){
+        return true;
+      }else if(isSuccess){
         return false;
       }else{
         return true;

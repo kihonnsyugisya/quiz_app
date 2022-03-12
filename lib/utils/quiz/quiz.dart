@@ -9,6 +9,10 @@ class QuizEntity{
 }
 
 class QuizLogic{
+  static int quizCount = 0;
+  static void resetQuizCount(){
+    quizCount = 0;
+  }
   static bool isSuccess({required int tapIndex,required int listNum,required int quizNum,required bool isHard}){
     if(isHard){
       if(tapIndex == QuizList.hardList[listNum][quizNum].answerOfNum){
