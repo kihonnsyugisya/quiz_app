@@ -5,6 +5,8 @@ import 'package:quiz_app/utils/dialogs.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
 import 'package:quiz_app/utils/quiz/quiz_list.dart';
 import 'package:quiz_app/utils/result.dart';
+import 'package:quiz_app/view/home_page.dart';
+import 'package:quiz_app/view/nav_page.dart';
 import 'package:quiz_app/view/result_page.dart';
 import '../utils/ad.dart';
 import '../utils/buttons.dart';
@@ -112,7 +114,7 @@ class _QuizPageState extends State<QuizPage> {
                                           onTap: (){
                                             if(Result.isMoveToResultPage(isHard: widget.isHard,quizCount: quizCount, quizLength: normalQuizDoc.length, isSuccess: true)){
                                               Navigator.of(context).pop();
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(isHard: widget.isHard,listNum: widget.listNum)));
+                                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultPage(isHard: widget.isHard,listNum: widget.listNum)));
                                             }else{
                                               setState(() {
                                                 quizCount++;
@@ -131,10 +133,10 @@ class _QuizPageState extends State<QuizPage> {
                                         onTap: (){
                                             if(Result.isMoveToResultPage(quizCount: quizCount, quizLength: quizDoc().length, isHard: widget.isHard, isSuccess: false)){
                                               Navigator.of(context).pop();
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(listNum: widget.listNum,isHard: widget.isHard,)));
+                                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultPage(listNum: widget.listNum,isHard: widget.isHard,)));
                                             } else if(widget.isHard){
                                               Navigator.of(context).pop();
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(listNum: widget.listNum,isHard: widget.isHard,)));
+                                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultPage(listNum: widget.listNum,isHard: widget.isHard,)));
                                             }else{
                                               setState(() {
                                                 quizCount++;
@@ -151,8 +153,10 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                       Buttons.originalTextButton(
                           text: 'RETIRE',
-                          onPress: (){
-                            Navigator.popUntil(context, (route) => route.isFirst);
+                          onPress: ()async{
+                            await Dialogs.retireDialog(context);
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
+                            // Navigator.popUntil(context, (route) => route.isFirst);
                             Result.resetResultCount();
                           }
                           ),

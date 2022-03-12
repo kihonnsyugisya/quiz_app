@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
                         // ignore: avoid_print
                         print(index);
                         await QuizList.normalList[index].shuffle();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: index,isHard: false,)));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: index,isHard: false,)));
                       },
                   );
                 },),
@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
                       // ignore: avoid_print
                       print(index);
                       await QuizList.hardList[index].shuffle();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: index,isHard: true,)));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: index,isHard: true,)));
                     },
                   );
                 },),
