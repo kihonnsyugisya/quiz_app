@@ -1,5 +1,6 @@
 
 import 'package:cool_alert/cool_alert.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:quiz_app/utils/buttons.dart';
@@ -80,6 +81,31 @@ class Dialogs{
       context: context,
       applicationName: PackageInfo.title,
       applicationVersion: PackageInfo.version,
+    );
+  }
+  static Future<dynamic> retireDialog(BuildContext context){
+    return showAnimatedDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text("リタイア"),
+          content: const Text("リタイアしますか？"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: const Text("キャンセル"),
+              isDestructiveAction: true,
+              onPressed: () => Navigator.pop(context),
+            ),
+            CupertinoDialogAction(
+              child: const Text("OK"),
+              onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+            ),
+          ],
+        );
+      },
+      animationType: DialogTransitionType.slideFromBottomFade,
+      duration: const Duration(seconds: 1),
     );
   }
 }
