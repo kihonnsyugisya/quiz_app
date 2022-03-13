@@ -28,6 +28,7 @@ class _NavPageState extends State<NavPage> {
   void initState() {
     Future(() async {
       await SharedPreference().getStatus;
+      // TODO: ダイアログをテスト表示したい場合は下記を解除
       // SharedPreference().getRestStatus();
       if(Info.isShowInfoDialog()){
         SchedulerBinding.instance!.addPostFrameCallback((_) => Dialogs.infoDialog(context));

@@ -25,3 +25,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// TODO: info.plistとアンドロイドマニフェストのアプリのラベル名を替える
