@@ -86,6 +86,7 @@ class _NavPageState extends State<NavPage> {
                 ),
               ),
             )),
+            // TODO: モードが四つ以上になる場合は、削除すること
             Expanded(flex:1,child: Ad.adArea),
           ],
         ),

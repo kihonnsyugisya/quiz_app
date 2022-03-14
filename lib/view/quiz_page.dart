@@ -103,20 +103,23 @@ class _QuizPageState extends State<QuizPage> {
                                 buttonText: quizDoc()[QuizLogic.quizCount].answer[index],
                                 color: null,
                                 page: (){
+                                  print('クイズレングス：${quizDoc().length}');
                                   if(QuizLogic.isSuccess(tapIndex: index, listNum: widget.listNum, quizNum: QuizLogic.quizCount, isHard: widget.isHard)){
                                     Result.addResultCount();
                                     return setState(() {
                                       Dialogs.successResultDialog(
                                           context: context,
                                           text: quizDoc()[QuizLogic.quizCount].answer[quizDoc()[QuizLogic.quizCount].answerOfNum],
-                                          btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(isSuccess: true,isHard: widget.isHard,quizCount: QuizLogic.quizCount, quizLength: normalQuizDoc.length)),
+                                          btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(isSuccess: true,isHard: widget.isHard,quizCount: QuizLogic.quizCount, quizLength: quizDoc().length)),
                                           onTap: (){
-                                            if(Result.isMoveToResultPage(isHard: widget.isHard,quizCount: QuizLogic.quizCount, quizLength: normalQuizDoc.length, isSuccess: true)){
+                                            if(Result.isMoveToResultPage(isHard: widget.isHard,quizCount: QuizLogic.quizCount, quizLength: quizDoc().length, isSuccess: true)){
                                               Navigator.of(context).pop();
                                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultPage(isHard: widget.isHard,listNum: widget.listNum)));
                                             }else{
                                               setState(() {
                                                 QuizLogic.quizCount++;
+                                                print('クイズカウンターがプラスされました');
+                                                print('クイズカウンター：${QuizLogic.quizCount}になりました');
                                                 Navigator.of(context).pop();
                                               });
                                             }
@@ -139,6 +142,8 @@ class _QuizPageState extends State<QuizPage> {
                                             }else{
                                               setState(() {
                                                 QuizLogic.quizCount++;
+                                                print('クイズカウンターがプラスされました');
+                                                print('クイズカウンター：${QuizLogic.quizCount}になりました');
                                                 Navigator.of(context).pop();
                                               });
                                             }
@@ -154,8 +159,6 @@ class _QuizPageState extends State<QuizPage> {
                           text: 'RETIRE',
                           onPress: ()async{
                             await Dialogs.retireDialog(context);
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
-                            // Navigator.popUntil(context, (route) => route.isFirst);
                             Result.resetResultCount();
                             QuizLogic.resetQuizCount();
                           }

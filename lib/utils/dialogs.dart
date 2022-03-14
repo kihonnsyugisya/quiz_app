@@ -9,6 +9,7 @@ import 'package:quiz_app/utils/original_theme_font.dart';
 import 'package:quiz_app/utils/package_info.dart';
 import 'package:quiz_app/utils/shared_preference.dart';
 
+import '../view/nav_page.dart';
 import 'info.dart';
 
 class Dialogs{
@@ -99,7 +100,8 @@ class Dialogs{
             ),
             CupertinoDialogAction(
               child: const Text("OK"),
-              onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+              onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()))
+              ,
             ),
           ],
         );
