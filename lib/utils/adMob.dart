@@ -78,6 +78,7 @@ class AdMob{
         onAdFailedToLoad: (LoadAdError error) {
           // ignore: avoid_print
           print('エラー：InterstitialAd failed to load: $error');
+          myInterstitialAd = null;
         },
       ),
     );

@@ -10,6 +10,7 @@ import 'package:quiz_app/view/nav_page.dart';
 import 'package:quiz_app/view/quiz_page.dart';
 import '../utils/adMob.dart';
 import '../utils/buttons.dart';
+import '../utils/dialogs.dart';
 import '../utils/quiz/quiz_list.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
@@ -117,7 +118,6 @@ class _ResultPageState extends State<ResultPage> {
                               );
                           await AdMob.myRewardAd!.show(
                               onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem){
-                                // ad.setImmersiveMode(true);
                                 print('$ad with reward $RewardItem(${rewardItem.amount}, ${rewardItem.type})');
                                 setState(() {
                                   secondChallengeLife += rewardItem.amount.toInt();
@@ -126,8 +126,15 @@ class _ResultPageState extends State<ResultPage> {
                                 });
                               }
                           );
+                        }else{
+                         Dialogs.netWorkErrorDialog(
+                             context: context,
+                             onPressed: (){
+                               AdMob.loadReward();
+                               Navigator.of(context).pop();
+                             }
+                         );
                         }
-
                       })
                       : const SizedBox(),
                   Buttons.originalTextButton(
@@ -138,22 +145,26 @@ class _ResultPageState extends State<ResultPage> {
                             onAdDismissedFullScreenContent: (InterstitialAd ad){
                               ad.dispose();
                               AdMob.loadInterstitial();
-                              print('dismissdった');
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
+                              Result.resetResultCount();
+                              QuizLogic.resetQuizCount();
                             },
                             onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error){
                               ad.dispose();
                               AdMob.loadInterstitial();
-                              print('failedFullった');
                             }
                           );
                           await AdMob.myInterstitialAd!.show();
                         }else{
-                          await AdMob.loadInterstitial();
-                          print('間に合わんかったぜ');
+                          // await AdMob.loadInterstitial();
+                          Dialogs.netWorkErrorDialog(
+                            context: context,
+                            onPressed: (){
+                              AdMob.loadInterstitial();
+                              Navigator.of(context).pop();
+                            }
+                          );
                         }
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
-                        Result.resetResultCount();
-                        QuizLogic.resetQuizCount();
                       }
                   ),
                 ],

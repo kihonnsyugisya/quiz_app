@@ -110,4 +110,27 @@ class Dialogs{
       duration: const Duration(seconds: 1),
     );
   }
+  static Future<dynamic> netWorkErrorDialog({
+    required BuildContext context,
+    required VoidCallback onPressed}){
+    return showAnimatedDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text("ネットワークエラー"),
+          content: const Text("通信状況をご確認ください。"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: const Text("OK"),
+              onPressed: onPressed
+              ,
+            ),
+          ],
+        );
+      },
+      animationType: DialogTransitionType.slideFromBottomFade,
+      duration: const Duration(seconds: 1),
+    );
+  }
 }
