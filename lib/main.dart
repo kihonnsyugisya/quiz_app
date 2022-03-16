@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:quiz_app/utils/shared_preference.dart';
 import 'package:quiz_app/view/nav_page.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   await SharedPreference().init();
   runApp(const MyApp());
 }

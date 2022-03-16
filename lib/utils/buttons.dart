@@ -44,7 +44,7 @@ class Buttons{
     required Color? color})
   {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: SizedBox(
         height: 54,
         child: ElevatedButton(

@@ -1,7 +1,6 @@
 
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/quiz/quiz_list.dart';
 import 'package:quiz_app/view/quiz_page.dart';
 import '../utils/buttons.dart';

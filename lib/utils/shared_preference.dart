@@ -22,6 +22,7 @@ class SharedPreference {
 
   get getStatus {
     status = _prefs!.getString('status') ?? 0.toString();
+    // ignore: avoid_print, unnecessary_brace_in_string_interps
     print('status = ${status}');
   }
 

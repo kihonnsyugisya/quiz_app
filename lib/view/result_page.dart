@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:quiz_app/utils/quiz/quiz.dart';
 import 'package:quiz_app/utils/url_launcher.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
@@ -7,15 +8,36 @@ import 'package:quiz_app/utils/original_theme_font.dart';
 import 'package:quiz_app/utils/result.dart';
 import 'package:quiz_app/view/nav_page.dart';
 import 'package:quiz_app/view/quiz_page.dart';
+import '../utils/adMob.dart';
 import '../utils/buttons.dart';
 import '../utils/quiz/quiz_list.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
-class ResultPage extends StatelessWidget {
+class ResultPage extends StatefulWidget {
   int listNum;
   bool isHard;
   // ignore: use_key_in_widget_constructors
   ResultPage({required this.listNum, required this.isHard});
+
+  @override
+  State<ResultPage> createState() => _ResultPageState();
+}
+
+class _ResultPageState extends State<ResultPage> {
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    if(AdMob.myInterstitialAd != null){
+      AdMob.myInterstitialAd!.dispose();
+    }
+    if(AdMob.myRewardAd != null){
+      AdMob.myRewardAd!.dispose();
+    }
+    super.dispose();
+  }
+
+  int secondChallengeLife = 0;
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
@@ -32,10 +54,10 @@ class ResultPage extends StatelessWidget {
               SizedBox(height: deviceHeight * 0.08,),
               Column(
                 children: [
-                  Text(isHard
-                      ? Buttons.hardModeList[listNum].buttonText
-                      : Buttons.normalModeList[listNum].buttonText,
-                    style: isHard
+                  Text(widget.isHard
+                      ? Buttons.hardModeList[widget.listNum].buttonText
+                      : Buttons.normalModeList[widget.listNum].buttonText,
+                    style: widget.isHard
                         ? OriginalThemeFont.modeFont
                         : OriginalThemeFont.basicFont,),
                   Padding(
@@ -47,9 +69,9 @@ class ResultPage extends StatelessWidget {
               Column(
                 children: [
                   Text('${
-                      isHard
-                      ? QuizList.hardList[listNum].length
-                      : QuizList.normalList[listNum].length}問中',
+                      widget.isHard
+                      ? QuizList.hardList[widget.listNum].length
+                      : QuizList.normalList[widget.listNum].length}問中',
                     style: OriginalThemeFont.basicFont,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -73,12 +95,62 @@ class ResultPage extends StatelessWidget {
                       UrlLauncher.tweet(text: 'text',);
                     }
                   ),
-                  isHard == true && QuizList.hardList[listNum].length != Result.resultCount
-                      ? Buttons.revivalButton(onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: listNum,isHard: true,)));})
+                  widget.isHard == true && QuizList.hardList[widget.listNum].length != Result.resultCount
+                      ? Buttons.revivalButton(onPressed: ()async{
+                        if(AdMob.myRewardAd != null){
+                          AdMob.myRewardAd!.fullScreenContentCallback =
+                              FullScreenContentCallback(
+                                  onAdDismissedFullScreenContent: (ad){
+                                    ad.dispose();
+                                    print('今閉じたよ');
+                                    if(secondChallengeLife == 10){
+                                      print('itta');
+                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: widget.listNum,isHard: true,)));
+                                    }else{
+                                      print('butayann');
+                                    }
+                                  },
+                                  onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error){
+                                    ad.dispose();
+                                    AdMob.loadReward();
+                                  }
+                              );
+                          await AdMob.myRewardAd!.show(
+                              onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem){
+                                // ad.setImmersiveMode(true);
+                                print('$ad with reward $RewardItem(${rewardItem.amount}, ${rewardItem.type})');
+                                setState(() {
+                                  secondChallengeLife += rewardItem.amount.toInt();
+                                  print(rewardItem.amount.toInt());
+                                  print('報酬を獲得：　$secondChallengeLife');
+                                });
+                              }
+                          );
+                        }
+
+                      })
                       : const SizedBox(),
                   Buttons.originalTextButton(
                       text: 'HOME',
-                      onPress: (){
+                      onPress: ()async{
+                        if(AdMob.myInterstitialAd != null){
+                          AdMob.myInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+                            onAdDismissedFullScreenContent: (InterstitialAd ad){
+                              ad.dispose();
+                              AdMob.loadInterstitial();
+                              print('dismissdった');
+                            },
+                            onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error){
+                              ad.dispose();
+                              AdMob.loadInterstitial();
+                              print('failedFullった');
+                            }
+                          );
+                          await AdMob.myInterstitialAd!.show();
+                        }else{
+                          await AdMob.loadInterstitial();
+                          print('間に合わんかったぜ');
+                        }
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
                         Result.resetResultCount();
                         QuizLogic.resetQuizCount();

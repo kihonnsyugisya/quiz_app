@@ -1,14 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/dialogs.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
 import 'package:quiz_app/utils/quiz/quiz_list.dart';
 import 'package:quiz_app/utils/result.dart';
-import 'package:quiz_app/view/home_page.dart';
-import 'package:quiz_app/view/nav_page.dart';
 import 'package:quiz_app/view/result_page.dart';
-import '../utils/ad.dart';
+import '../utils/adMob.dart';
 import '../utils/buttons.dart';
 import '../utils/quiz/quiz.dart';
 
@@ -23,6 +22,24 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    AdMob.loadInterstitial();
+    if(widget.isHard == true){
+      AdMob.loadReward();
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    AdMob.myBanner().dispose();
+    print('disposed');
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +120,7 @@ class _QuizPageState extends State<QuizPage> {
                                 buttonText: quizDoc()[QuizLogic.quizCount].answer[index],
                                 color: null,
                                 page: (){
+                                  // ignore: avoid_print
                                   print('クイズレングス：${quizDoc().length}');
                                   if(QuizLogic.isSuccess(tapIndex: index, listNum: widget.listNum, quizNum: QuizLogic.quizCount, isHard: widget.isHard)){
                                     Result.addResultCount();
@@ -118,7 +136,9 @@ class _QuizPageState extends State<QuizPage> {
                                             }else{
                                               setState(() {
                                                 QuizLogic.quizCount++;
+                                                // ignore: avoid_print
                                                 print('クイズカウンターがプラスされました');
+                                                // ignore: avoid_print
                                                 print('クイズカウンター：${QuizLogic.quizCount}になりました');
                                                 Navigator.of(context).pop();
                                               });
@@ -142,7 +162,9 @@ class _QuizPageState extends State<QuizPage> {
                                             }else{
                                               setState(() {
                                                 QuizLogic.quizCount++;
+                                                // ignore: avoid_print
                                                 print('クイズカウンターがプラスされました');
+                                                // ignore: avoid_print
                                                 print('クイズカウンター：${QuizLogic.quizCount}になりました');
                                                 Navigator.of(context).pop();
                                               });
@@ -169,7 +191,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
             Expanded(flex: 1,child: Padding(
               padding: const EdgeInsets.only(top: 8),
-              child: Ad.adArea,
+              child: AdMob.bannerAdArea(child: AdWidget(ad: AdMob.myBanner())),
             )),
           ],
         ),

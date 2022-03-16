@@ -1,11 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:marquee/marquee.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/dialogs.dart';
 import 'package:quiz_app/utils/shared_preference.dart';
-import '../utils/ad.dart';
+import '../utils/adMob.dart';
 import '../utils/info.dart';
 import '../utils/navigation.dart';
 
@@ -25,9 +26,18 @@ class _NavPageState extends State<NavPage> {
   }
 
   @override
+  void dispose(){
+    // TODO: implement dispose
+    AdMob.myBanner().dispose();
+    print('バナーを破棄しました');
+    super.dispose();
+  }
+
+  @override
   void initState() {
     Future(() async {
       await SharedPreference().getStatus;
+      // await AdMob.myBanner(adType: 'banner').load();
       // TODO: ダイアログをテスト表示したい場合は下記を解除
       // SharedPreference().getRestStatus();
       if(Info.isShowInfoDialog()){
@@ -87,7 +97,7 @@ class _NavPageState extends State<NavPage> {
               ),
             )),
             // TODO: モードが四つ以上になる場合は、削除すること
-            Expanded(flex:1,child: Ad.adArea),
+            Expanded(flex:1,child: AdMob.bannerAdArea(child: AdWidget(ad: AdMob.myBanner()))),
           ],
         ),
         bottomNavigationBar: Navigation.bottomItems(_onItemTapped),
