@@ -51,32 +51,35 @@ class Dialogs{
       return '次の問題';
     }
   }
-  static Future<dynamic> infoDialog(BuildContext context){
-    return showAnimatedDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('お知らせ'),
-          content: Text(Info.getPr()),
-          actions: <Widget>[
-            // ボタン領域
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: Buttons.nextButton(
+  static Future<dynamic> infoDialog(BuildContext context)async{
+    final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+    if(status != TrackingStatus.notDetermined){
+      return showAnimatedDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('お知らせ'),
+            content: Text(Info.getPr()),
+            actions: <Widget>[
+              // ボタン領域
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Buttons.nextButton(
                   text: '閉じる',
                   onPress: (){
                     SharedPreference().setStatus();
                     Navigator.pop(context);
                   },
-              ),
-            )
-          ],
-        );
-      },
-      animationType: DialogTransitionType.slideFromBottomFade,
-      duration: const Duration(seconds: 1),
-    );
+                ),
+              )
+            ],
+          );
+        },
+        animationType: DialogTransitionType.slideFromBottomFade,
+        duration: const Duration(seconds: 1),
+      );
+    }
   }
   static void licenseDialog(BuildContext context){
     return showLicensePage(
@@ -134,12 +137,23 @@ class Dialogs{
       duration: const Duration(seconds: 1),
     );
   }
+  static Future<bool> isTrackingNotDetermined()async{
+    final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+    if(status == TrackingStatus.notDetermined){
+      return true;
+    }else{
+      return false;
+    }
+  }
   static Future<dynamic> attDialog()async{
     final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+    final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
     if (status == TrackingStatus.notDetermined) {
       await Future.delayed(const Duration(milliseconds: 200));
         //ダイアログ表示
       await AppTrackingTransparency.requestTrackingAuthorization();
     }
+    // ignore: avoid_print
+    print('このデバイスのuuid = $uuid');
   }
 }

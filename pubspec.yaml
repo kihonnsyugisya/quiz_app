@@ -48,6 +48,7 @@ dependencies:
   shared_preferences: ^2.0.13
   google_mobile_ads: ^1.1.0
   app_tracking_transparency: ^2.0.2+1
+  flutter_native_splash: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -101,3 +102,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  image: "images/logo.png"
+  color: "#8EA99B"
+#  fullscreen: true

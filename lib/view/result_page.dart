@@ -27,6 +27,13 @@ class ResultPage extends StatefulWidget {
 class _ResultPageState extends State<ResultPage> {
 
   @override
+  void initState() {
+    // TODO: implement initState
+    AdMob.loadInterstitial();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     // TODO: implement dispose
     if(AdMob.myInterstitialAd != null){

@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     WidgetsBinding.instance?.addPostFrameCallback((_) => Dialogs.attDialog());
-
     super.initState();
   }
   // This widget is the root of your application.
@@ -42,3 +41,4 @@ class _MyAppState extends State<MyApp> {
 }
 
 // TODO: info.plistとアンドロイドマニフェストのアプリのラベル名を替える
+// TODO: info.plistとアンドロイドマニフェストの広告IDを書き換える

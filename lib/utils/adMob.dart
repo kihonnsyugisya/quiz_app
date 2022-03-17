@@ -54,7 +54,7 @@ class AdMob{
   static BannerAd myBanner(){
     return BannerAd(
       adUnitId: getAdId(deviceType: getPlatform(), adType: 'banner',),
-      size: AdSize.fullBanner,
+      size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdFailedToLoad: (Ad ad, LoadAdError error){
