@@ -37,7 +37,8 @@ class _QuizPageState extends State<QuizPage> {
   void dispose() {
     // TODO: implement dispose
     AdMob.myBanner().dispose();
-    print('disposed');
+    // ignore: avoid_print
+    print('バナーをdisposed');
     super.dispose();
   }
 

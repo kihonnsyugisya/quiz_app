@@ -10,20 +10,19 @@ class AdMob{
       color: OriginalThemeColor.gray,
       child: child);
   }
-  static List<String> testDevices = [];
   // TODO: リリース時にfalseに変更する
   static bool isTest = true;
   // TODO: 取得したIDを下記に入力する。
   static Map<String, Map<String, String>> productionAdIds = {
     'ios': {
-      'banner': 'バナーID',
-      'interstitial': 'インタースティシャルID',
-      'reward': 'リワードID'
+      'banner': 'ca-app-pub-3957084734439209/2130449099',
+      'interstitial': 'ca-app-pub-3957084734439209/3251959072',
+      'reward': 'ca-app-pub-3957084734439209/2014026887'
     },
     'android': {
-      'banner': 'バナーID',
-      'interstitial': 'インタースティシャルID',
-      'reward': 'リワードID'
+      'banner': 'ca-app-pub-3957084734439209/1392082499',
+      'interstitial': 'ca-app-pub-3957084734439209/5139755813',
+      'reward': 'ca-app-pub-3957084734439209/6261265799'
     }
   };
   static Map<String, Map<String, String>> testAdIds = {

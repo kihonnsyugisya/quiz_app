@@ -103,12 +103,9 @@ class _ResultPageState extends State<ResultPage> {
                               FullScreenContentCallback(
                                   onAdDismissedFullScreenContent: (ad){
                                     ad.dispose();
-                                    print('今閉じたよ');
-                                    if(secondChallengeLife == 10){
-                                      print('itta');
+                                    if(secondChallengeLife > 0){
                                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: widget.listNum,isHard: true,)));
-                                    }else{
-                                      print('butayann');
+                                      secondChallengeLife = 0;
                                     }
                                   },
                                   onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error){
@@ -118,10 +115,11 @@ class _ResultPageState extends State<ResultPage> {
                               );
                           await AdMob.myRewardAd!.show(
                               onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem){
+                                // ignore: avoid_print
                                 print('$ad with reward $RewardItem(${rewardItem.amount}, ${rewardItem.type})');
                                 setState(() {
                                   secondChallengeLife += rewardItem.amount.toInt();
-                                  print(rewardItem.amount.toInt());
+                                  // ignore: avoid_print
                                   print('報酬を獲得：　$secondChallengeLife');
                                 });
                               }

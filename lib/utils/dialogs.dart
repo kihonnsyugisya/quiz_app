@@ -1,4 +1,5 @@
 
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -132,5 +133,13 @@ class Dialogs{
       animationType: DialogTransitionType.slideFromBottomFade,
       duration: const Duration(seconds: 1),
     );
+  }
+  static Future<dynamic> attDialog()async{
+    final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+    if (status == TrackingStatus.notDetermined) {
+      await Future.delayed(const Duration(milliseconds: 200));
+        //ダイアログ表示
+      await AppTrackingTransparency.requestTrackingAuthorization();
+    }
   }
 }

@@ -29,6 +29,7 @@ class _NavPageState extends State<NavPage> {
   void dispose(){
     // TODO: implement dispose
     AdMob.myBanner().dispose();
+    // ignore: avoid_print
     print('バナーを破棄しました');
     super.dispose();
   }
