@@ -60,5 +60,7 @@
           <string>cstr6suwn9.skadnetwork</string>
         </dict>
       </array>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>許可すると、最適化された広告が表示されます。</string>
 </dict>
 </plist>
