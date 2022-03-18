@@ -10,8 +10,17 @@ class AdMob{
       color: OriginalThemeColor.gray,
       child: child);
   }
+  static int interstitialAdCounter = 0;
+  static bool isShowInterstitialAd(){
+    if(interstitialAdCounter % 2 == 0){
+      return true;
+    }else{
+      return false;
+    }
+
+  }
   // TODO: リリース時にfalseに変更する
-  static bool isTest = true;
+  static bool isTest = false;
   // TODO: 取得したIDを下記に入力する。
   static Map<String, Map<String, String>> productionAdIds = {
     'ios': {

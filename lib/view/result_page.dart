@@ -149,32 +149,40 @@ class _ResultPageState extends State<ResultPage> {
                   Buttons.originalTextButton(
                       text: 'HOME',
                       onPress: ()async{
-                        if(AdMob.myInterstitialAd != null){
-                          AdMob.myInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-                            onAdDismissedFullScreenContent: (InterstitialAd ad){
-                              SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-                              print('バーを復活');
-                              ad.dispose();
-                              AdMob.loadInterstitial();
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
-                              Result.resetResultCount();
-                              QuizLogic.resetQuizCount();
-                            },
-                            onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error){
-                              ad.dispose();
-                              AdMob.loadInterstitial();
-                            }
-                          );
-                          await AdMob.myInterstitialAd!.show();
+                        AdMob.interstitialAdCounter ++;
+                        print(AdMob.interstitialAdCounter);
+                        if(AdMob.isShowInterstitialAd()){
+                          if(AdMob.myInterstitialAd != null){
+                            AdMob.myInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+                                onAdDismissedFullScreenContent: (InterstitialAd ad){
+                                  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                                  print('バーを復活');
+                                  ad.dispose();
+                                  AdMob.loadInterstitial();
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
+                                  Result.resetResultCount();
+                                  QuizLogic.resetQuizCount();
+                                },
+                                onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error){
+                                  ad.dispose();
+                                  AdMob.loadInterstitial();
+                                }
+                            );
+                            await AdMob.myInterstitialAd!.show();
+                          }else{
+                            // await AdMob.loadInterstitial();
+                            Dialogs.netWorkErrorDialog(
+                                context: context,
+                                onPressed: (){
+                                  AdMob.loadInterstitial();
+                                  Navigator.of(context).pop();
+                                }
+                            );
+                          }
                         }else{
-                          // await AdMob.loadInterstitial();
-                          Dialogs.netWorkErrorDialog(
-                            context: context,
-                            onPressed: (){
-                              AdMob.loadInterstitial();
-                              Navigator.of(context).pop();
-                            }
-                          );
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
+                          Result.resetResultCount();
+                          QuizLogic.resetQuizCount();
                         }
                       }
                   ),
