@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:quiz_app/utils/quiz/quiz.dart';
 import 'package:quiz_app/utils/url_launcher.dart';
@@ -29,6 +30,7 @@ class _ResultPageState extends State<ResultPage> {
   @override
   void initState() {
     // TODO: implement initState
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     AdMob.loadInterstitial();
     super.initState();
   }
@@ -109,6 +111,8 @@ class _ResultPageState extends State<ResultPage> {
                           AdMob.myRewardAd!.fullScreenContentCallback =
                               FullScreenContentCallback(
                                   onAdDismissedFullScreenContent: (ad){
+                                    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                                    print('バーを復活');
                                     ad.dispose();
                                     if(secondChallengeLife > 0){
                                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: widget.listNum,isHard: true,)));
@@ -148,6 +152,8 @@ class _ResultPageState extends State<ResultPage> {
                         if(AdMob.myInterstitialAd != null){
                           AdMob.myInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
                             onAdDismissedFullScreenContent: (InterstitialAd ad){
+                              SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                              print('バーを復活');
                               ad.dispose();
                               AdMob.loadInterstitial();
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
@@ -181,3 +187,4 @@ class _ResultPageState extends State<ResultPage> {
     );
   }
 }
+
