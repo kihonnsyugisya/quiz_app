@@ -27,7 +27,7 @@ class QuizList{
 
   static List<dynamic> hardList = [
     firstHardList,
-    secondHardList,
+    // secondHardList,
     // thirdList
   ];
   // TODO: クイズをここに追加する。第3章も追加する場合は、thirdListのコメントアウトを解除する。また、modeListも更新する。

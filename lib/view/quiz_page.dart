@@ -44,13 +44,13 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    final normalQuizDoc = QuizList.normalList[widget.listNum];
-    final hardQuizDoc = QuizList.hardList[widget.listNum];
 
     quizDoc(){
       if(widget.isHard){
+        final hardQuizDoc = QuizList.hardList[widget.listNum];
         return hardQuizDoc;
       }else{
+        final normalQuizDoc = QuizList.normalList[widget.listNum];
         return normalQuizDoc;
       }
     }
