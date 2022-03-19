@@ -4,6 +4,7 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:quiz_app/utils/buttons.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
@@ -153,6 +154,7 @@ class Dialogs{
         //ダイアログ表示
       await AppTrackingTransparency.requestTrackingAuthorization();
     }
+    FlutterNativeSplash.remove();
     // ignore: avoid_print
     print('このデバイスのuuid = $uuid');
   }
