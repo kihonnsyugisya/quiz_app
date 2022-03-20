@@ -49,6 +49,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-// TODO: info.plistとアンドロイドマニフェストのアプリのラベル名を替える
-// TODO: info.plistとアンドロイドマニフェストの広告IDを書き換える

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kihonsyugisya.quiz_app">
    <application
-        android:label="quiz_app"
+        android:label="QUIZ×FAMILY"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -32,6 +32,6 @@
             android:value="2" />
        <meta-data
            android:name="com.google.android.gms.ads.APPLICATION_ID"
-           android:value="ca-app-pub-3957084734439209~6520286097"/>
+           android:value="ca-app-pub-3957084734439209~3695307045"/>
     </application>
 </manifest>

@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>Quiz App</string>
+		<string>QUIZ×FAMILY</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -52,7 +52,7 @@
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 		<key>GADApplicationIdentifier</key>
-		<string>ca-app-pub-3957084734439209~6105353129</string>
+		<string>ca-app-pub-3957084734439209~5734312877</string>
 		<key>SKAdNetworkItems</key>
 		<array>
 			<dict>

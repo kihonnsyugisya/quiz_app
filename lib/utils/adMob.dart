@@ -20,18 +20,17 @@ class AdMob{
 
   }
   // TODO: リリース時にfalseに変更する
-  static bool isTest = false;
-  // TODO: 取得したIDを下記に入力する。
+  static bool isTest = true;
   static Map<String, Map<String, String>> productionAdIds = {
     'ios': {
-      'banner': 'ca-app-pub-3957084734439209/2130449099',
-      'interstitial': 'ca-app-pub-3957084734439209/3251959072',
-      'reward': 'ca-app-pub-3957084734439209/2014026887'
+      'banner': 'ca-app-pub-3957084734439209/1998285830',
+      'interstitial': 'ca-app-pub-3957084734439209/1052831830',
+      'reward': 'ca-app-pub-3957084734439209/4686677288'
     },
     'android': {
-      'banner': 'ca-app-pub-3957084734439209/1392082499',
-      'interstitial': 'ca-app-pub-3957084734439209/5139755813',
-      'reward': 'ca-app-pub-3957084734439209/6261265799'
+      'banner': 'ca-app-pub-3957084734439209/2587127550',
+      'interstitial': 'ca-app-pub-3957084734439209/8960964215',
+      'reward': 'ca-app-pub-3957084734439209/2990452238'
     }
   };
   static Map<String, Map<String, String>> testAdIds = {
