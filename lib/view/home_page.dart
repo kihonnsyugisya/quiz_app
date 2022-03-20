@@ -39,7 +39,6 @@ class HomePage extends StatelessWidget {
                       },
                   );
                 },),
-              // TODO: コアモードを実装する場合は下記を解除
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
