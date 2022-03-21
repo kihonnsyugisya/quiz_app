@@ -112,6 +112,7 @@ class _ResultPageState extends State<ResultPage> {
                               FullScreenContentCallback(
                                   onAdDismissedFullScreenContent: (ad){
                                     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                                    // ignore: avoid_print
                                     print('バーを復活');
                                     ad.dispose();
                                     if(secondChallengeLife > 0){
@@ -150,12 +151,14 @@ class _ResultPageState extends State<ResultPage> {
                       text: 'HOME',
                       onPress: ()async{
                         AdMob.interstitialAdCounter ++;
+                        // ignore: avoid_print
                         print(AdMob.interstitialAdCounter);
                         if(AdMob.isShowInterstitialAd()){
                           if(AdMob.myInterstitialAd != null){
                             AdMob.myInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
                                 onAdDismissedFullScreenContent: (InterstitialAd ad){
                                   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                                  // ignore: avoid_print
                                   print('バーを復活');
                                   ad.dispose();
                                   AdMob.loadInterstitial();

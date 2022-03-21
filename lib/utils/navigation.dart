@@ -15,7 +15,6 @@ class Navigation{
   ];
   static BottomNavigationBar bottomItems(function){
     return BottomNavigationBar(
-      // TODO: ボトムナビのカラーを決める
     backgroundColor: OriginalThemeColor.black,
       unselectedItemColor: OriginalThemeColor.gray,
       selectedItemColor: OriginalThemeColor.white,

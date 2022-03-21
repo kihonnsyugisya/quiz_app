@@ -32,7 +32,6 @@ class UrlLauncher  {
   }
 
   static void privacyPolicy()async{
-    // TODO: ファイヤベースなど、新たに追加する場合は、下記のリンクに適宜文言を追加する
     if(await canLaunch('https://kihonnsyugisya.github.io/privacy_policy_quiz_app/')){
       await launch('https://kihonnsyugisya.github.io/privacy_policy_quiz_app/');
     }else{

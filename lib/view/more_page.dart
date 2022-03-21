@@ -47,9 +47,8 @@ class MorePage extends StatelessWidget {
                 MoreButton(
                     text: const Text('アプリを評価する'),
                     onTap: (){
-                      // TODO: IDを変更する。アンドロイドもやる場合は、そのIDも追加する。
                       LaunchReview.launch(
-                          writeReview: false,iOSAppId: "1608191430"
+                          writeReview: false,iOSAppId: "1615328521"
                       );
                     },
                     icon: Icon(Icons.star,color: OriginalThemeColor.star,)),

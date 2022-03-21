@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 
-// TODO: フォントを変更する。
 class OriginalThemeFont{
 //  クイズのフォント
   static TextStyle quizFont = const TextStyle(fontSize: 18,fontWeight: FontWeight.w200,fontFamily: 'Hiragino Kaku Gothic ProN');
