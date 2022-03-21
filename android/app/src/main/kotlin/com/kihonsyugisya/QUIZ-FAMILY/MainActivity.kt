@@ -1,4 +1,4 @@
-package com.kihonsyugisya.quiz_app
+package com.kihonsyugisya.QUIZ-FAMILY
 
 import io.flutter.embedding.android.FlutterActivity
 
