@@ -61,12 +61,11 @@ class Buttons{
       ),
     );
   }
-// TODO: 第3章以降を追加する場合は、適宜追加する。quizListに問題を追加した上で。
   // ※画面に表示されるボタンの数は、クイズリストの数に起因するようにしている。
   static List<dynamic> normalModeList = [
-    ModeButtonEntity(buttonText: '第1章', color: null),
-    ModeButtonEntity(buttonText: '第2章', color: null),
-    ModeButtonEntity(buttonText: '第3章', color: null),
+    ModeButtonEntity(buttonText: 'NORMAL', color: null),
+    ModeButtonEntity(buttonText: 'HARD', color: null),
+    ModeButtonEntity(buttonText: '上級', color: null),
   ];
 
   static List<dynamic> hardModeList = [
