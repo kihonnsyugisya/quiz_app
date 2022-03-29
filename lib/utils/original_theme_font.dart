@@ -9,6 +9,10 @@ class OriginalThemeFont{
 //  太めの日本語
   static TextStyle basicFont = const TextStyle(fontSize: 18,fontWeight: FontWeight.bold,fontFamily: 'Hiragino Kaku Gothic ProN');
 
+  static TextStyle resultBasicFont = const TextStyle(fontSize: 24,fontWeight: FontWeight.bold,fontFamily: 'Hiragino Kaku Gothic ProN');
+
+  static TextStyle resultMessageFont = const TextStyle(fontSize: 18,fontWeight: FontWeight.bold,);
+
   static TextStyle subFont = GoogleFonts.oswald(textStyle: TextStyle(fontSize: 24,fontWeight: FontWeight.w500,color: OriginalThemeColor.black));
 
 //  ミニ英語表記（versionで使った）

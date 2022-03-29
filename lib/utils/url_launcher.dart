@@ -4,20 +4,12 @@
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncher  {
-  static List<String> twitterHashTags = [
-    // TODO: ハッシュタグを決める。
-    '題材名が入ります',
-    '題材名が入ります'
-  ];
+  static String twitterHashTags = '\n#SPY_FAMILY' '\n#スパイファミリー' '\n#QUIZ_FAMILY';
 
   static void tweet({
     required String text,}) async {
     final Map<String, dynamic> tweetQuery = {
-      "text": text,
-      "url": '',
-      "hashTags": twitterHashTags,
-      "via": "",
-      "related": "",
+      "text":text + '\n'+ twitterHashTags
     };
 
     final Uri tweetScheme =
@@ -29,6 +21,9 @@ class UrlLauncher  {
     await canLaunch(tweetScheme.toString())
         ? await launch(tweetScheme.toString())
         : await launch(tweetIntentUrl.toString());
+
+    print(tweetScheme.toString());
+    print(tweetIntentUrl.toString());
   }
 
   static void privacyPolicy()async{

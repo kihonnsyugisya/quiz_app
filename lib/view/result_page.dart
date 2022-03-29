@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -32,6 +33,10 @@ class _ResultPageState extends State<ResultPage> {
     // TODO: implement initState
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     AdMob.loadInterstitial();
+    widget.isHard
+        ? total = QuizList.hardList[widget.listNum].length
+        : total = QuizList.normalList[widget.listNum].length;
+    resultMessage = Result.resultMessage(ratePoint: Result.ratePoint(result: Result.resultCount, total: total));
     super.initState();
   }
 
@@ -48,6 +53,8 @@ class _ResultPageState extends State<ResultPage> {
   }
 
   int secondChallengeLife = 0;
+  int total = 0;
+  String resultMessage = '';
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
@@ -57,9 +64,9 @@ class _ResultPageState extends State<ResultPage> {
       body: SafeArea(
         child: SizedBox(
           width: deviceWidth,
-          height: deviceHeight * 0.6,
+          // height: deviceHeight * 0.7,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(height: deviceHeight * 0.08,),
               Column(
@@ -67,129 +74,159 @@ class _ResultPageState extends State<ResultPage> {
                   Text(widget.isHard
                       ? Buttons.hardModeList[widget.listNum].buttonText
                       : Buttons.normalModeList[widget.listNum].buttonText,
-                    style: widget.isHard
-                        ? OriginalThemeFont.modeFont
-                        : OriginalThemeFont.basicFont,),
+                    style: OriginalThemeFont.modeFont,),
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
-                    child: Text('結果',style: OriginalThemeFont.basicFont,),
+                    child: Text('結果',style: OriginalThemeFont.resultBasicFont,),
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  Text('${
-                      widget.isHard
-                      ? QuizList.hardList[widget.listNum].length
-                      : QuizList.normalList[widget.listNum].length}問中',
-                    style: OriginalThemeFont.basicFont,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      FadeInLeft(child: Text(Result.resultCount.toString(),style: OriginalThemeFont.accentFont,),delay: const Duration(seconds: 1), ),
-                      const SizedBox(width: 8,),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Text('問',style: OriginalThemeFont.basicFont,),
+              Expanded(
+                flex: 1,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text('$total問中',
+                        style: OriginalThemeFont.resultBasicFont,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          FadeInLeft(child: Text(Result.resultCount.toString(),style: OriginalThemeFont.accentFont,),delay: const Duration(seconds: 1), ),
+                          const SizedBox(width: 8,),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 4),
+                            child: Text('問',style: OriginalThemeFont.resultBasicFont,),
+                          ),
+                        ],
                       ),
+                      Text('正解しました',style: OriginalThemeFont.resultBasicFont,),
                     ],
                   ),
-                  Text('正解しました',style: OriginalThemeFont.basicFont,),
-                ],
+                ),
               ),
-              Column(
-                children: [
-                  Buttons.twitterButton(
-                    onPressed: ()async{
-                      UrlLauncher.tweet(text: 'text',);
-                    }
-                  ),
-                  widget.isHard == true && QuizList.hardList[widget.listNum].length != Result.resultCount
-                      ? Buttons.revivalButton(onPressed: ()async{
-                        if(AdMob.myRewardAd != null){
-                          AdMob.myRewardAd!.fullScreenContentCallback =
-                              FullScreenContentCallback(
-                                  onAdDismissedFullScreenContent: (ad){
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: SizedBox(
+                        width: deviceWidth * 0.6,
+                        child: AnimatedTextKit(
+                          animatedTexts: [
+                            TypewriterAnimatedText(
+                              resultMessage,
+                              textStyle: OriginalThemeFont.resultMessageFont,
+                              speed: const Duration(milliseconds: 200),
+                            ),
+                          ],
+                          totalRepeatCount: 1,
+                          displayFullTextOnTap: false,
+                          stopPauseOnTap: false,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Buttons.twitterButton(
+                      onPressed: ()async{
+                        UrlLauncher.tweet(text: resultMessage);
+                      }
+                    ),
+                    widget.isHard == true && QuizList.hardList[widget.listNum].length != Result.resultCount
+                        ? Buttons.revivalButton(onPressed: ()async{
+                          if(AdMob.myRewardAd != null){
+                            AdMob.myRewardAd!.fullScreenContentCallback =
+                                FullScreenContentCallback(
+                                    onAdDismissedFullScreenContent: (ad){
+                                      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                                      // ignore: avoid_print
+                                      print('バーを復活');
+                                      ad.dispose();
+                                      if(secondChallengeLife > 0){
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: widget.listNum,isHard: true,)));
+                                        secondChallengeLife = 0;
+                                      }
+                                    },
+                                    onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error){
+                                      ad.dispose();
+                                      AdMob.loadReward();
+                                    }
+                                );
+                            await AdMob.myRewardAd!.show(
+                                onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem){
+                                  // ignore: avoid_print
+                                  print('$ad with reward $RewardItem(${rewardItem.amount}, ${rewardItem.type})');
+                                  setState(() {
+                                    secondChallengeLife += rewardItem.amount.toInt();
+                                    // ignore: avoid_print
+                                    print('報酬を獲得：　$secondChallengeLife');
+                                  });
+                                }
+                            );
+                          }else{
+                           Dialogs.netWorkErrorDialog(
+                               context: context,
+                               onPressed: (){
+                                 AdMob.loadReward();
+                                 Navigator.of(context).pop();
+                               }
+                           );
+                          }
+                        })
+                        : const SizedBox(),
+                    Buttons.originalTextButton(
+                        text: 'HOME',
+                        onPress: ()async{
+                          AdMob.interstitialAdCounter ++;
+                          // ignore: avoid_print
+                          print(AdMob.interstitialAdCounter);
+                          if(AdMob.isShowInterstitialAd()){
+                            if(AdMob.myInterstitialAd != null){
+                              AdMob.myInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+                                  onAdDismissedFullScreenContent: (InterstitialAd ad){
                                     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
                                     // ignore: avoid_print
                                     print('バーを復活');
                                     ad.dispose();
-                                    if(secondChallengeLife > 0){
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: widget.listNum,isHard: true,)));
-                                      secondChallengeLife = 0;
-                                    }
+                                    AdMob.loadInterstitial();
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
+                                    Result.resetResultCount();
+                                    QuizLogic.resetQuizCount();
                                   },
-                                  onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error){
+                                  onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error){
                                     ad.dispose();
-                                    AdMob.loadReward();
+                                    AdMob.loadInterstitial();
                                   }
                               );
-                          await AdMob.myRewardAd!.show(
-                              onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem){
-                                // ignore: avoid_print
-                                print('$ad with reward $RewardItem(${rewardItem.amount}, ${rewardItem.type})');
-                                setState(() {
-                                  secondChallengeLife += rewardItem.amount.toInt();
-                                  // ignore: avoid_print
-                                  print('報酬を獲得：　$secondChallengeLife');
-                                });
-                              }
-                          );
-                        }else{
-                         Dialogs.netWorkErrorDialog(
-                             context: context,
-                             onPressed: (){
-                               AdMob.loadReward();
-                               Navigator.of(context).pop();
-                             }
-                         );
-                        }
-                      })
-                      : const SizedBox(),
-                  Buttons.originalTextButton(
-                      text: 'HOME',
-                      onPress: ()async{
-                        AdMob.interstitialAdCounter ++;
-                        // ignore: avoid_print
-                        print(AdMob.interstitialAdCounter);
-                        if(AdMob.isShowInterstitialAd()){
-                          if(AdMob.myInterstitialAd != null){
-                            AdMob.myInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-                                onAdDismissedFullScreenContent: (InterstitialAd ad){
-                                  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-                                  // ignore: avoid_print
-                                  print('バーを復活');
-                                  ad.dispose();
-                                  AdMob.loadInterstitial();
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
-                                  Result.resetResultCount();
-                                  QuizLogic.resetQuizCount();
-                                },
-                                onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error){
-                                  ad.dispose();
-                                  AdMob.loadInterstitial();
-                                }
-                            );
-                            await AdMob.myInterstitialAd!.show();
+                              await AdMob.myInterstitialAd!.show();
+                            }else{
+                              // await AdMob.loadInterstitial();
+                              Dialogs.netWorkErrorDialog(
+                                  context: context,
+                                  onPressed: (){
+                                    AdMob.loadInterstitial();
+                                    Navigator.of(context).pop();
+                                  }
+                              );
+                            }
                           }else{
-                            // await AdMob.loadInterstitial();
-                            Dialogs.netWorkErrorDialog(
-                                context: context,
-                                onPressed: (){
-                                  AdMob.loadInterstitial();
-                                  Navigator.of(context).pop();
-                                }
-                            );
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
+                            Result.resetResultCount();
+                            QuizLogic.resetQuizCount();
                           }
-                        }else{
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
-                          Result.resetResultCount();
-                          QuizLogic.resetQuizCount();
                         }
-                      }
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               )
             ],
           ),

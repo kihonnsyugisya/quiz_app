@@ -71,9 +71,7 @@ class _QuizPageState extends State<QuizPage> {
                         widget.isHard
                             ? Buttons.hardModeList[widget.listNum].buttonText
                             : Buttons.normalModeList[widget.listNum].buttonText,
-                        style: widget.isHard
-                            ? OriginalThemeFont.modeFont
-                            : OriginalThemeFont.basicFont,
+                        style: OriginalThemeFont.modeFont
                       ),
                     ),
                     Text(
