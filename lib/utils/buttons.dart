@@ -75,33 +75,46 @@ class Buttons{
 
   ];
 
-  static TextButton twitterButton({VoidCallback? onPressed}){
-    return TextButton(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(FontAwesomeIcons.twitter,size: 20),
-          Text('シェアしてね！',style: OriginalThemeFont.moderateFont,),
-        ],
+  static ElevatedButton twitterButton({VoidCallback? onPressed}){
+    return ElevatedButton(
+      child: SizedBox(
+        width: 180,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(FontAwesomeIcons.twitter,size: 20),
+            const SizedBox(width: 8,),
+            Text('シェアしてね！',style: OriginalThemeFont.moderateFont,),
+          ],
+        ),
       ),
       onPressed: onPressed,
-      style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(OriginalThemeColor.twitter),
+        overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),
+      ),
     );
   }
-  static TextButton revivalButton({VoidCallback? onPressed}){
-    return TextButton(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.live_tv_sharp,size: 20,color: OriginalThemeColor.black,),
-          const SizedBox(width: 4,),
-          Text('CMを視聴して復活する',style: OriginalThemeFont.moderateFont,),
-        ],
+  static ElevatedButton revivalButton({VoidCallback? onPressed}){
+    return ElevatedButton(
+      child: SizedBox(
+        width: 180,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.live_tv_sharp,size: 20,color: OriginalThemeColor.black,),
+            const SizedBox(width: 4,),
+            Text('CMを視聴して復活する',style: OriginalThemeFont.moderateFont,),
+          ],
+        ),
       ),
       onPressed: onPressed,
-      style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
+      style: ButtonStyle(
+        overlayColor: MaterialStateProperty.all(OriginalThemeColor.themeColor),
+        backgroundColor: MaterialStateProperty.all(OriginalThemeColor.themeColor)
+      ),
     );
   }
 }
