@@ -9,10 +9,13 @@ import 'package:quiz_app/utils/shared_preference.dart';
 import '../utils/adMob.dart';
 import '../utils/info.dart';
 import '../utils/navigation.dart';
+import '../utils/review.dart';
 
+// ignore: must_be_immutable
 class NavPage extends StatefulWidget {
-  const NavPage({Key? key}) : super(key: key);
-
+  bool? isPerfect = false;
+  // ignore: use_key_in_widget_constructors
+  NavPage([this.isPerfect]);
   @override
   State<NavPage> createState() => _NavPageState();
 }
@@ -43,6 +46,11 @@ class _NavPageState extends State<NavPage> {
       // SharedPreference().getRestStatus();
       if(Info.isShowInfoDialog()){
         SchedulerBinding.instance!.addPostFrameCallback((_) => Dialogs.infoDialog(context));
+      }
+      if(widget.isPerfect != null){
+        if(widget.isPerfect! && await Review.inAppReview.isAvailable()){
+          Review.inAppReview.requestReview();
+        }
       }
     });
     super.initState();

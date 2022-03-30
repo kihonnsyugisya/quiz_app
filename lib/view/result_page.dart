@@ -37,6 +37,9 @@ class _ResultPageState extends State<ResultPage> {
         ? total = 50
         : total = 10;
     resultMessage = Result.resultMessage(ratePoint: Result.ratePoint(result: Result.resultCount, total: total));
+    if(Result.ratePoint(result: Result.resultCount, total: total) == 1 && widget.isHard == true){
+      isPerfect = true;
+    }
     super.initState();
   }
 
@@ -55,6 +58,7 @@ class _ResultPageState extends State<ResultPage> {
   int secondChallengeLife = 0;
   int total = 0;
   String resultMessage = '';
+  bool isPerfect = false;
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
@@ -113,7 +117,7 @@ class _ResultPageState extends State<ResultPage> {
                   children: [
                     Center(
                       child: SizedBox(
-                        width: deviceWidth * 0.6,
+                        width: deviceWidth * 0.5,
                         child: AnimatedTextKit(
                           animatedTexts: [
                             TypewriterAnimatedText(
@@ -141,7 +145,7 @@ class _ResultPageState extends State<ResultPage> {
                         UrlLauncher.tweet(text: resultMessage);
                       }
                     ),
-                    widget.isHard == true && QuizList.hardList[widget.listNum].length != Result.resultCount
+                    widget.isHard == true && isPerfect == false
                         ? Buttons.revivalButton(onPressed: ()async{
                           if(AdMob.myRewardAd != null){
                             AdMob.myRewardAd!.fullScreenContentCallback =
@@ -198,7 +202,7 @@ class _ResultPageState extends State<ResultPage> {
                                     print('バーを復活');
                                     ad.dispose();
                                     AdMob.loadInterstitial();
-                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavPage(isPerfect)));
                                     Result.resetResultCount();
                                     QuizLogic.resetQuizCount();
                                   },
@@ -219,7 +223,7 @@ class _ResultPageState extends State<ResultPage> {
                               );
                             }
                           }else{
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavPage(isPerfect)));
                             Result.resetResultCount();
                             QuizLogic.resetQuizCount();
                           }

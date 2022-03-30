@@ -21,9 +21,6 @@ class UrlLauncher  {
     await canLaunch(tweetScheme.toString())
         ? await launch(tweetScheme.toString())
         : await launch(tweetIntentUrl.toString());
-
-    print(tweetScheme.toString());
-    print(tweetIntentUrl.toString());
   }
 
   static void privacyPolicy()async{

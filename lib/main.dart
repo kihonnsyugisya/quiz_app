@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         // textTheme: OriginalThemeFont.mainTheme,
         primarySwatch: Colors.blue,
       ),
-      home: const NavPage(),
+      home: NavPage(),
     );
   }
 }

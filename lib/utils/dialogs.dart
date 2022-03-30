@@ -105,7 +105,7 @@ class Dialogs{
             ),
             CupertinoDialogAction(
               child: const Text("OK"),
-              onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()))
+              onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavPage()))
               ,
             ),
           ],
