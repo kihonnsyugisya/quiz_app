@@ -99,7 +99,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
-                      child: Text('${QuizLogic.quizCount+1} / ${quizDoc().length}'),
+                      child: Text('${QuizLogic.quizCount+1} / ${widget.isHard == true ?50 :10}'),
                     ),
                   ],
                 )),

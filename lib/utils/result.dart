@@ -31,7 +31,7 @@ class Result{
     required int quizCount,
     required int quizLength}){
     if(isHard){
-      if(quizCount == quizLength -1){
+      if(quizCount == 49){
         return true;
       }else if(isSuccess){
         return false;
@@ -39,7 +39,7 @@ class Result{
         return true;
       }
     }else{
-      if(quizCount == quizLength -1){
+      if(quizCount == 9){
         return true;
       }else{
         return false;

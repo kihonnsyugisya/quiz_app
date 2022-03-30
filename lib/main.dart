@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:quiz_app/utils/dialogs.dart';
+import 'package:quiz_app/utils/quiz/quiz_list.dart';
 import 'package:quiz_app/utils/shared_preference.dart';
 import 'package:quiz_app/view/nav_page.dart';
 
@@ -25,6 +26,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     // TODO: implement initState
+    QuizList.firstHardList.addAll(QuizList.secondNormalList);
     Future(() async {
       final status = await AppTrackingTransparency.trackingAuthorizationStatus;
       if(status == TrackingStatus.notDetermined){

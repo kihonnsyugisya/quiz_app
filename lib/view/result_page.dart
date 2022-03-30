@@ -34,8 +34,8 @@ class _ResultPageState extends State<ResultPage> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     AdMob.loadInterstitial();
     widget.isHard
-        ? total = QuizList.hardList[widget.listNum].length
-        : total = QuizList.normalList[widget.listNum].length;
+        ? total = 50
+        : total = 10;
     resultMessage = Result.resultMessage(ratePoint: Result.ratePoint(result: Result.resultCount, total: total));
     super.initState();
   }
