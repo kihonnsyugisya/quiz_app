@@ -85,33 +85,29 @@ class _ResultPageState extends State<ResultPage> {
                   ),
                 ],
               ),
-              Expanded(
-                flex: 1,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Text('$total問中',
-                        style: OriginalThemeFont.resultBasicFont,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          FadeInLeft(child: Text(Result.resultCount.toString(),style: OriginalThemeFont.accentFont,),delay: const Duration(seconds: 1), ),
-                          const SizedBox(width: 8,),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 4),
-                            child: Text('問',style: OriginalThemeFont.resultBasicFont,),
-                          ),
-                        ],
-                      ),
-                      Text('正解しました',style: OriginalThemeFont.resultBasicFont,),
-                    ],
-                  ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text('$total問中',
+                      style: OriginalThemeFont.resultBasicFont,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        FadeInLeft(child: Text(Result.resultCount.toString(),style: OriginalThemeFont.accentFont,),delay: const Duration(seconds: 1), ),
+                        const SizedBox(width: 8,),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: Text('問',style: OriginalThemeFont.resultBasicFont,),
+                        ),
+                      ],
+                    ),
+                    Text('正解しました',style: OriginalThemeFont.resultBasicFont,),
+                  ],
                 ),
               ),
               Expanded(
-                flex: 1,
-                child: Column(
+                child:Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -136,7 +132,7 @@ class _ResultPageState extends State<ResultPage> {
                 ),
               ),
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

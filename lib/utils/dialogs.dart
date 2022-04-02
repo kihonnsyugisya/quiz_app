@@ -57,7 +57,7 @@ class Dialogs{
     if(status != TrackingStatus.notDetermined){
       return showAnimatedDialog(
         context: context,
-        barrierDismissible: true,
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('お知らせ'),
@@ -105,7 +105,10 @@ class Dialogs{
             ),
             CupertinoDialogAction(
               child: const Text("OK"),
-              onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavPage()))
+              onPressed:(){
+                Navigator.of(context).pop();
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavPage()));
+              }
               ,
             ),
           ],
