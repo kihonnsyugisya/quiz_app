@@ -9,6 +9,7 @@ class QuizList{
     // thirdList
   ];
   static List<QuizEntity> firstNormalList = [
+    QuizEntity(quiz: 'この漫画はどこで連載されている？', answer: ['J SQ','J＋','ヤンジャン'], answerOfNum: 1),
     QuizEntity(quiz: 'ロイドの表向きの職業は？', answer: ['精神科医','弁護士','教師'], answerOfNum: 0),
     QuizEntity(quiz: '黄昏はどこの国のスパイであるか', answer: ['東（オスタニア）','西（ウェスタリス）','北（ノスタリス）'], answerOfNum: 1),
     QuizEntity(quiz: 'アーニャは、年齢を何歳で偽っているか？', answer: ['4歳','5歳','6歳'], answerOfNum: 2),
@@ -37,6 +38,9 @@ class QuizList{
     QuizEntity(quiz: 'ボンドはどの研究によって特殊な能力を有していたのか', answer: ['プロジェクトアップル','プロジェクト SSS','プロジェクト ジャスティス'], answerOfNum: 0),
   ];
   static List<QuizEntity> secondNormalList = [
+    QuizEntity(quiz: 'この漫画の原作の更新日はどれ？', answer: ['隔週月曜','隔週火曜','隔週金曜'], answerOfNum: 0),
+    QuizEntity(quiz: '原作者の名前は？', answer: ['遠藤 章造','遠藤 達哉','斉藤 宏哉'], answerOfNum: 0),
+    QuizEntity(quiz: 'アニメのロイドの声優は誰？', answer: ['エグチ タツヤ','カジ ユウキ','ハナエ ナツキ'], answerOfNum: 0),
     QuizEntity(quiz: 'WISEで使用されている挨拶はどれ？', answer: ['おはよう あるいは おつかれさま','ごきげんよう あるいは さようなら','こんにちは あるいは こんばんは'], answerOfNum: 2),
     QuizEntity(quiz: 'ロイドが孤児院でアーニャを選んだ決め手となる出来事は？', answer: ['足が早かった','運動神経が良かった','クロスワードを解いた'], answerOfNum: 2),
     QuizEntity(quiz: 'アーニャが好きなアニメの名前は？', answer: ['SPY HEROS','SPY WARS','SPY FORCE'], answerOfNum: 1),

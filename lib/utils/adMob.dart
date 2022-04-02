@@ -19,8 +19,7 @@ class AdMob{
     }
 
   }
-  // TODO: リリース時にfalseに変更する
-  static bool isTest = true;
+  static bool isTest = false;
   static Map<String, Map<String, String>> productionAdIds = {
     'ios': {
       'banner': 'ca-app-pub-3957084734439209/1998285830',

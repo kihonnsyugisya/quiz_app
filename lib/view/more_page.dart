@@ -48,7 +48,7 @@ class MorePage extends StatelessWidget {
                     text: const Text('アプリを評価する'),
                     onTap: (){
                       LaunchReview.launch(
-                          writeReview: false,iOSAppId: "1615328521"
+                          writeReview: true,iOSAppId: "1615328521"
                       );
                     },
                     icon: Icon(Icons.star,color: OriginalThemeColor.star,)),
@@ -56,8 +56,7 @@ class MorePage extends StatelessWidget {
                 MoreButton(
                   text: const Text('シェアする'), 
                   onTap: (){
-                    // TODO: PR文をかく。
-                    UrlLauncher.tweet(text: 'text');
+                    UrlLauncher.tweet(text: 'スパイファミリーのクイズアプリが難しすぎる件。');
                   }, 
                   icon: Icon(FontAwesomeIcons.twitter,size: 20,color: OriginalThemeColor.twitter,),),
                 MoreButton.bottomLine,

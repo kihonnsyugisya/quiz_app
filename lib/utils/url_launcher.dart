@@ -5,11 +5,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncher  {
   static String twitterHashTags = '\n#SPY_FAMILY' '\n#スパイファミリー' '\n#QUIZ_FAMILY';
+  static String iosAppId = 'https://itunes.apple.com/jp/app/id1615328521?mt=8';
 
   static void tweet({
     required String text,}) async {
     final Map<String, dynamic> tweetQuery = {
-      "text":text + '\n'+ twitterHashTags
+      "text":text + '\n' + '\n'+ iosAppId + '\n'+ twitterHashTags
     };
 
     final Uri tweetScheme =
