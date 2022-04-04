@@ -16,6 +16,15 @@ allprojects {
         google()
         mavenCentral()
     }
+
+    gradle.projectsEvaluated {
+        // options.encoding = 'UTF-8'とかもこのちゅうかっこの中で指定できる
+        tasks.withType(JavaCompile) {
+            // オプション指定．uncheckedは未チェックなもの(*1)，deprecationは非推奨なものを表示する
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+
 }
 
 rootProject.buildDir = '../build'
