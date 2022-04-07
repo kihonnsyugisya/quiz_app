@@ -10,7 +10,7 @@
         </intent>
     </queries>
    <application
-        android:label="QUIZ×APPLY"
+        android:label="QUIZ×FAMILY"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

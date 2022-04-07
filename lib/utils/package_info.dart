@@ -6,8 +6,8 @@ class PackageInfo{
   }
 
   // TODO: バージョンを更新する。
-  static String version = '1.0.0';
-  static String title = 'QUIZ×APPLY';
+  static String version = '1.1.0';
+  static String title = 'QUIZ×FAMILY';
 
 }
 

@@ -4,8 +4,8 @@
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncher  {
-  static String twitterHashTags = '\n#SPY_FAMILY' '\n#スパイファミリー' '\n#QUIZ_APPLY';
-  static String iosAppId = 'https://itunes.apple.com/jp/app/id1615328521?mt=8';
+  static String twitterHashTags = '\n#SPY_FAMILY' '\n#スパイファミリー' '\n#QUIZ_FAMILY';
+  static String iosAppId = 'https://apple.co/3r3w0H2';
 
   static void tweet({
     required String text,}) async {
