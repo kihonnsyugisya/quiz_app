@@ -32,6 +32,9 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+
+    ndkVersion"25.0.8221429"
+
     compileSdkVersion flutter.compileSdkVersion
 
     compileOptions {
@@ -70,6 +73,11 @@ android {
         release {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
+
+            ndk {
+                debugSymbolLevel 'SYMBOL_TABLE' //追記
+            }
+
         }
     }
 }
