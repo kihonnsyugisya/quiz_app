@@ -51,6 +51,9 @@ class _NavPageState extends State<NavPage> {
         if(widget.isPerfect! && await Review.inAppReview.isAvailable()){
           Review.inAppReview.requestReview();
         }
+        if(AdMob.interstitialAdCounter %3 == 0 && await Review.inAppReview.isAvailable()){
+          Review.inAppReview.requestReview();
+        }
       }
     });
     super.initState();

@@ -39,7 +39,7 @@ class QuizList{
   ];
   static List<QuizEntity> secondNormalList = [
     QuizEntity(quiz: 'この漫画の原作の更新日はどれ？', answer: ['隔週月曜','隔週火曜','隔週金曜'], answerOfNum: 0),
-    QuizEntity(quiz: '原作者の名前は？', answer: ['遠藤 章造','遠藤 達哉','斉藤 宏哉'], answerOfNum: 0),
+    QuizEntity(quiz: '原作者の名前は？', answer: ['遠藤 章造','遠藤 達哉','斉藤 宏哉'], answerOfNum: 1),
     QuizEntity(quiz: 'アニメのロイドの声優は誰？', answer: ['エグチ タツヤ','カジ ユウキ','ハナエ ナツキ'], answerOfNum: 0),
     QuizEntity(quiz: 'WISEで使用されている挨拶はどれ？', answer: ['おはよう あるいは おつかれさま','ごきげんよう あるいは さようなら','こんにちは あるいは こんばんは'], answerOfNum: 2),
     QuizEntity(quiz: 'ロイドが孤児院でアーニャを選んだ決め手となる出来事は？', answer: ['足が早かった','運動神経が良かった','クロスワードを解いた'], answerOfNum: 2),
@@ -96,7 +96,7 @@ class QuizList{
     QuizEntity(quiz: 'ヘンダーソン『なんかもうエレガントっていうか◯◯◯この人たち!!』　', answer: ['すごい','やばい','こわい'], answerOfNum: 2),
     QuizEntity(quiz: 'ウォルター・エバンズの担当教科は？', answer: ['国語','経済学','歴史'], answerOfNum: 0),
     QuizEntity(quiz: 'マードック・スワンの担当教科は？', answer: ['国語','経済学','歴史'], answerOfNum:1),
-    QuizEntity(quiz: 'ヘンリー・ヘンダーソンの年齢は？', answer: ['61','71','81'], answerOfNum: 0),
+    QuizEntity(quiz: 'ヘンリー・ヘンダーソンの年齢は？', answer: ['66','76','86'], answerOfNum: 0),
     QuizEntity(quiz: 'イーデン校の校長の名は？', answer: ['ザック・シルヴァー・ゴードン','ウォルター・ディズニー・エバンズ','ベネディクト・アイヴァン・グットフェラー'], answerOfNum: 2),
     QuizEntity(quiz: 'アーニャ姫を助けた時のロイドマンのセリフは？', answer: ['た‥助けに来たよアーニャ姫','ま‥待たせたなアーニャ姫','お‥おいでアーニャ姫'], answerOfNum: 0),
     QuizEntity(quiz: 'アーニャの身長は？', answer: ['89.5','99.5','109.5'], answerOfNum:1 ),

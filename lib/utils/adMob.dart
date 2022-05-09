@@ -12,7 +12,8 @@ class AdMob{
   }
   static int interstitialAdCounter = 0;
   static bool isShowInterstitialAd(){
-    if(interstitialAdCounter % 2 == 0){
+    // if(interstitialAdCounter % 2 == 0){ 　試験的に表示回数を変更
+    if(interstitialAdCounter != 1 && interstitialAdCounter %3 != 0){
       return true;
     }else{
       return false;
