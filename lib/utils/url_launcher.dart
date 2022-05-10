@@ -6,11 +6,13 @@ import 'package:url_launcher/url_launcher.dart';
 class UrlLauncher  {
   static String twitterHashTags = '\n#SPY_FAMILY' '\n#スパイファミリー' '\n#QUIZ_FAMILY';
   static String iosAppId = 'https://apple.co/3r3w0H2';
+  static String androidAppId = 'https://onl.bz/AepQQKZ';
+
 
   static void tweet({
     required String text,}) async {
     final Map<String, dynamic> tweetQuery = {
-      "text":text + '\n' + '\n'+ iosAppId + '\n'+ twitterHashTags
+      "text":text + '\n' + '\n'+ 'Android版' + '\n'+ androidAppId + '\n' + '\n'+ 'iOS版' + '\n'+ iosAppId + '\n'+ twitterHashTags
     };
 
     final Uri tweetScheme =
