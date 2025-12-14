@@ -20,6 +20,7 @@ class NavPage extends StatefulWidget {
 }
 
 class _NavPageState extends State<NavPage> {
+  BannerAd? _bannerAd;
 
   void _onItemTapped(int index){
     setState(() {
@@ -36,6 +37,7 @@ class _NavPageState extends State<NavPage> {
 
   @override
   void initState() {
+    super.initState();
     Future(() async {
       await SharedPreference().getStatus();
       // await AdMob.myBanner(adType: 'banner').load();
@@ -51,8 +53,12 @@ class _NavPageState extends State<NavPage> {
           await inAppReview.requestReview();
         }
       }
+      // アダプティブバナー広告を読み込む
+      if (mounted) {
+        _bannerAd = await AdMob.getBannerAd(context);
+        setState(() {});
+      }
     });
-    super.initState();
   }
 
   @override
@@ -105,7 +111,12 @@ class _NavPageState extends State<NavPage> {
               ),
             )),
             // TODO: モードが四つ以上になる場合は、削除すること
-            Expanded(flex:1,child: AdMob.bannerAdArea(child: AdWidget(ad: AdMob.getBannerAd()))),
+            Expanded(
+              flex:1,
+              child: _bannerAd != null
+                  ? AdMob.bannerAdArea(child: AdWidget(ad: _bannerAd!))
+                  : AdMob.bannerAdArea(child: const SizedBox()), // 読み込み中は空のWidgetを表示
+            ),
           ],
         ),
         bottomNavigationBar: Navigation.bottomItems(_onItemTapped),

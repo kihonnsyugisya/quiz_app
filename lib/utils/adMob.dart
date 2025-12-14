@@ -65,12 +65,17 @@ class AdMob{
       return productionAdIds[deviceType]![adType] ?? 'error';
     }
   }
-  // バナー広告を取得（シングルトン）
-  static BannerAd getBannerAd(){
+  // バナー広告を取得（シングルトン、アダプティブサイズ対応）
+  static Future<BannerAd> getBannerAd(BuildContext context) async {
     if (_bannerAd == null) {
+      // アダプティブバナー広告のサイズを取得
+      final AdSize adSize = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+        MediaQuery.of(context).size.width.truncate(),
+      ) ?? AdSize.banner; // フォールバックとして固定サイズを使用
+      
       _bannerAd = BannerAd(
         adUnitId: getAdId(deviceType: getPlatform(), adType: 'banner',),
-        size: AdSize.banner,
+        size: adSize,
         request: const AdRequest(),
         listener: BannerAdListener(
           onAdLoaded: (_) {
