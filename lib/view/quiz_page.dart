@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/dialogs.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
@@ -25,20 +24,18 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
+    // インタースティシャル広告の読み込み（既に読み込み済みの場合は読み込まない）
     AdMob.loadInterstitial();
+    // ハードモードの場合のみリワード広告を読み込む
     if(widget.isHard == true){
       AdMob.loadReward();
     }
-    super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    AdMob.myBanner().dispose();
-    // ignore: avoid_print
-    print('バナーをdisposed');
+    // バナー広告はアプリ全体で共有するため、ここでは破棄しない
     super.dispose();
   }
 
@@ -63,55 +60,63 @@ class _QuizPageState extends State<QuizPage> {
           children: [
             Expanded(
                 flex: 1,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Text(
-                        widget.isHard
-                            ? Buttons.hardModeList[widget.listNum].buttonText
-                            : Buttons.normalModeList[widget.listNum].buttonText,
-                        style: widget.isHard
-                            ? OriginalThemeFont.modeFont
-                            : OriginalThemeFont.basicFont,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text(
+                          widget.isHard
+                              ? Buttons.hardModeList[widget.listNum].buttonText
+                              : Buttons.normalModeList[widget.listNum].buttonText,
+                          style: widget.isHard
+                              ? OriginalThemeFont.modeFont
+                              : OriginalThemeFont.basicFont,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'MISSION : ${QuizLogic.quizCount+1}',
-                      style: OriginalThemeFont.titleFont,
-                    ),
-                  ],
+                      Text(
+                        'MISSION : ${QuizLogic.quizCount+1}',
+                        style: OriginalThemeFont.titleFont,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
             ),
             Expanded(
                 flex: 2,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
                         width: deviceWidth * 0.8,
                         child: Center(
                           child: Text(
                             quizDoc()[QuizLogic.quizCount].quiz,
                             maxLines: null,
                             style: OriginalThemeFont.quizFont,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Text('${QuizLogic.quizCount+1} / ${quizDoc().length}'),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text('${QuizLogic.quizCount+1} / ${quizDoc().length}'),
+                      ),
+                    ],
+                  ),
                 )),
             Expanded(
                 flex: 4,
-                child: SizedBox(
-                  width: deviceWidth * 0.8,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                child: Center(
+                  child: SizedBox(
+                    width: deviceWidth * 0.8,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
                       ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -187,13 +192,12 @@ class _QuizPageState extends State<QuizPage> {
                           }
                           ),
                     ],
+                    ),
                   ),
-                )
+                ),
             ),
-            Expanded(flex: 1,child: Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: AdMob.bannerAdArea(child: AdWidget(ad: AdMob.myBanner())),
-            )),
+            // QuizPageではバナー広告を表示しない（NavPageで表示されるため）
+            const Expanded(flex: 1, child: SizedBox()),
           ],
         ),
       ),

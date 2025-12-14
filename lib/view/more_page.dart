@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:launch_review/launch_review.dart';
 import 'package:quiz_app/utils/original_theme_font.dart';
 import 'package:quiz_app/utils/url_launcher.dart';
 
@@ -48,8 +47,9 @@ class MorePage extends StatelessWidget {
                     text: const Text('アプリを評価する'),
                     onTap: (){
                       // TODO: IDを変更する。アンドロイドもやる場合は、そのIDも追加する。
-                      LaunchReview.launch(
-                          writeReview: false,iOSAppId: "1608191430"
+                      UrlLauncher.launchAppStore(
+                        iOSAppId: "1608191430",
+                        androidPackageId: "com.kihonsyugisya.quiz_app",
                       );
                     },
                     icon: Icon(Icons.star,color: OriginalThemeColor.star,)),

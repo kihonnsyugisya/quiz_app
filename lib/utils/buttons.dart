@@ -13,7 +13,7 @@ class Buttons{
   {
     return TextButton(
         onPressed: onPress,
-        style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
+        style: ButtonStyle(overlayColor: WidgetStateProperty.all(OriginalThemeColor.transparent),),
         child: Text(
           text,
           style: OriginalThemeFont.subFont,
@@ -28,7 +28,7 @@ class Buttons{
   {
     return TextButton(
       onPressed: onPress,
-      style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
+      style: ButtonStyle(overlayColor: WidgetStateProperty.all(OriginalThemeColor.transparent),),
       child: Text(
         text,
         style: OriginalThemeFont.quizFont,
@@ -48,15 +48,15 @@ class Buttons{
       child: SizedBox(
         height: 54,
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: color ?? OriginalThemeColor.themeSubColor,
+            foregroundColor: Colors.black,
+          ),
+          onPressed: page,
           child: Text(
             buttonText,
             style: OriginalThemeFont.modeFont
           ),
-          style: ElevatedButton.styleFrom(
-            primary: color ?? OriginalThemeColor.themeSubColor,
-            onPrimary: Colors.black,
-          ),
-          onPressed: page,
         ),
       ),
     );
@@ -78,6 +78,8 @@ class Buttons{
 
   static TextButton twitterButton({VoidCallback? onPressed}){
     return TextButton(
+      onPressed: onPressed,
+      style: ButtonStyle(overlayColor: WidgetStateProperty.all(OriginalThemeColor.transparent),),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -86,12 +88,12 @@ class Buttons{
           Text('シェアしてね！',style: OriginalThemeFont.moderateFont,),
         ],
       ),
-      onPressed: onPressed,
-      style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
     );
   }
   static TextButton revivalButton({VoidCallback? onPressed}){
     return TextButton(
+      onPressed: onPressed,
+      style: ButtonStyle(overlayColor: WidgetStateProperty.all(OriginalThemeColor.transparent),),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -101,8 +103,6 @@ class Buttons{
           Text('CMを視聴して復活する',style: OriginalThemeFont.moderateFont,),
         ],
       ),
-      onPressed: onPressed,
-      style: ButtonStyle(overlayColor: MaterialStateProperty.all(OriginalThemeColor.transparent),),
     );
   }
 }

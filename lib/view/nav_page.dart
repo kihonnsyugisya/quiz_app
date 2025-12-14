@@ -27,22 +27,20 @@ class _NavPageState extends State<NavPage> {
 
   @override
   void dispose(){
-    // TODO: implement dispose
-    AdMob.myBanner().dispose();
-    // ignore: avoid_print
-    print('バナーを破棄しました');
+    // バナー広告はアプリ全体で共有するため、ここでは破棄しない
+    // アプリ終了時に破棄される
     super.dispose();
   }
 
   @override
   void initState() {
     Future(() async {
-      await SharedPreference().getStatus;
+      await SharedPreference().getStatus();
       // await AdMob.myBanner(adType: 'banner').load();
       // TODO: ダイアログをテスト表示したい場合は下記を解除
       // SharedPreference().getRestStatus();
-      if(Info.isShowInfoDialog()){
-        SchedulerBinding.instance!.addPostFrameCallback((_) => Dialogs.infoDialog(context));
+      if(await Info.isShowInfoDialog()){
+        SchedulerBinding.instance.addPostFrameCallback((_) => Dialogs.infoDialog(context));
       }
     });
     super.initState();
@@ -98,7 +96,7 @@ class _NavPageState extends State<NavPage> {
               ),
             )),
             // TODO: モードが四つ以上になる場合は、削除すること
-            Expanded(flex:1,child: AdMob.bannerAdArea(child: AdWidget(ad: AdMob.myBanner()))),
+            Expanded(flex:1,child: AdMob.bannerAdArea(child: AdWidget(ad: AdMob.getBannerAd()))),
           ],
         ),
         bottomNavigationBar: Navigation.bottomItems(_onItemTapped),

@@ -1,9 +1,8 @@
 
+import 'package:animate_do/animate_do.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
-import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:quiz_app/utils/buttons.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
@@ -15,34 +14,175 @@ import '../view/nav_page.dart';
 import 'info.dart';
 
 class Dialogs{
-  static  successResultDialog(
+  static Future<dynamic> successResultDialog(
       {required BuildContext context, required String text,required VoidCallback? onTap,required String btnText}){
-    return CoolAlert.show(
-        title: '正解',
-        context: context,
-        type: CoolAlertType.success,
-        text: text,
-        barrierDismissible: false,
-        backgroundColor: OriginalThemeColor.white,
-        confirmBtnColor: OriginalThemeColor.secondColor,
-        confirmBtnText: btnText,
-        confirmBtnTextStyle: OriginalThemeFont.quizFont,
-        onConfirmBtnTap: onTap,
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return FadeIn(
+          duration: const Duration(milliseconds: 300),
+          child: ElasticIn(
+            duration: const Duration(milliseconds: 400),
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              backgroundColor: OriginalThemeColor.white,
+              contentPadding: const EdgeInsets.all(24),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ElasticIn(
+                    duration: const Duration(milliseconds: 600),
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.green.shade100,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.check_circle,
+                        size: 60,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    '正解！',
+                    style: OriginalThemeFont.basicFont.copyWith(
+                      fontSize: 24,
+                      color: Colors.green.shade700,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    text,
+                    style: OriginalThemeFont.quizFont.copyWith(
+                      fontSize: 18,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green.shade600,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: onTap,
+                      child: Text(
+                        btnText,
+                        style: OriginalThemeFont.basicFont.copyWith(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
   static Future<dynamic> missResultDialog(
       {required BuildContext context,required String text,required VoidCallback? onTap,required String btnText}){
-    return CoolAlert.show(
-      title: '不正解',
+    return showDialog(
       context: context,
-      type: CoolAlertType.error,
-      text: '正解 : $text',
       barrierDismissible: false,
-      backgroundColor: OriginalThemeColor.white,
-      confirmBtnColor: OriginalThemeColor.secondColor,
-      confirmBtnText: btnText,
-      confirmBtnTextStyle: OriginalThemeFont.quizFont,
-      onConfirmBtnTap: onTap,
+      builder: (BuildContext context) {
+        return FadeIn(
+          duration: const Duration(milliseconds: 300),
+          child: ElasticIn(
+            duration: const Duration(milliseconds: 400),
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              backgroundColor: OriginalThemeColor.white,
+              contentPadding: const EdgeInsets.all(24),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ElasticIn(
+                    duration: const Duration(milliseconds: 600),
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade100,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.cancel,
+                        size: 60,
+                        color: Colors.red.shade700,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    '不正解',
+                    style: OriginalThemeFont.basicFont.copyWith(
+                      fontSize: 24,
+                      color: Colors.red.shade700,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    '正解',
+                    style: OriginalThemeFont.quizFont.copyWith(
+                      fontSize: 14,
+                      color: OriginalThemeColor.gray,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    text,
+                    style: OriginalThemeFont.quizFont.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red.shade600,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: onTap,
+                      child: Text(
+                        btnText,
+                        style: OriginalThemeFont.basicFont.copyWith(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
   static String confirmBtnText(bool isMoveToResultPage){
@@ -55,7 +195,7 @@ class Dialogs{
   static Future<dynamic> infoDialog(BuildContext context)async{
     final status = await AppTrackingTransparency.trackingAuthorizationStatus;
     if(status != TrackingStatus.notDetermined){
-      return showAnimatedDialog(
+      return showDialog(
         context: context,
         barrierDismissible: true,
         builder: (BuildContext context) {
@@ -68,8 +208,14 @@ class Dialogs{
                 padding: const EdgeInsets.only(right: 8),
                 child: Buttons.nextButton(
                   text: '閉じる',
-                  onPress: (){
-                    SharedPreference().setStatus();
+                  onPress: () async {
+                    final sharedPref = SharedPreference();
+                    final currentVersion = PackageInfo.version;
+                    await sharedPref.setStatus(); // 現在のバージョンを保存
+                    await sharedPref.setLastShownPrVersion(currentVersion); // 表示したPRのバージョンを保存
+                    // メッセージ内容のハッシュ値も保存（内容更新忘れの安全策）
+                    final prHash = Info.calculatePrHash(currentVersion);
+                    await sharedPref.setLastShownPrHash(prHash);
                     Navigator.pop(context);
                   },
                 ),
@@ -77,8 +223,6 @@ class Dialogs{
             ],
           );
         },
-        animationType: DialogTransitionType.slideFromBottomFade,
-        duration: const Duration(seconds: 1),
       );
     }
   }
@@ -90,7 +234,7 @@ class Dialogs{
     );
   }
   static Future<dynamic> retireDialog(BuildContext context){
-    return showAnimatedDialog(
+    return showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
@@ -111,14 +255,12 @@ class Dialogs{
           ],
         );
       },
-      animationType: DialogTransitionType.slideFromBottomFade,
-      duration: const Duration(seconds: 1),
     );
   }
   static Future<dynamic> netWorkErrorDialog({
     required BuildContext context,
     required VoidCallback onPressed}){
-    return showAnimatedDialog(
+    return showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
@@ -134,8 +276,6 @@ class Dialogs{
           ],
         );
       },
-      animationType: DialogTransitionType.slideFromBottomFade,
-      duration: const Duration(seconds: 1),
     );
   }
   static Future<bool> isTrackingNotDetermined()async{

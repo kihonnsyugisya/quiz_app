@@ -29,21 +29,21 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    AdMob.loadInterstitial();
     super.initState();
+    // ステータスバーを表示するように設定
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.edgeToEdge,
+      overlays: [SystemUiOverlay.top],
+    );
+    // インタースティシャル広告の読み込み（既に読み込み済みの場合は読み込まない）
+    AdMob.loadInterstitial();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    if(AdMob.myInterstitialAd != null){
-      AdMob.myInterstitialAd!.dispose();
-    }
-    if(AdMob.myRewardAd != null){
-      AdMob.myRewardAd!.dispose();
-    }
+    // ResultPageでは広告を破棄しない
+    // 広告は表示された後、コールバック内で自動的に破棄される
+    // または次の画面で再利用される
     super.dispose();
   }
 
@@ -121,7 +121,8 @@ class _ResultPageState extends State<ResultPage> {
                                   },
                                   onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error){
                                     ad.dispose();
-                                    AdMob.loadReward();
+                                    AdMob.disposeRewardAd();
+                                    // エラー時は再読み込みしない（ユーザーが再度ボタンを押した時に読み込まれる）
                                   }
                               );
                           await AdMob.myRewardAd!.show(
@@ -139,6 +140,7 @@ class _ResultPageState extends State<ResultPage> {
                          Dialogs.netWorkErrorDialog(
                              context: context,
                              onPressed: (){
+                               // リワード広告を読み込む
                                AdMob.loadReward();
                                Navigator.of(context).pop();
                              }
@@ -154,8 +156,16 @@ class _ResultPageState extends State<ResultPage> {
                         if(AdMob.isShowInterstitialAd()){
                           if(AdMob.myInterstitialAd != null){
                             AdMob.myInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+                                onAdShowedFullScreenContent: (InterstitialAd ad) {
+                                  // 広告表示時にステータスバーを非表示にする（閉じるボタンが押しやすくなる）
+                                  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+                                },
                                 onAdDismissedFullScreenContent: (InterstitialAd ad){
-                                  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                                  // 広告が閉じられたらステータスバーを表示に戻す
+                                  SystemChrome.setEnabledSystemUIMode(
+                                    SystemUiMode.edgeToEdge,
+                                    overlays: [SystemUiOverlay.top],
+                                  );
                                   print('バーを復活');
                                   ad.dispose();
                                   AdMob.loadInterstitial();
@@ -164,16 +174,23 @@ class _ResultPageState extends State<ResultPage> {
                                   QuizLogic.resetQuizCount();
                                 },
                                 onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error){
+                                  // エラー時もステータスバーを表示に戻す
+                                  SystemChrome.setEnabledSystemUIMode(
+                                    SystemUiMode.edgeToEdge,
+                                    overlays: [SystemUiOverlay.top],
+                                  );
                                   ad.dispose();
-                                  AdMob.loadInterstitial();
+                                  AdMob.disposeInterstitialAd();
+                                  // エラー時は再読み込みしない（次の画面で読み込まれる）
                                 }
                             );
                             await AdMob.myInterstitialAd!.show();
                           }else{
-                            // await AdMob.loadInterstitial();
+                            // インタースティシャル広告が読み込まれていない場合
                             Dialogs.netWorkErrorDialog(
                                 context: context,
                                 onPressed: (){
+                                  // インタースティシャル広告を読み込む
                                   AdMob.loadInterstitial();
                                   Navigator.of(context).pop();
                                 }

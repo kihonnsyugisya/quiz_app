@@ -1,16 +1,84 @@
 # quiz_app
 
-A new Flutter application.
+クイズアプリのテンプレート。問題を書き換えるだけで様々なクイズアプリを作成できます。
 
-## Getting Started
+## 📚 セットアップガイド
 
-This project is a starting point for a Flutter application.
+新しいクイズアプリを作成する際は、**[SETUP.md](./SETUP.md)** を参照してください。  
+変更が必要な箇所（クイズの問題、テーマカラー、アプリ名、広告IDなど）がまとめられています。
 
-A few resources to get you started if this is your first Flutter project:
+## お知らせダイアログの表示条件
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+アプリ起動時に表示されるお知らせダイアログの表示/非表示の条件について説明します。
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 表示される条件
+
+お知らせダイアログは以下のいずれかの条件を満たす場合に表示されます：
+
+1. **アプリがアップデートされた場合**
+   - 保存されているバージョン（`status`）と現在のアプリバージョン（`PackageInfo.version`）が異なる
+   - かつ、現在のバージョンに対応するPRメッセージが`prList`に定義されている
+   - かつ、そのPRメッセージの内容（ハッシュ値）が前回表示したものと異なる
+
+2. **同じバージョンでメッセージ内容が更新された場合（更新忘れの安全策）**
+   - バージョンは同じでも、`prList`内のメッセージ内容が変更されている
+   - メッセージ内容のハッシュ値が前回表示したものと異なる
+
+### 表示されない条件
+
+お知らせダイアログは以下のいずれかの条件を満たす場合に表示されません：
+
+1. **初回起動時**
+   - 保存されているバージョン（`status`）が`'0'`（デフォルト値）の場合
+   - この場合、現在のバージョンが自動的に保存され、次回のアップデート検出に備えます
+
+2. **アップデートされたが、PRメッセージが定義されていない場合**
+   - バージョンは更新されたが、`prList`に現在のバージョンが存在しない
+   - バージョン情報は更新されますが、ダイアログは表示されません
+
+3. **アップデートされたが、メッセージ内容が同じ場合**
+   - バージョンは更新されたが、PRメッセージの内容（ハッシュ値）が前回表示したものと同じ
+   - バージョン情報は更新されますが、ダイアログは表示されません
+
+4. **同じバージョンで、メッセージ内容も同じ場合**
+   - バージョンもメッセージ内容も前回と同じ
+   - 通常の再起動時はこの状態になります
+
+### 動作の流れ
+
+1. **初回起動時**
+   - `status == '0'` → 現在のバージョンを保存 → **表示しない**
+
+2. **アップデート時（例：1.0.0 → 1.0.1）**
+   - `status != currentVersion` → PRメッセージのハッシュ値を比較
+   - ハッシュ値が異なる → **表示する**
+   - ハッシュ値が同じ → **表示しない**（バージョン情報は更新）
+
+3. **同じバージョンでメッセージ更新時**
+   - `status == currentVersion` → PRメッセージのハッシュ値を比較
+   - ハッシュ値が異なる → **表示する**（更新忘れの安全策）
+   - ハッシュ値が同じ → **表示しない**
+
+### メッセージ内容の更新忘れに対する安全策
+
+- メッセージ内容はSHA-256ハッシュ値で管理されています
+- バージョンが同じでも、`prList`内のメッセージ内容が変更されていれば、ハッシュ値が変わり、再表示されます
+- これにより、バージョン更新を忘れても、メッセージ内容を更新すれば自動的に再表示されます
+
+### 設定方法
+
+`lib/utils/info.dart`の`prList`に、バージョンごとのPRメッセージを定義してください：
+
+```dart
+static Map<String, Map<String, String>> prList = {
+  '1.0.0': {'pr': '1.0.0のpr文がきます。'},
+  '1.0.1': {'pr': '1.0.1のpr文がきます。'},
+  // ...
+};
+```
+
+`lib/utils/package_info.dart`の`version`を更新してください：
+
+```dart
+static String version = '1.0.1';
+```

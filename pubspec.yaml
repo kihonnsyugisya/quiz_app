@@ -1,3 +1,4 @@
+# TODO: アプリ名を変更する（スネークケース推奨）
 name: quiz_app
 description: A new Flutter application.
 
@@ -18,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.0-134.5.beta <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -33,22 +34,21 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  font_awesome_flutter: ^9.2.0
-  google_fonts: ^2.3.1
-  blinking_text: ^1.0.1+2
-  flutter_animated_dialog: ^2.0.1
-  cool_alert: ^1.1.0
-  animated_text_kit: ^4.2.1
-  animate_do: ^2.1.0
-  url_launcher: ^6.0.20
-  launch_review: ^3.0.1
-  package_info_plus: ^1.4.0
+  cupertino_icons: ^1.0.8
+  font_awesome_flutter: ^10.8.0
+  google_fonts: ^6.2.1
+  blinking_text: ^1.0.4
+  animated_text_kit: ^4.2.2
+  animate_do: ^4.2.0
+  url_launcher: ^6.3.1
+  package_info_plus: ^8.1.2
+  path_provider: ^2.1.5
   marquee: ^2.2.1
-  shared_preferences: ^2.0.13
-  google_mobile_ads: ^1.1.0
+  shared_preferences: ^2.5.3
+  google_mobile_ads: ^6.0.0
   app_tracking_transparency: ^2.0.2+1
-  flutter_native_splash: ^2.1.1
+  flutter_native_splash: ^2.4.1
+  crypto: ^3.0.5
 
 dev_dependencies:
   flutter_test:
@@ -59,7 +59,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

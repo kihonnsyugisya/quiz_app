@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'hex_color.dart';
 
 class OriginalThemeColor {
+  // TODO: メインカラーを変更する
   static HexColor themeColor = HexColor('#8EA99B');
 
+  // TODO: サブカラーを変更する
   static HexColor themeSubColor = HexColor('#697D73');
 
 //  結果画面の色
+  // TODO: 結果画面の色を変更する
   static HexColor secondColor = HexColor('#FCDDAB');
 
   static HexColor black = HexColor('#000000');
