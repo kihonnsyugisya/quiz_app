@@ -2,6 +2,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncher  {
@@ -34,14 +35,24 @@ class UrlLauncher  {
     }
   }
 
-  static void privacyPolicy()async{
+  // TODO: プライバシーポリシーのURLを設定（実際にアクセス可能なURLに変更すること）
+  // App Store Connectでも同じURLを設定する必要があります
+  static Future<bool> privacyPolicy({BuildContext? context})async{
     // TODO: ファイヤベースなど、新たに追加する場合は、下記のリンクに適宜文言を追加する
     final Uri privacyPolicyUrl = Uri.parse('https://kihonnsyugisya.github.io/privacy_policy_quiz_app/');
-    if(await canLaunchUrl(privacyPolicyUrl)){
-      await launchUrl(privacyPolicyUrl, mode: LaunchMode.externalApplication);
-    }else{
+    try {
+      if(await canLaunchUrl(privacyPolicyUrl)){
+        final launched = await launchUrl(privacyPolicyUrl, mode: LaunchMode.externalApplication);
+        return launched;
+      }else{
+        // ignore: avoid_print
+        print('プライバシーポリシーのURLを開けませんでした: $privacyPolicyUrl');
+        return false;
+      }
+    } catch (e) {
       // ignore: avoid_print
-      print('error');
+      print('プライバシーポリシーのURLを開く際にエラーが発生しました: $e');
+      return false;
     }
   }
 

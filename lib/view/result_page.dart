@@ -37,6 +37,13 @@ class _ResultPageState extends State<ResultPage> {
     );
     // インタースティシャル広告の読み込み（既に読み込み済みの場合は読み込まない）
     AdMob.loadInterstitial();
+    // ハードモードで全問正解かどうかを判定
+    final total = widget.isHard
+        ? QuizList.hardList[widget.listNum].length
+        : QuizList.normalList[widget.listNum].length;
+    if (Result.resultCount == total && widget.isHard == true) {
+      isPerfect = true;
+    }
   }
 
   @override
@@ -48,6 +55,7 @@ class _ResultPageState extends State<ResultPage> {
   }
 
   int secondChallengeLife = 0;
+  bool isPerfect = false;
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
@@ -169,7 +177,7 @@ class _ResultPageState extends State<ResultPage> {
                                   print('バーを復活');
                                   ad.dispose();
                                   AdMob.loadInterstitial();
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavPage(isPerfect: isPerfect)));
                                   Result.resetResultCount();
                                   QuizLogic.resetQuizCount();
                                 },
@@ -182,6 +190,9 @@ class _ResultPageState extends State<ResultPage> {
                                   ad.dispose();
                                   AdMob.disposeInterstitialAd();
                                   // エラー時は再読み込みしない（次の画面で読み込まれる）
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavPage(isPerfect: isPerfect)));
+                                  Result.resetResultCount();
+                                  QuizLogic.resetQuizCount();
                                 }
                             );
                             await AdMob.myInterstitialAd!.show();
@@ -197,7 +208,7 @@ class _ResultPageState extends State<ResultPage> {
                             );
                           }
                         }else{
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavPage()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavPage(isPerfect: isPerfect)));
                           Result.resetResultCount();
                           QuizLogic.resetQuizCount();
                         }

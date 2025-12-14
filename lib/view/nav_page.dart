@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:marquee/marquee.dart';
 import 'package:quiz_app/utils/color/original_theme_color.dart';
 import 'package:quiz_app/utils/dialogs.dart';
@@ -11,7 +12,8 @@ import '../utils/info.dart';
 import '../utils/navigation.dart';
 
 class NavPage extends StatefulWidget {
-  const NavPage({Key? key}) : super(key: key);
+  final bool? isPerfect;
+  const NavPage({Key? key, this.isPerfect}) : super(key: key);
 
   @override
   State<NavPage> createState() => _NavPageState();
@@ -41,6 +43,13 @@ class _NavPageState extends State<NavPage> {
       // SharedPreference().getRestStatus();
       if(await Info.isShowInfoDialog()){
         SchedulerBinding.instance.addPostFrameCallback((_) => Dialogs.infoDialog(context));
+      }
+      // ハードモードで全問正解した場合にレビューを表示
+      if(widget.isPerfect != null && widget.isPerfect == true){
+        final InAppReview inAppReview = InAppReview.instance;
+        if(await inAppReview.isAvailable()){
+          await inAppReview.requestReview();
+        }
       }
     });
     super.initState();

@@ -66,4 +66,47 @@ class SharedPreference {
     status = '0';
   }
 
+  // クイズ完了回数を取得
+  Future<int> getQuizCompletionCount() async {
+    await _ensureInitialized();
+    return _prefs!.getInt('quizCompletionCount') ?? 0;
+  }
+
+  // クイズ完了回数を増やす
+  Future<void> incrementQuizCompletionCount() async {
+    await _ensureInitialized();
+    final currentCount = await getQuizCompletionCount();
+    await _prefs!.setInt('quizCompletionCount', currentCount + 1);
+  }
+
+  // 最後にレビューを表示した日時を取得
+  Future<DateTime?> getLastReviewRequestDate() async {
+    await _ensureInitialized();
+    final timestamp = _prefs!.getInt('lastReviewRequestTimestamp');
+    if (timestamp == null) return null;
+    return DateTime.fromMillisecondsSinceEpoch(timestamp);
+  }
+
+  // 最後にレビューを表示した日時を保存
+  Future<void> setLastReviewRequestDate(DateTime date) async {
+    await _ensureInitialized();
+    await _prefs!.setInt('lastReviewRequestTimestamp', date.millisecondsSinceEpoch);
+  }
+
+  // 初回起動日時を取得
+  Future<DateTime?> getFirstLaunchDate() async {
+    await _ensureInitialized();
+    final timestamp = _prefs!.getInt('firstLaunchTimestamp');
+    if (timestamp == null) return null;
+    return DateTime.fromMillisecondsSinceEpoch(timestamp);
+  }
+
+  // 初回起動日時を保存
+  Future<void> setFirstLaunchDate(DateTime date) async {
+    await _ensureInitialized();
+    if (await getFirstLaunchDate() == null) {
+      await _prefs!.setInt('firstLaunchTimestamp', date.millisecondsSinceEpoch);
+    }
+  }
+
 }

@@ -22,6 +22,11 @@ void main() async{
   );
   await MobileAds.instance.initialize();
   await SharedPreference().init();
+  // 初回起動日時を記録（まだ記録されていない場合のみ）
+  final sharedPref = SharedPreference();
+  if (await sharedPref.getFirstLaunchDate() == null) {
+    await sharedPref.setFirstLaunchDate(DateTime.now());
+  }
   runApp(const MyApp());
 }
 

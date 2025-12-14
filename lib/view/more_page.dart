@@ -70,8 +70,18 @@ class MorePage extends StatelessWidget {
                     icon: const Icon(CupertinoIcons.doc)),
                 MoreButton.bottomLine,
                 MoreButton(
-                    text: const Text('プライバシーポリシー'), onTap: (){
-                      UrlLauncher.privacyPolicy();
+                    text: const Text('プライバシーポリシー'), onTap: ()async{
+                      final success = await UrlLauncher.privacyPolicy(context: context);
+                      if (!success) {
+                        // URLを開けなかった場合のエラーハンドリング
+                        // 通常はブラウザで開けるはずなので、ここに到達することは稀
+                        if (context.mounted) {
+                          Dialogs.netWorkErrorDialog(
+                            context: context,
+                            onPressed: () => Navigator.of(context).pop(),
+                          );
+                        }
+                      }
                       },
                     icon: const Icon(Icons.privacy_tip_outlined)),
               ]
