@@ -29,14 +29,14 @@ class AdMob{
   // TODO: 取得したIDを下記に入力する。
   static Map<String, Map<String, String>> productionAdIds = {
     'ios': {
-      'banner': 'ca-app-pub-3957084734439209/2130449099',
-      'interstitial': 'ca-app-pub-3957084734439209/3251959072',
-      'reward': 'ca-app-pub-3957084734439209/2014026887'
+      'banner': 'ca-app-pub-3957084734439209/9979046267',
+      'interstitial': 'ca-app-pub-3957084734439209/8449523934',
+      'reward': 'ca-app-pub-3957084734439209/4176248769'
     },
     'android': {
-      'banner': 'ca-app-pub-3957084734439209/1392082499',
-      'interstitial': 'ca-app-pub-3957084734439209/5139755813',
-      'reward': 'ca-app-pub-3957084734439209/6261265799'
+      'banner': 'ca-app-pub-3957084734439209/7868081761',
+      'interstitial': 'ca-app-pub-3957084734439209/8154010467',
+      'reward': 'ca-app-pub-3957084734439209/6921638087'
     }
   };
   static Map<String, Map<String, String>> testAdIds = {
@@ -48,7 +48,7 @@ class AdMob{
     'android': {
       'banner': 'ca-app-pub-3940256099942544/6300978111',
       'interstitial': 'ca-app-pub-3940256099942544/1033173712',
-      'reward': '	ca-app-pub-3940256099942544/5224354917'
+      'reward': 'ca-app-pub-3940256099942544/5224354917'
     }
   };
   static String getPlatform(){

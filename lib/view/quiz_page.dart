@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:quiz_app/utils/color/original_theme_color.dart';
-import 'package:quiz_app/utils/dialogs.dart';
-import 'package:quiz_app/utils/original_theme_font.dart';
-import 'package:quiz_app/utils/quiz/quiz_list.dart';
-import 'package:quiz_app/utils/result.dart';
-import 'package:quiz_app/view/result_page.dart';
+import 'package:jujutsu_kaisen_quiz/utils/color/original_theme_color.dart';
+import 'package:jujutsu_kaisen_quiz/utils/dialogs.dart';
+import 'package:jujutsu_kaisen_quiz/utils/original_theme_font.dart';
+import 'package:jujutsu_kaisen_quiz/utils/quiz/quiz_list.dart';
+import 'package:jujutsu_kaisen_quiz/utils/result.dart';
+import 'package:jujutsu_kaisen_quiz/view/result_page.dart';
 import '../utils/adMob.dart';
 import '../utils/buttons.dart';
 import '../utils/quiz/quiz.dart';
@@ -77,7 +77,7 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       ),
                       Text(
-                        'MISSION : ${QuizLogic.quizCount+1}',
+                        '問題 : ${QuizLogic.quizCount+1}',
                         style: OriginalThemeFont.titleFont,
                         textAlign: TextAlign.center,
                       ),
@@ -104,7 +104,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8),
-                        child: Text('${QuizLogic.quizCount+1} / ${quizDoc().length}'),
+                        child: Text('${QuizLogic.quizCount+1} / ${quizDoc().length}', style: const TextStyle(color: Colors.white)),
                       ),
                     ],
                   ),
@@ -127,7 +127,7 @@ class _QuizPageState extends State<QuizPage> {
                                 color: null,
                                 page: (){
                                   // ignore: avoid_print
-                                  print('クイズレングス：${quizDoc().length}');
+                                  print('クイズレングス: ${quizDoc().length}');
                                   if(QuizLogic.isSuccess(tapIndex: index, listNum: widget.listNum, quizNum: QuizLogic.quizCount, isHard: widget.isHard)){
                                     Result.addResultCount();
                                     return setState(() {
@@ -143,9 +143,9 @@ class _QuizPageState extends State<QuizPage> {
                                               setState(() {
                                                 QuizLogic.quizCount++;
                                                 // ignore: avoid_print
-                                                print('クイズカウンターがプラスされました');
+                                                print('クイズカウンターがリセットされました');
                                                 // ignore: avoid_print
-                                                print('クイズカウンター：${QuizLogic.quizCount}になりました');
+                                                print('クイズカウンター: ${QuizLogic.quizCount}になりました');
                                                 Navigator.of(context).pop();
                                               });
                                             }
@@ -169,9 +169,9 @@ class _QuizPageState extends State<QuizPage> {
                                               setState(() {
                                                 QuizLogic.quizCount++;
                                                 // ignore: avoid_print
-                                                print('クイズカウンターがプラスされました');
+                                                print('クイズカウンターがリセットされました');
                                                 // ignore: avoid_print
-                                                print('クイズカウンター：${QuizLogic.quizCount}になりました');
+                                                print('クイズカウンター: ${QuizLogic.quizCount}になりました');
                                                 Navigator.of(context).pop();
                                               });
                                             }
@@ -183,10 +183,10 @@ class _QuizPageState extends State<QuizPage> {
                             );
                           }
                       ),
-                      Buttons.originalTextButton(
-                          text: 'RETIRE',
-                          onPress: ()async{
-                            await Dialogs.retireDialog(context);
+                  Buttons.originalTextButton(
+                      text: '離脱',
+                      onPress: ()async{
+                        await Dialogs.retireDialog(context);
                             Result.resetResultCount();
                             QuizLogic.resetQuizCount();
                           }

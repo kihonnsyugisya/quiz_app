@@ -1,8 +1,8 @@
 
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_app/utils/quiz/quiz_list.dart';
-import 'package:quiz_app/view/quiz_page.dart';
+import 'package:jujutsu_kaisen_quiz/utils/quiz/quiz_list.dart';
+import 'package:jujutsu_kaisen_quiz/view/quiz_page.dart';
 import '../utils/buttons.dart';
 
 class HomePage extends StatelessWidget {
@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
           child: BlinkText(
             '▼ ステージを選択してください',
             duration: Duration(seconds: 2),
+            style: TextStyle(color: Colors.white),
           ),
         ),
         Padding(
@@ -39,7 +40,7 @@ class HomePage extends StatelessWidget {
                       },
                   );
                 },),
-              // TODO: コアモードを実装する場合は下記を解除
+              // TODO: ハードモードを実装する場合は下記を解除
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

@@ -1,5 +1,5 @@
 
-import 'package:quiz_app/utils/package_info.dart';
+import 'package:jujutsu_kaisen_quiz/utils/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreference {
@@ -20,7 +20,7 @@ class SharedPreference {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  // _prefsが初期化されていない場合は初期化してから取得
+  // _prefsが�E期化されてぁE��ぁE��合�E初期化してから取征E
   Future<void> _ensureInitialized() async {
     _prefs ??= await SharedPreferences.getInstance();
   }
@@ -38,25 +38,25 @@ class SharedPreference {
     await _prefs!.setString('status', PackageInfo.version);
   }
 
-  // 最後に表示したPRのバージョンを取得
+  // 最後に表示したPRのバ�Eジョンを取征E
   Future<String?> getLastShownPrVersion() async {
     await _ensureInitialized();
     return _prefs!.getString('lastShownPrVersion');
   }
 
-  // 最後に表示したPRのバージョンを保存
+  // 最後に表示したPRのバ�Eジョンを保孁E
   Future<void> setLastShownPrVersion(String version) async {
     await _ensureInitialized();
     await _prefs!.setString('lastShownPrVersion', version);
   }
 
-  // 最後に表示したPRメッセージのハッシュ値を取得
+  // 最後に表示したPRメチE��ージのハッシュ値を取征E
   Future<String?> getLastShownPrHash() async {
     await _ensureInitialized();
     return _prefs!.getString('lastShownPrHash');
   }
 
-  // 最後に表示したPRメッセージのハッシュ値を保存
+  // 最後に表示したPRメチE��ージのハッシュ値を保孁E
   Future<void> setLastShownPrHash(String hash) async {
     await _ensureInitialized();
     await _prefs!.setString('lastShownPrHash', hash);
@@ -66,20 +66,20 @@ class SharedPreference {
     status = '0';
   }
 
-  // クイズ完了回数を取得
+  // クイズ完亁E��数を取征E
   Future<int> getQuizCompletionCount() async {
     await _ensureInitialized();
     return _prefs!.getInt('quizCompletionCount') ?? 0;
   }
 
-  // クイズ完了回数を増やす
+  // クイズ完亁E��数を増やぁE
   Future<void> incrementQuizCompletionCount() async {
     await _ensureInitialized();
     final currentCount = await getQuizCompletionCount();
     await _prefs!.setInt('quizCompletionCount', currentCount + 1);
   }
 
-  // 最後にレビューを表示した日時を取得
+  // 最後にレビューを表示した日時を取征E
   Future<DateTime?> getLastReviewRequestDate() async {
     await _ensureInitialized();
     final timestamp = _prefs!.getInt('lastReviewRequestTimestamp');
@@ -87,13 +87,13 @@ class SharedPreference {
     return DateTime.fromMillisecondsSinceEpoch(timestamp);
   }
 
-  // 最後にレビューを表示した日時を保存
+  // 最後にレビューを表示した日時を保孁E
   Future<void> setLastReviewRequestDate(DateTime date) async {
     await _ensureInitialized();
     await _prefs!.setInt('lastReviewRequestTimestamp', date.millisecondsSinceEpoch);
   }
 
-  // 初回起動日時を取得
+  // 初回起動日時を取征E
   Future<DateTime?> getFirstLaunchDate() async {
     await _ensureInitialized();
     final timestamp = _prefs!.getInt('firstLaunchTimestamp');
@@ -101,7 +101,7 @@ class SharedPreference {
     return DateTime.fromMillisecondsSinceEpoch(timestamp);
   }
 
-  // 初回起動日時を保存
+  // 初回起動日時を保孁E
   Future<void> setFirstLaunchDate(DateTime date) async {
     await _ensureInitialized();
     if (await getFirstLaunchDate() == null) {

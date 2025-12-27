@@ -1,12 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:marquee/marquee.dart';
-import 'package:quiz_app/utils/color/original_theme_color.dart';
-import 'package:quiz_app/utils/dialogs.dart';
-import 'package:quiz_app/utils/shared_preference.dart';
+import 'package:jujutsu_kaisen_quiz/utils/color/original_theme_color.dart';
+import 'package:jujutsu_kaisen_quiz/utils/shared_preference.dart';
 import '../utils/adMob.dart';
 import '../utils/info.dart';
 import '../utils/navigation.dart';
@@ -21,6 +19,7 @@ class NavPage extends StatefulWidget {
 
 class _NavPageState extends State<NavPage> {
   BannerAd? _bannerAd;
+  late String _currentQuote; // 表示する名言
 
   void _onItemTapped(int index){
     setState(() {
@@ -38,14 +37,17 @@ class _NavPageState extends State<NavPage> {
   @override
   void initState() {
     super.initState();
+    // 全ての名言を結合したテキストを取得
+    _currentQuote = Info.information;
     Future(() async {
       await SharedPreference().getStatus();
       // await AdMob.myBanner(adType: 'banner').load();
       // TODO: ダイアログをテスト表示したい場合は下記を解除
       // SharedPreference().getRestStatus();
-      if(await Info.isShowInfoDialog()){
-        SchedulerBinding.instance.addPostFrameCallback((_) => Dialogs.infoDialog(context));
-      }
+      // アップデートのお知らせダイアログ（使用しないためコメントアウト）
+      // if(await Info.isShowInfoDialog()){
+      //   SchedulerBinding.instance.addPostFrameCallback((_) => Dialogs.infoDialog(context));
+      // }
       // ハードモードで全問正解した場合にレビューを表示
       if(widget.isPerfect != null && widget.isPerfect == true){
         final InAppReview inAppReview = InAppReview.instance;
@@ -72,7 +74,7 @@ class _NavPageState extends State<NavPage> {
             Container(
               child: Center(
                   child: Marquee(
-                    text: Info.information,
+                    text: _currentQuote,
                     style: TextStyle(color: OriginalThemeColor.white),
                     scrollAxis: Axis.horizontal,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +87,7 @@ class _NavPageState extends State<NavPage> {
                     decelerationCurve: Curves.easeOut,
                   )
               ),
-              color: OriginalThemeColor.black,
+              color: OriginalThemeColor.themeSubColor,
               height: 24,
             ),
             Expanded(flex:9,child: Center(
@@ -99,7 +101,7 @@ class _NavPageState extends State<NavPage> {
                         height: deviceWidth * 0.4,
                         width: deviceWidth * 0.4,
                         child: Image.asset(
-                          // TODO: ロゴイメージの差し替え（ファイル名はそのままが望ましい。サイズは600＊600のpng）
+                          // TODO: ロゴイメージの差し替え（ファイル名はそのままが望ましい。サイズは600×600のpng）
                           'images/logo.png',
                           fit: BoxFit.cover,
                         ),

@@ -2,13 +2,13 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:quiz_app/utils/quiz/quiz.dart';
-import 'package:quiz_app/utils/url_launcher.dart';
-import 'package:quiz_app/utils/color/original_theme_color.dart';
-import 'package:quiz_app/utils/original_theme_font.dart';
-import 'package:quiz_app/utils/result.dart';
-import 'package:quiz_app/view/nav_page.dart';
-import 'package:quiz_app/view/quiz_page.dart';
+import 'package:jujutsu_kaisen_quiz/utils/quiz/quiz.dart';
+import 'package:jujutsu_kaisen_quiz/utils/url_launcher.dart';
+import 'package:jujutsu_kaisen_quiz/utils/color/original_theme_color.dart';
+import 'package:jujutsu_kaisen_quiz/utils/original_theme_font.dart';
+import 'package:jujutsu_kaisen_quiz/utils/result.dart';
+import 'package:jujutsu_kaisen_quiz/view/nav_page.dart';
+import 'package:jujutsu_kaisen_quiz/view/quiz_page.dart';
 import '../utils/adMob.dart';
 import '../utils/buttons.dart';
 import '../utils/dialogs.dart';
@@ -44,18 +44,22 @@ class _ResultPageState extends State<ResultPage> {
     if (Result.resultCount == total && widget.isHard == true) {
       isPerfect = true;
     }
+    // 名言を一度取得して保存（Twitter投稿で同じ名言を使用するため）
+    displayedQuote = Result.getResultQuote();
   }
 
   @override
   void dispose() {
     // ResultPageでは広告を破棄しない
     // 広告は表示された後、コールバック内で自動的に破棄される
-    // または次の画面で再利用される
+    // また、次の画面で再利用されない
     super.dispose();
   }
 
   int secondChallengeLife = 0;
   bool isPerfect = false;
+  String? displayedQuote; // 表示されている名言を保存
+  
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
@@ -81,6 +85,15 @@ class _ResultPageState extends State<ResultPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
                     child: Text('結果',style: OriginalThemeFont.basicFont,),
+                  ),
+                  // 死滅回遊編の名言を表示
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Text(
+                      displayedQuote ?? Result.getResultQuote(),
+                      style: OriginalThemeFont.basicFont,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),
@@ -110,7 +123,26 @@ class _ResultPageState extends State<ResultPage> {
                 children: [
                   Buttons.twitterButton(
                     onPressed: ()async{
-                      UrlLauncher.tweet(text: 'text',);
+                      final quizLength = widget.isHard
+                          ? QuizList.hardList[widget.listNum].length
+                          : QuizList.normalList[widget.listNum].length;
+                      final modeText = widget.isHard
+                          ? Buttons.hardModeList[widget.listNum].buttonText
+                          : Buttons.normalModeList[widget.listNum].buttonText;
+                      final quote = displayedQuote ?? Result.getResultQuote();
+                      final correctMessage = '$modeTextで${quizLength}問中${Result.resultCount}問正解しました！';
+                      // TODO: iOSアプリのリンクを取得して設定
+                      final iosUrl = 'iOS\nアプリのリンク';
+                      // TODO: Androidアプリのリンクを取得して設定
+                      final androidUrl = 'Android\nアプリのリンク';
+                      final hashtag1 = '#${UrlLauncher.twitterHashTags[0]}';
+                      final hashtag2 = '#${UrlLauncher.twitterHashTags[1]}';
+                      
+                      // メッセージを組み立て：名言 + 正解数メッセージ + iOSリンク + Androidリンク + ハッシュタグ
+                      final tweetText = '$quote\n\n$correctMessage\n\n$iosUrl\n\n$androidUrl\n\n$hashtag1\n$hashtag2';
+                      
+                      // urlパラメータに空文字列を指定して、自動リンク追加を防ぐ
+                      UrlLauncher.tweet(text: tweetText, url: '');
                     }
                   ),
                   widget.isHard == true && QuizList.hardList[widget.listNum].length != Result.resultCount
@@ -120,7 +152,7 @@ class _ResultPageState extends State<ResultPage> {
                               FullScreenContentCallback(
                                   onAdDismissedFullScreenContent: (ad){
                                     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-                                    print('バーを復活');
+                                    print('ライフを復活');
                                     ad.dispose();
                                     if(secondChallengeLife > 0){
                                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: widget.listNum,isHard: true,)));
@@ -174,7 +206,7 @@ class _ResultPageState extends State<ResultPage> {
                                     SystemUiMode.edgeToEdge,
                                     overlays: [SystemUiOverlay.top],
                                   );
-                                  print('バーを復活');
+                                  print('ライフを復活');
                                   ad.dispose();
                                   AdMob.loadInterstitial();
                                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavPage(isPerfect: isPerfect)));
@@ -223,4 +255,3 @@ class _ResultPageState extends State<ResultPage> {
     );
   }
 }
-

@@ -4,11 +4,11 @@ import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:quiz_app/utils/buttons.dart';
-import 'package:quiz_app/utils/color/original_theme_color.dart';
-import 'package:quiz_app/utils/original_theme_font.dart';
-import 'package:quiz_app/utils/package_info.dart';
-import 'package:quiz_app/utils/shared_preference.dart';
+import 'package:jujutsu_kaisen_quiz/utils/buttons.dart';
+import 'package:jujutsu_kaisen_quiz/utils/color/original_theme_color.dart';
+import 'package:jujutsu_kaisen_quiz/utils/original_theme_font.dart';
+import 'package:jujutsu_kaisen_quiz/utils/package_info.dart';
+import 'package:jujutsu_kaisen_quiz/utils/shared_preference.dart';
 
 import '../view/nav_page.dart';
 import 'info.dart';
@@ -140,7 +140,7 @@ class Dialogs{
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    '正解',
+                    '正解は',
                     style: OriginalThemeFont.quizFont.copyWith(
                       fontSize: 14,
                       color: OriginalThemeColor.gray,
@@ -152,6 +152,7 @@ class Dialogs{
                     style: OriginalThemeFont.quizFont.copyWith(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: Colors.green.shade700,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -213,7 +214,7 @@ class Dialogs{
                     final currentVersion = PackageInfo.version;
                     await sharedPref.setStatus(); // 現在のバージョンを保存
                     await sharedPref.setLastShownPrVersion(currentVersion); // 表示したPRのバージョンを保存
-                    // メッセージ内容のハッシュ値も保存（内容更新忘れの安全策）
+                    // メッセージ内容のハッシュ値も保存（内容更新忘れの安全策！）
                     final prHash = Info.calculatePrHash(currentVersion);
                     await sharedPref.setLastShownPrHash(prHash);
                     Navigator.pop(context);
@@ -238,9 +239,9 @@ class Dialogs{
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: const Text("リタイア"),
-          content: const Text("リタイアしますか？"),
+          return CupertinoAlertDialog(
+            title: const Text("離脱"),
+            content: const Text("離脱しますか？"),
           actions: <Widget>[
             CupertinoDialogAction(
               child: const Text("キャンセル"),

@@ -2,13 +2,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quiz_app/utils/original_theme_font.dart';
-import 'package:quiz_app/utils/url_launcher.dart';
+import 'package:jujutsu_kaisen_quiz/utils/original_theme_font.dart';
+import 'package:jujutsu_kaisen_quiz/utils/url_launcher.dart';
 
-import '../utils/buttons.dart';
-import '../utils/color/original_theme_color.dart';
-import '../utils/dialogs.dart';
-import '../utils/package_info.dart';
+import 'package:jujutsu_kaisen_quiz/utils/buttons.dart';
+import 'package:jujutsu_kaisen_quiz/utils/color/original_theme_color.dart';
+import 'package:jujutsu_kaisen_quiz/utils/dialogs.dart';
+import 'package:jujutsu_kaisen_quiz/utils/package_info.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -46,7 +46,8 @@ class MorePage extends StatelessWidget {
                 MoreButton(
                     text: const Text('アプリを評価する'),
                     onTap: (){
-                      // TODO: IDを変更する。アンドロイドもやる場合は、そのIDも追加する。
+                      // TODO: iOS App IDを取得して設定（App Store Connectで取得できるIDを設定）
+                      // TODO: Android Package IDを取得して設定（Play Consoleで確認できるパッケージ名を設定）
                       UrlLauncher.launchAppStore(
                         iOSAppId: "1608191430",
                         androidPackageId: "com.kihonsyugisya.quiz_app",
@@ -57,8 +58,7 @@ class MorePage extends StatelessWidget {
                 MoreButton(
                   text: const Text('シェアする'), 
                   onTap: (){
-                    // TODO: PR文をかく。
-                    UrlLauncher.tweet(text: 'text');
+                    UrlLauncher.tweet(text: '死滅回游編を中心としたクイズを楽しめます。\n\n#呪術廻戦 #呪術廻戦クイズ');
                   }, 
                   icon: Icon(FontAwesomeIcons.twitter,size: 20,color: OriginalThemeColor.twitter,),),
                 MoreButton.bottomLine,

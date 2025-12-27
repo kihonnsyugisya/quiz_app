@@ -1,5 +1,5 @@
 
-import 'package:quiz_app/utils/quiz/quiz_list.dart';
+import 'package:jujutsu_kaisen_quiz/utils/quiz/quiz_list.dart';
 
 class QuizEntity{
   String quiz;

@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'hex_color.dart';
 
 class OriginalThemeColor {
-  // TODO: メインカラーを変更する
-  static HexColor themeColor = HexColor('#8EA99B');
+  // メインカラー（濃紺 - 闇・呪力のイメージ）
+  static HexColor themeColor = HexColor('#1A1A2E');
 
-  // TODO: サブカラーを変更する
-  static HexColor themeSubColor = HexColor('#697D73');
+  // サブカラー（ダークブルー）
+  static HexColor themeSubColor = HexColor('#16213E');
 
-//  結果画面の色
-  // TODO: 結果画面の色を変更する
-  static HexColor secondColor = HexColor('#FCDDAB');
+//  結果画面の色（黒）
+  static HexColor secondColor = HexColor('#000000');
 
   static HexColor black = HexColor('#000000');
   static HexColor gray = HexColor('#707070');

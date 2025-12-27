@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:quiz_app/utils/dialogs.dart';
-import 'package:quiz_app/utils/shared_preference.dart';
-import 'package:quiz_app/view/nav_page.dart';
+import 'package:jujutsu_kaisen_quiz/utils/dialogs.dart';
+import 'package:jujutsu_kaisen_quiz/utils/shared_preference.dart';
+import 'package:jujutsu_kaisen_quiz/view/nav_page.dart';
 
 void main() async{
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  // 画面の向きを縦向き固定に設定
+  // 画面の向きを縦向き固定に設宁E
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  // ステータスバーを表示するように設定
+  // スチE�Eタスバ�Eを表示するように設宁E
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
     overlays: [SystemUiOverlay.top],
   );
   await MobileAds.instance.initialize();
   await SharedPreference().init();
-  // 初回起動日時を記録（まだ記録されていない場合のみ）
+  // 初回起動日時を記録�E�まだ記録されてぁE��ぁE��合�Eみ�E�E
   final sharedPref = SharedPreference();
   if (await sharedPref.getFirstLaunchDate() == null) {
     await sharedPref.setFirstLaunchDate(DateTime.now());
@@ -56,8 +56,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // TODO: アプリ名を変更する
-      title: 'Quiz App',
+      title: '呪術クイズ',
       theme: ThemeData(
         // textTheme: OriginalThemeFont.mainTheme,
         primarySwatch: Colors.blue,
@@ -67,5 +66,5 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-// TODO: info.plistとアンドロイドマニフェストのアプリのラベル名を替える
-// TODO: info.plistとアンドロイドマニフェストの広告IDを書き換える
+// TODO: info.plistとアンドロイド�Eニフェスト�Eアプリのラベル名を替える
+// TODO: info.plistとアンドロイド�Eニフェスト�E庁E��IDを書き換える

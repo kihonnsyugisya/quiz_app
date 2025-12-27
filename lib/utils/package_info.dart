@@ -7,7 +7,6 @@ class PackageInfo{
 
   // TODO: タイトル、バージョンを更新する。ほんとは、package infoで動的に取得したかったがわからなくて諦めた。上記がその痕跡。
   static String version = '1.0.0';
-  static String title = 'アプリのタイトル';
+  static String title = '呪術クイズ';
 
 }
-

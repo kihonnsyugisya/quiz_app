@@ -1,0 +1,2 @@
+D:/FlutterProjects/quiz_app/android/app/.cxx/RelWithDebInfo/4gc3i372/x86_64/CMakeFiles/edit_cache.dir
+D:/FlutterProjects/quiz_app/android/app/.cxx/RelWithDebInfo/4gc3i372/x86_64/CMakeFiles/rebuild_cache.dir

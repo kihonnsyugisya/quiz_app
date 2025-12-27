@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:quiz_app/utils/color/original_theme_color.dart';
-import 'package:quiz_app/view/home_page.dart';
-import 'package:quiz_app/view/more_page.dart';
+import 'package:jujutsu_kaisen_quiz/utils/color/original_theme_color.dart';
+import 'package:jujutsu_kaisen_quiz/view/home_page.dart';
+import 'package:jujutsu_kaisen_quiz/view/more_page.dart';
 
 class Navigation{
   static int selectIndex = 0;
@@ -15,13 +15,12 @@ class Navigation{
   ];
   static BottomNavigationBar bottomItems(function){
     return BottomNavigationBar(
-      // TODO: ボトムナビのカラーを決める
-    backgroundColor: OriginalThemeColor.black,
+      backgroundColor: OriginalThemeColor.themeSubColor,
       unselectedItemColor: OriginalThemeColor.gray,
-      selectedItemColor: OriginalThemeColor.white,
+      selectedItemColor: OriginalThemeColor.secondColor,
       items: const[
         BottomNavigationBarItem(icon: Icon(Icons.quiz),label: 'クイズ',),
-        BottomNavigationBarItem(icon: Icon(Icons.more_horiz_outlined),label: 'その他'),
+        BottomNavigationBarItem(icon: Icon(Icons.more_horiz_outlined),label: 'その他',),
       ],
       currentIndex: selectIndex,
       onTap: function,

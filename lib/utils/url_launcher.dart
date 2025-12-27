@@ -1,4 +1,3 @@
-
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'dart:io';
@@ -7,19 +6,35 @@ import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncher  {
   static List<String> twitterHashTags = [
-    // TODO: ハッシュタグを決める。
-    '題材名が入ります',
-    '題材名が入ります'
+    '呪術廻戦',
+    '呪術廻戦クイズ',
   ];
 
   static void tweet({
-    required String text,}) async {
-    final Map<String, dynamic> tweetQuery = {
-      "text": text,
-      "url": '',
-      "hashTags": twitterHashTags,
-      "via": "",
-      "related": "",
+    required String text,
+    String? url,
+  }) async {
+    // urlパラメータが指定されていない場合のみ、プラットフォームに応じてアプリストアのリンクを自動追加
+    String tweetText = text;
+    if (url == null) {
+      String? appStoreUrl;
+      if (Platform.isIOS) {
+        appStoreUrl = 'https://apps.apple.com/app/id1608191430';
+      } else if (Platform.isAndroid) {
+        appStoreUrl = 'https://play.google.com/store/apps/details?id=com.kihonsyugisya.quiz_app';
+      }
+      
+      // リンクを追加（メッセージに既にリンクが含まれていない場合）
+      if (appStoreUrl != null && !text.contains(appStoreUrl)) {
+        tweetText = '$text\n\n$appStoreUrl';
+      }
+    } else {
+      // urlパラメータが指定されている場合は、そのままtextを使用（呼び出し側で完全なメッセージを作成済み）
+      tweetText = text;
+    }
+    
+    final Map<String, String> tweetQuery = {
+      "text": tweetText,
     };
 
     final Uri tweetScheme =

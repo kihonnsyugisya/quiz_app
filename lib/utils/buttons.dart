@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quiz_app/utils/original_theme_font.dart';
+import 'package:jujutsu_kaisen_quiz/utils/original_theme_font.dart';
 import 'color/original_theme_color.dart';
 
 class Buttons{
@@ -50,7 +50,7 @@ class Buttons{
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: color ?? OriginalThemeColor.themeSubColor,
-            foregroundColor: Colors.black,
+            foregroundColor: Colors.white,
           ),
           onPressed: page,
           child: Text(
@@ -64,14 +64,14 @@ class Buttons{
 // TODO: 第3章以降を追加する場合は、適宜追加する。quizListに問題を追加した上で。
   // ※画面に表示されるボタンの数は、クイズリストの数に起因するようにしている。
   static List<dynamic> normalModeList = [
-    ModeButtonEntity(buttonText: '第1章', color: null),
-    ModeButtonEntity(buttonText: '第2章', color: null),
+    ModeButtonEntity(buttonText: '前編', color: null),
+    ModeButtonEntity(buttonText: '後編', color: null),
     ModeButtonEntity(buttonText: '第3章', color: null),
   ];
 
   static List<dynamic> hardModeList = [
-    ModeButtonEntity(buttonText: 'VERY HARD', color: null),
-    ModeButtonEntity(buttonText: 'VERY HARD', color: null),
+    ModeButtonEntity(buttonText: '特級', color: null),
+    ModeButtonEntity(buttonText: '特級', color: null),
     ModeButtonEntity(buttonText: '第1章', color: null),
 
   ];
@@ -98,9 +98,9 @@ class Buttons{
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.live_tv_sharp,size: 20,color: OriginalThemeColor.black,),
+          Icon(Icons.live_tv_sharp,size: 20,color: OriginalThemeColor.white,),
           const SizedBox(width: 4,),
-          Text('CMを視聴して復活する',style: OriginalThemeFont.moderateFont,),
+          Text('CMを見て復活する',style: OriginalThemeFont.moderateFont,),
         ],
       ),
     );
@@ -120,7 +120,7 @@ class MoreButton extends StatelessWidget {
   static List<Widget> list = [
 
   ];
-  static Divider bottomLine = Divider(color: OriginalThemeColor.black,height: 0.5,);
+  static Divider bottomLine = Divider(color: OriginalThemeColor.gray,height: 0.5,);
   final Text text;
   final GestureTapCallback? onTap;
   final Icon icon;
@@ -152,7 +152,6 @@ class MoreButton extends StatelessWidget {
     );
   }
 }
-
 
 
 
