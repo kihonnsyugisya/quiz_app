@@ -105,8 +105,15 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   void dispose() {
-    // バナー広告を破棄
-    _bannerAd?.dispose();
+    // バナー広告を破棄（エラーハンドリング付き）
+    try {
+      _bannerAd?.dispose();
+    } catch (e) {
+      // 広告のdisposeエラーを無視（プロセスが既に終了している場合）
+      // ignore: avoid_print
+      print('BannerAd dispose error in dispose() (ignored): $e');
+    }
+    _bannerAd = null;
     super.dispose();
   }
 
@@ -212,23 +219,14 @@ class _QuizPageState extends State<QuizPage> {
                                               // ダイアログのアニメーションが完了するまで待つ
                                               await Future.delayed(const Duration(milliseconds: 300));
                                               
-                                              // 広告を非表示にしてからdispose
+                                              // 広告を非表示にする（disposeはdispose()メソッドに任せる）
                                               if (mounted) {
-                                                final bannerAdToDispose = _bannerAd;
                                                 setState(() {
-                                                  _bannerAd = null; // 先にnullにして非表示にする
+                                                  _bannerAd = null; // nullにして非表示にする
                                                 });
-                                                // 広告の破棄処理
-                                                try {
-                                                  bannerAdToDispose?.dispose();
-                                                } catch (e) {
-                                                  // エラーを無視（プロセスが既に終了している場合）
-                                                  // ignore: avoid_print
-                                                  print('BannerAd dispose error (ignored): $e');
-                                                }
                                               }
-                                              // 広告の破棄処理が完了するまで待つ
-                                              await Future.delayed(const Duration(milliseconds: 200));
+                                              // UI更新を待つ
+                                              await Future.delayed(const Duration(milliseconds: 100));
                                               
                                               // 遷移前に再度mountedチェック
                                               if (mounted && context.mounted) {
@@ -271,23 +269,14 @@ class _QuizPageState extends State<QuizPage> {
                                               // ダイアログのアニメーションが完了するまで待つ
                                               await Future.delayed(const Duration(milliseconds: 300));
                                               
-                                              // 広告を非表示にしてからdispose
+                                              // 広告を非表示にする（disposeはdispose()メソッドに任せる）
                                               if (mounted) {
-                                                final bannerAdToDispose = _bannerAd;
                                                 setState(() {
-                                                  _bannerAd = null; // 先にnullにして非表示にする
+                                                  _bannerAd = null; // nullにして非表示にする
                                                 });
-                                                // 広告の破棄処理
-                                                try {
-                                                  bannerAdToDispose?.dispose();
-                                                } catch (e) {
-                                                  // エラーを無視（プロセスが既に終了している場合）
-                                                  // ignore: avoid_print
-                                                  print('BannerAd dispose error (ignored): $e');
-                                                }
                                               }
-                                              // 広告の破棄処理が完了するまで待つ
-                                              await Future.delayed(const Duration(milliseconds: 200));
+                                              // UI更新を待つ
+                                              await Future.delayed(const Duration(milliseconds: 100));
                                               
                                               // 遷移前に再度mountedチェック
                                               if (mounted && context.mounted) {
@@ -310,23 +299,14 @@ class _QuizPageState extends State<QuizPage> {
                                               // ダイアログのアニメーションが完了するまで待つ
                                               await Future.delayed(const Duration(milliseconds: 300));
                                               
-                                              // 広告を非表示にしてからdispose
+                                              // 広告を非表示にする（disposeはdispose()メソッドに任せる）
                                               if (mounted) {
-                                                final bannerAdToDispose = _bannerAd;
                                                 setState(() {
-                                                  _bannerAd = null; // 先にnullにして非表示にする
+                                                  _bannerAd = null; // nullにして非表示にする
                                                 });
-                                                // 広告の破棄処理
-                                                try {
-                                                  bannerAdToDispose?.dispose();
-                                                } catch (e) {
-                                                  // エラーを無視（プロセスが既に終了している場合）
-                                                  // ignore: avoid_print
-                                                  print('BannerAd dispose error (ignored): $e');
-                                                }
                                               }
-                                              // 広告の破棄処理が完了するまで待つ
-                                              await Future.delayed(const Duration(milliseconds: 200));
+                                              // UI更新を待つ
+                                              await Future.delayed(const Duration(milliseconds: 100));
                                               
                                               // 遷移前に再度mountedチェック
                                               if (mounted && context.mounted) {
