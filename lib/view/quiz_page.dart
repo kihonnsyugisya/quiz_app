@@ -288,6 +288,8 @@ class _QuizPageState extends State<QuizPage> {
                             QuizLogic.resetQuizCount();
                           }
                           ),
+                    // 広告との間隔を確保（AdMobポリシー準拠：最低16dp）
+                    const SizedBox(height: 16),
                     ],
                     ),
                   ),
