@@ -79,33 +79,30 @@ class _ResultPageState extends State<ResultPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(height: deviceHeight * 0.08,),
-              Flexible(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(widget.isHard
-                        ? Buttons.hardModeList[widget.listNum].buttonText
-                        : Buttons.normalModeList[widget.listNum].buttonText,
-                      style: widget.isHard
-                          ? OriginalThemeFont.modeFont
-                          : OriginalThemeFont.basicFont,),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Text('結果',style: OriginalThemeFont.basicFont,),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(widget.isHard
+                      ? Buttons.hardModeList[widget.listNum].buttonText
+                      : Buttons.normalModeList[widget.listNum].buttonText,
+                    style: widget.isHard
+                        ? OriginalThemeFont.modeFont
+                        : OriginalThemeFont.basicFont,),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Text('結果',style: OriginalThemeFont.basicFont,),
+                  ),
+                  // 死滅回遊編の名言を表示
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
+                    child: Text(
+                      displayedQuote ?? Result.getResultQuote(),
+                      style: OriginalThemeFont.basicFont,
+                      textAlign: TextAlign.center,
+                      maxLines: 4, // 最大4行まで
                     ),
-                    // 死滅回遊編の名言を表示
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                      child: Text(
-                        displayedQuote ?? Result.getResultQuote(),
-                        style: OriginalThemeFont.basicFont,
-                        textAlign: TextAlign.center,
-                        maxLines: 3, // 最大3行まで
-                        overflow: TextOverflow.ellipsis, // はみ出した場合は省略
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Column(
                 children: [
