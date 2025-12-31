@@ -74,11 +74,11 @@ class _ResultPageState extends State<ResultPage> {
         body: SafeArea(
         child: SizedBox(
           width: deviceWidth,
-          height: deviceHeight * 0.6,
+          height: deviceHeight * 0.7, // 0.6から0.65に増やして余裕を持たせる
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(height: deviceHeight * 0.08,),
+              SizedBox(height: deviceHeight * 0.05,), // 0.08から0.05に減らしてスペースを確保
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
