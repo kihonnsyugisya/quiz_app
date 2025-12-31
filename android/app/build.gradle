@@ -33,7 +33,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     compileSdkVersion flutter.compileSdkVersion
 
-    namespace "com.kihonsyugisya.quiz_app"
+    namespace "com.kihonsyugisya.jujutsuQuiz"
     
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -50,7 +50,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.kihonsyugisya.quiz_app"
+        applicationId "com.kihonsyugisya.jujutsuQuiz"
         minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()

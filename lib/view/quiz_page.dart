@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:jujutsu_kaisen_quiz/utils/color/original_theme_color.dart';
 import 'package:jujutsu_kaisen_quiz/utils/dialogs.dart';
 import 'package:jujutsu_kaisen_quiz/utils/original_theme_font.dart';
@@ -21,6 +22,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  BannerAd? _bannerAd;
 
   @override
   void initState() {
@@ -31,11 +33,19 @@ class _QuizPageState extends State<QuizPage> {
     if(widget.isHard == true){
       AdMob.loadReward();
     }
+    // アダプティブバナー広告を読み込む
+    Future(() async {
+      if (mounted) {
+        _bannerAd = await AdMob.createBannerAd(context);
+        setState(() {});
+      }
+    });
   }
 
   @override
   void dispose() {
-    // バナー広告はアプリ全体で共有するため、ここでは破棄しない
+    // バナー広告を破棄
+    _bannerAd?.dispose();
     super.dispose();
   }
 
@@ -196,8 +206,12 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                 ),
             ),
-            // QuizPageではバナー広告を表示しない（NavPageで表示されるため）
-            const Expanded(flex: 1, child: SizedBox()),
+            Expanded(
+              flex: 1,
+              child: _bannerAd != null
+                  ? AdMob.bannerAdArea(child: AdWidget(ad: _bannerAd!))
+                  : AdMob.bannerAdArea(child: const SizedBox()),
+            ),
           ],
         ),
       ),

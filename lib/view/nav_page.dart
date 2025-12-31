@@ -29,8 +29,8 @@ class _NavPageState extends State<NavPage> {
 
   @override
   void dispose(){
-    // バナー広告はアプリ全体で共有するため、ここでは破棄しない
-    // アプリ終了時に破棄される
+    // バナー広告を破棄
+    _bannerAd?.dispose();
     super.dispose();
   }
 
@@ -57,7 +57,7 @@ class _NavPageState extends State<NavPage> {
       }
       // アダプティブバナー広告を読み込む
       if (mounted) {
-        _bannerAd = await AdMob.getBannerAd(context);
+        _bannerAd = await AdMob.createBannerAd(context);
         setState(() {});
       }
     });

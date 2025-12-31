@@ -7,7 +7,7 @@ import 'color/original_theme_color.dart';
 class AdMob{
   static Container bannerAdArea({required Widget child}){
     return Container(
-      color: OriginalThemeColor.gray,
+      color: OriginalThemeColor.themeColor,
       child: child);
   }
   static int interstitialAdCounter = 0;
@@ -65,7 +65,37 @@ class AdMob{
       return productionAdIds[deviceType]![adType] ?? 'error';
     }
   }
-  // バナー広告を取得（シングルトン、アダプティブサイズ対応）
+  // バナー広告を新規作成（アダプティブサイズ対応）
+  // 各ページで新しいインスタンスを作成し、ページが破棄される時にdisposeすることを推奨
+  static Future<BannerAd> createBannerAd(BuildContext context) async {
+    // アダプティブバナー広告のサイズを取得
+    final AdSize adSize = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+      MediaQuery.of(context).size.width.truncate(),
+    ) ?? AdSize.banner; // フォールバックとして固定サイズを使用
+    
+    final bannerAd = BannerAd(
+      adUnitId: getAdId(deviceType: getPlatform(), adType: 'banner',),
+      size: adSize,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          // ignore: avoid_print
+          print('BannerAd loaded');
+        },
+        onAdFailedToLoad: (ad, error) {
+          // ignore: avoid_print
+          print('BannerAd failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    );
+    bannerAd.load();
+    return bannerAd;
+  }
+  
+  // バナー広告を取得（シングルトン、非推奨）
+  // 推奨: createBannerAd()を使用してください
+  @Deprecated('Use createBannerAd() instead. Each page should create its own BannerAd instance.')
   static Future<BannerAd> getBannerAd(BuildContext context) async {
     if (_bannerAd == null) {
       // アダプティブバナー広告のサイズを取得
