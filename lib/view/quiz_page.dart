@@ -1,4 +1,5 @@
 
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:jujutsu_kaisen_quiz/utils/color/original_theme_color.dart';
@@ -23,10 +24,14 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   BannerAd? _bannerAd;
+  // 各クイズのシャッフルされた選択肢と正解インデックスを保持
+  List<Map<String, dynamic>>? _shuffledQuizzes;
 
   @override
   void initState() {
     super.initState();
+    // クイズリストを取得してシャッフル
+    _shuffleQuizAnswers();
     // インタースティシャル広告の読み込み（既に読み込み済みの場合は読み込まない）
     AdMob.loadInterstitial();
     // ハードモードの場合のみリワード広告を読み込む
@@ -42,6 +47,62 @@ class _QuizPageState extends State<QuizPage> {
     });
   }
 
+  // クイズリストを取得するメソッド
+  List<dynamic> quizDoc(){
+    if(widget.isHard){
+      // ハードモードでも、ランダムに選ばれた30問を使用
+      final selectedQuizDoc = QuizList.selectedQuizList;
+      if (selectedQuizDoc != null && selectedQuizDoc.isNotEmpty) {
+        return selectedQuizDoc;
+      }
+      // フォールバック：選択されていない場合は元のリストを使用
+      final hardQuizDoc = QuizList.hardList[widget.listNum];
+      return hardQuizDoc;
+    }else{
+      // 通常モードでは、ランダムに選ばれた10問を使用
+      final selectedQuizDoc = QuizList.selectedQuizList;
+      if (selectedQuizDoc != null && selectedQuizDoc.isNotEmpty) {
+        return selectedQuizDoc;
+      }
+      // フォールバック：選択されていない場合は元のリストを使用
+      final normalQuizDoc = QuizList.normalList[widget.listNum];
+      return normalQuizDoc;
+    }
+  }
+
+  // クイズの選択肢をシャッフルする
+  void _shuffleQuizAnswers() {
+    final quizList = quizDoc();
+    _shuffledQuizzes = [];
+    
+    for (var quiz in quizList) {
+      // 選択肢と正解のインデックスをコピー
+      final answers = List<String>.from(quiz.answer);
+      final correctAnswerIndex = quiz.answerOfNum;
+      final correctAnswer = answers[correctAnswerIndex];
+      
+      // 選択肢をシャッフル
+      answers.shuffle(Random());
+      
+      // シャッフル後の正解のインデックスを取得
+      final newCorrectIndex = answers.indexOf(correctAnswer);
+      
+      _shuffledQuizzes!.add({
+        'quiz': quiz.quiz,
+        'answers': answers,
+        'correctIndex': newCorrectIndex,
+      });
+    }
+  }
+
+  // シャッフルされたクイズデータを取得
+  Map<String, dynamic>? getCurrentShuffledQuiz() {
+    if (_shuffledQuizzes == null || QuizLogic.quizCount >= _shuffledQuizzes!.length) {
+      return null;
+    }
+    return _shuffledQuizzes![QuizLogic.quizCount];
+  }
+
   @override
   void dispose() {
     // バナー広告を破棄
@@ -51,29 +112,6 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    quizDoc(){
-      if(widget.isHard){
-        // ハードモードでも、ランダムに選ばれた30問を使用
-        final selectedQuizDoc = QuizList.selectedQuizList;
-        if (selectedQuizDoc != null && selectedQuizDoc.isNotEmpty) {
-          return selectedQuizDoc;
-        }
-        // フォールバック：選択されていない場合は元のリストを使用
-        final hardQuizDoc = QuizList.hardList[widget.listNum];
-        return hardQuizDoc;
-      }else{
-        // 通常モードでは、ランダムに選ばれた10問を使用
-        final selectedQuizDoc = QuizList.selectedQuizList;
-        if (selectedQuizDoc != null && selectedQuizDoc.isNotEmpty) {
-          return selectedQuizDoc;
-        }
-        // フォールバック：選択されていない場合は元のリストを使用
-        final normalQuizDoc = QuizList.normalList[widget.listNum];
-        return normalQuizDoc;
-      }
-    }
-
     final double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: OriginalThemeColor.themeColor,
@@ -142,20 +180,25 @@ class _QuizPageState extends State<QuizPage> {
                       ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: quizDoc()[QuizLogic.quizCount].answer.length,
+                          itemCount: getCurrentShuffledQuiz()?['answers'].length ?? 0,
                           itemBuilder: (BuildContext context, int index) {
+                            final shuffledQuiz = getCurrentShuffledQuiz();
+                            if (shuffledQuiz == null) return const SizedBox();
+                            
                             return Buttons.ModeButton(
-                                buttonText: quizDoc()[QuizLogic.quizCount].answer[index],
+                                buttonText: shuffledQuiz['answers'][index],
                                 color: null,
                                 page: (){
                                   // ignore: avoid_print
                                   print('クイズレングス: ${quizDoc().length}');
-                                  if(QuizLogic.isSuccess(tapIndex: index, listNum: widget.listNum, quizNum: QuizLogic.quizCount, isHard: widget.isHard)){
+                                  // シャッフル後の正解インデックスと比較
+                                  final isCorrect = index == shuffledQuiz['correctIndex'];
+                                  if(isCorrect){
                                     Result.addResultCount();
                                     return setState(() {
                                       Dialogs.successResultDialog(
                                           context: context,
-                                          text: quizDoc()[QuizLogic.quizCount].answer[quizDoc()[QuizLogic.quizCount].answerOfNum],
+                                          text: shuffledQuiz['answers'][shuffledQuiz['correctIndex']],
                                           btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(isSuccess: true,isHard: widget.isHard,quizCount: QuizLogic.quizCount, quizLength: quizDoc().length)),
                                           onTap: (){
                                             if(Result.isMoveToResultPage(isHard: widget.isHard,quizCount: QuizLogic.quizCount, quizLength: quizDoc().length, isSuccess: true)){
@@ -178,7 +221,7 @@ class _QuizPageState extends State<QuizPage> {
                                     return setState(() {
                                       Dialogs.missResultDialog(
                                         context: context,
-                                        text: quizDoc()[QuizLogic.quizCount].answer[quizDoc()[QuizLogic.quizCount].answerOfNum],
+                                        text: shuffledQuiz['answers'][shuffledQuiz['correctIndex']],
                                         btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(quizCount: QuizLogic.quizCount, quizLength: quizDoc().length, isHard: widget.isHard, isSuccess: false)),
                                         onTap: (){
                                             if(Result.isMoveToResultPage(quizCount: QuizLogic.quizCount, quizLength: quizDoc().length, isHard: widget.isHard, isSuccess: false)){
