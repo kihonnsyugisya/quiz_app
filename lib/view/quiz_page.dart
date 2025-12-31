@@ -212,22 +212,38 @@ class _QuizPageState extends State<QuizPage> {
                                               // ダイアログのアニメーションが完了するまで待つ
                                               await Future.delayed(const Duration(milliseconds: 300));
                                               
-                                              // 広告を明示的にdisposeしてから遷移
+                                              // 広告を非表示にしてからdispose
                                               if (mounted) {
-                                                _bannerAd?.dispose();
-                                                _bannerAd = null;
+                                                final bannerAdToDispose = _bannerAd;
+                                                setState(() {
+                                                  _bannerAd = null; // 先にnullにして非表示にする
+                                                });
+                                                // 広告の破棄処理
+                                                try {
+                                                  bannerAdToDispose?.dispose();
+                                                } catch (e) {
+                                                  // エラーを無視（プロセスが既に終了している場合）
+                                                  // ignore: avoid_print
+                                                  print('BannerAd dispose error (ignored): $e');
+                                                }
                                               }
                                               // 広告の破棄処理が完了するまで待つ
                                               await Future.delayed(const Duration(milliseconds: 200));
                                               
                                               // 遷移前に再度mountedチェック
                                               if (mounted && context.mounted) {
-                                                Navigator.pushReplacement(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => ResultPage(isHard: widget.isHard, listNum: widget.listNum)
-                                                  ),
-                                                );
+                                                try {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => ResultPage(isHard: widget.isHard, listNum: widget.listNum)
+                                                    ),
+                                                  );
+                                                } catch (e) {
+                                                  // ナビゲーションエラーを無視
+                                                  // ignore: avoid_print
+                                                  print('Navigation error (ignored): $e');
+                                                }
                                               }
                                             }else{
                                               setState(() {
@@ -255,22 +271,38 @@ class _QuizPageState extends State<QuizPage> {
                                               // ダイアログのアニメーションが完了するまで待つ
                                               await Future.delayed(const Duration(milliseconds: 300));
                                               
-                                              // 広告を明示的にdisposeしてから遷移
+                                              // 広告を非表示にしてからdispose
                                               if (mounted) {
-                                                _bannerAd?.dispose();
-                                                _bannerAd = null;
+                                                final bannerAdToDispose = _bannerAd;
+                                                setState(() {
+                                                  _bannerAd = null; // 先にnullにして非表示にする
+                                                });
+                                                // 広告の破棄処理
+                                                try {
+                                                  bannerAdToDispose?.dispose();
+                                                } catch (e) {
+                                                  // エラーを無視（プロセスが既に終了している場合）
+                                                  // ignore: avoid_print
+                                                  print('BannerAd dispose error (ignored): $e');
+                                                }
                                               }
                                               // 広告の破棄処理が完了するまで待つ
                                               await Future.delayed(const Duration(milliseconds: 200));
                                               
                                               // 遷移前に再度mountedチェック
                                               if (mounted && context.mounted) {
-                                                Navigator.pushReplacement(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => ResultPage(listNum: widget.listNum, isHard: widget.isHard)
-                                                  ),
-                                                );
+                                                try {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => ResultPage(listNum: widget.listNum, isHard: widget.isHard)
+                                                    ),
+                                                  );
+                                                } catch (e) {
+                                                  // ナビゲーションエラーを無視
+                                                  // ignore: avoid_print
+                                                  print('Navigation error (ignored): $e');
+                                                }
                                               }
                                             } else if(widget.isHard){
                                               // ダイアログを閉じる
@@ -278,22 +310,38 @@ class _QuizPageState extends State<QuizPage> {
                                               // ダイアログのアニメーションが完了するまで待つ
                                               await Future.delayed(const Duration(milliseconds: 300));
                                               
-                                              // 広告を明示的にdisposeしてから遷移
+                                              // 広告を非表示にしてからdispose
                                               if (mounted) {
-                                                _bannerAd?.dispose();
-                                                _bannerAd = null;
+                                                final bannerAdToDispose = _bannerAd;
+                                                setState(() {
+                                                  _bannerAd = null; // 先にnullにして非表示にする
+                                                });
+                                                // 広告の破棄処理
+                                                try {
+                                                  bannerAdToDispose?.dispose();
+                                                } catch (e) {
+                                                  // エラーを無視（プロセスが既に終了している場合）
+                                                  // ignore: avoid_print
+                                                  print('BannerAd dispose error (ignored): $e');
+                                                }
                                               }
                                               // 広告の破棄処理が完了するまで待つ
                                               await Future.delayed(const Duration(milliseconds: 200));
                                               
                                               // 遷移前に再度mountedチェック
                                               if (mounted && context.mounted) {
-                                                Navigator.pushReplacement(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => ResultPage(listNum: widget.listNum, isHard: widget.isHard)
-                                                  ),
-                                                );
+                                                try {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => ResultPage(listNum: widget.listNum, isHard: widget.isHard)
+                                                    ),
+                                                  );
+                                                } catch (e) {
+                                                  // ナビゲーションエラーを無視
+                                                  // ignore: avoid_print
+                                                  print('Navigation error (ignored): $e');
+                                                }
                                               }
                                             }else{
                                               setState(() {
