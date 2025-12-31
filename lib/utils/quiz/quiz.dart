@@ -21,10 +21,21 @@ class QuizLogic{
         return false;
       }
     }else{
-      if(tapIndex == QuizList.normalList[listNum][quizNum].answerOfNum){
-        return true;
+      // 通常モードでは、選択されたクイズリストを使用
+      final quizList = QuizList.selectedQuizList;
+      if (quizList != null && quizNum < quizList.length) {
+        if(tapIndex == quizList[quizNum].answerOfNum){
+          return true;
+        }else{
+          return false;
+        }
       }else{
-        return false;
+        // フォールバック：元のリストを使用
+        if(tapIndex == QuizList.normalList[listNum][quizNum].answerOfNum){
+          return true;
+        }else{
+          return false;
+        }
       }
     }
   }

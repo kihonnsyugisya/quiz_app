@@ -46,11 +46,9 @@ class MorePage extends StatelessWidget {
                 MoreButton(
                     text: const Text('アプリを評価する'),
                     onTap: (){
-                      // TODO: iOS App IDを取得して設定（App Store Connectで取得できるIDを設定）
-                      // TODO: Android Package IDを取得して設定（Play Consoleで確認できるパッケージ名を設定）
                       UrlLauncher.launchAppStore(
-                        iOSAppId: "1608191430",
-                        androidPackageId: "com.kihonsyugisya.quiz_app",
+                        iOSAppId: PackageInfo.iOSAppId,
+                        androidPackageId: PackageInfo.androidPackageId,
                       );
                     },
                     icon: Icon(Icons.star,color: OriginalThemeColor.star,)),

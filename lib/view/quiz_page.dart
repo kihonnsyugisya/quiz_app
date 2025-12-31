@@ -54,9 +54,21 @@ class _QuizPageState extends State<QuizPage> {
 
     quizDoc(){
       if(widget.isHard){
+        // ハードモードでも、ランダムに選ばれた30問を使用
+        final selectedQuizDoc = QuizList.selectedQuizList;
+        if (selectedQuizDoc != null && selectedQuizDoc.isNotEmpty) {
+          return selectedQuizDoc;
+        }
+        // フォールバック：選択されていない場合は元のリストを使用
         final hardQuizDoc = QuizList.hardList[widget.listNum];
         return hardQuizDoc;
       }else{
+        // 通常モードでは、ランダムに選ばれた10問を使用
+        final selectedQuizDoc = QuizList.selectedQuizList;
+        if (selectedQuizDoc != null && selectedQuizDoc.isNotEmpty) {
+          return selectedQuizDoc;
+        }
+        // フォールバック：選択されていない場合は元のリストを使用
         final normalQuizDoc = QuizList.normalList[widget.listNum];
         return normalQuizDoc;
       }

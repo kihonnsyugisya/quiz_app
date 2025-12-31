@@ -49,7 +49,7 @@ class Buttons{
         height: 54,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: color ?? OriginalThemeColor.themeSubColor,
+            backgroundColor: color ?? OriginalThemeColor.buttonColor,
             foregroundColor: Colors.white,
           ),
           onPressed: page,
@@ -66,13 +66,10 @@ class Buttons{
   static List<dynamic> normalModeList = [
     ModeButtonEntity(buttonText: '前編', color: null),
     ModeButtonEntity(buttonText: '後編', color: null),
-    ModeButtonEntity(buttonText: '第3章', color: null),
   ];
 
   static List<dynamic> hardModeList = [
     ModeButtonEntity(buttonText: '特級', color: null),
-    ModeButtonEntity(buttonText: '特級', color: null),
-    ModeButtonEntity(buttonText: '第1章', color: null),
 
   ];
 

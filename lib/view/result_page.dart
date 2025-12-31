@@ -39,8 +39,8 @@ class _ResultPageState extends State<ResultPage> {
     AdMob.loadInterstitial();
     // ハードモードで全問正解かどうかを判定
     final total = widget.isHard
-        ? QuizList.hardList[widget.listNum].length
-        : QuizList.normalList[widget.listNum].length;
+        ? (QuizList.selectedQuizList?.length ?? QuizList.hardList[widget.listNum].length)
+        : (QuizList.selectedQuizList?.length ?? QuizList.normalList[widget.listNum].length);
     if (Result.resultCount == total && widget.isHard == true) {
       isPerfect = true;
     }
@@ -101,8 +101,8 @@ class _ResultPageState extends State<ResultPage> {
                 children: [
                   Text('${
                       widget.isHard
-                      ? QuizList.hardList[widget.listNum].length
-                      : QuizList.normalList[widget.listNum].length}問中',
+                      ? (QuizList.selectedQuizList?.length ?? QuizList.hardList[widget.listNum].length)
+                      : (QuizList.selectedQuizList?.length ?? QuizList.normalList[widget.listNum].length)}問中',
                     style: OriginalThemeFont.basicFont,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -124,8 +124,8 @@ class _ResultPageState extends State<ResultPage> {
                   Buttons.twitterButton(
                     onPressed: ()async{
                       final quizLength = widget.isHard
-                          ? QuizList.hardList[widget.listNum].length
-                          : QuizList.normalList[widget.listNum].length;
+                          ? (QuizList.selectedQuizList?.length ?? QuizList.hardList[widget.listNum].length)
+                          : (QuizList.selectedQuizList?.length ?? QuizList.normalList[widget.listNum].length);
                       final modeText = widget.isHard
                           ? Buttons.hardModeList[widget.listNum].buttonText
                           : Buttons.normalModeList[widget.listNum].buttonText;

@@ -9,4 +9,9 @@ class PackageInfo{
   static String version = '1.0.0';
   static String title = '呪術クイズ';
 
+  // アプリストアID（一箇所で管理）
+  // TODO: 実際のiOS App IDに更新（App Store Connectで確認）
+  static String iOSAppId = '1608191430';
+  static String androidPackageId = 'com.kihonsyugisya.jujutsuQuiz';
+
 }

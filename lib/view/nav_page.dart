@@ -37,8 +37,8 @@ class _NavPageState extends State<NavPage> {
   @override
   void initState() {
     super.initState();
-    // 全ての名言を結合したテキストを取得
-    _currentQuote = Info.information;
+    // 常に出題範囲のアナウンスを表示（説明口調）
+    _currentQuote = '出題範囲：前編は原作143話〜158話、後編は原作159話〜212話、特級は原作143話〜212話を出題範囲としています。';
     Future(() async {
       await SharedPreference().getStatus();
       // await AdMob.myBanner(adType: 'banner').load();

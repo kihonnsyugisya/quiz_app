@@ -7,6 +7,9 @@ class OriginalThemeColor {
 
   // サブカラー（ダークブルー）
   static HexColor themeSubColor = HexColor('#16213E');
+  
+  // ボタン用カラー（ダークブルー系、少し明るめで見やすく）
+  static HexColor buttonColor = HexColor('#24345E');
 
 //  結果画面の色（黒）
   static HexColor secondColor = HexColor('#000000');

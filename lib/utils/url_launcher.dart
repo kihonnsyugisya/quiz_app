@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:jujutsu_kaisen_quiz/utils/package_info.dart';
 
 class UrlLauncher  {
   static List<String> twitterHashTags = [
@@ -19,9 +20,9 @@ class UrlLauncher  {
     if (url == null) {
       String? appStoreUrl;
       if (Platform.isIOS) {
-        appStoreUrl = 'https://apps.apple.com/app/id1608191430';
+        appStoreUrl = 'https://apps.apple.com/app/id${PackageInfo.iOSAppId}';
       } else if (Platform.isAndroid) {
-        appStoreUrl = 'https://play.google.com/store/apps/details?id=com.kihonsyugisya.quiz_app';
+        appStoreUrl = 'https://play.google.com/store/apps/details?id=${PackageInfo.androidPackageId}';
       }
       
       // リンクを追加（メッセージに既にリンクが含まれていない場合）
@@ -83,7 +84,7 @@ class UrlLauncher  {
       url = Uri.parse('https://apps.apple.com/app/id$iOSAppId');
     } else if (Platform.isAndroid) {
       // Android Play Store
-      final packageId = androidPackageId ?? 'com.kihonsyugisya.quiz_app';
+      final packageId = androidPackageId ?? PackageInfo.androidPackageId;
       // market://スキームを試し、失敗した場合はhttpsを使用
       final marketUrl = Uri.parse('market://details?id=$packageId');
       if (await canLaunchUrl(marketUrl)) {

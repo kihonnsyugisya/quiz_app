@@ -35,7 +35,8 @@ class HomePage extends StatelessWidget {
                       page: ()async{
                         // ignore: avoid_print
                         print(index);
-                        await QuizList.normalList[index].shuffle();
+                        // 前編・後編からランダムに10問を選ぶ
+                        QuizList.selectRandomQuizzes(index, 10);
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: index,isHard: false,)));
                       },
                   );
@@ -52,7 +53,8 @@ class HomePage extends StatelessWidget {
                     page: ()async{
                       // ignore: avoid_print
                       print(index);
-                      await QuizList.hardList[index].shuffle();
+                      // ハードモードでは40問の中からランダムに30問を選ぶ
+                      QuizList.selectRandomHardQuizzes(index, 30);
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(listNum: index,isHard: true,)));
                     },
                   );
