@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>ja</string>
 		<key>CFBundleDisplayName</key>
-		<string>呪術クイズ for 呪術廻戦</string>
+		<string>呪術クイズ</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
