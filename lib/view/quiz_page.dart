@@ -207,16 +207,27 @@ class _QuizPageState extends State<QuizPage> {
                                           btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(isSuccess: true,isHard: widget.isHard,quizCount: QuizLogic.quizCount, quizLength: quizDoc().length)),
                                           onTap: () async {
                                             if(Result.isMoveToResultPage(isHard: widget.isHard,quizCount: QuizLogic.quizCount, quizLength: quizDoc().length, isSuccess: true)){
+                                              // ダイアログを閉じる
                                               Navigator.of(context).pop();
+                                              // ダイアログのアニメーションが完了するまで待つ
+                                              await Future.delayed(const Duration(milliseconds: 300));
+                                              
                                               // 広告を明示的にdisposeしてから遷移
                                               if (mounted) {
                                                 _bannerAd?.dispose();
                                                 _bannerAd = null;
                                               }
-                                              // 少し待ってから遷移（広告の破棄処理を確実に完了させる）
-                                              await Future.delayed(const Duration(milliseconds: 100));
-                                              if (mounted) {
-                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultPage(isHard: widget.isHard,listNum: widget.listNum)));
+                                              // 広告の破棄処理が完了するまで待つ
+                                              await Future.delayed(const Duration(milliseconds: 200));
+                                              
+                                              // 遷移前に再度mountedチェック
+                                              if (mounted && context.mounted) {
+                                                Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => ResultPage(isHard: widget.isHard, listNum: widget.listNum)
+                                                  ),
+                                                );
                                               }
                                             }else{
                                               setState(() {
@@ -239,28 +250,50 @@ class _QuizPageState extends State<QuizPage> {
                                         btnText: Dialogs.confirmBtnText(Result.isMoveToResultPage(quizCount: QuizLogic.quizCount, quizLength: quizDoc().length, isHard: widget.isHard, isSuccess: false)),
                                         onTap: () async {
                                             if(Result.isMoveToResultPage(quizCount: QuizLogic.quizCount, quizLength: quizDoc().length, isHard: widget.isHard, isSuccess: false)){
+                                              // ダイアログを閉じる
                                               Navigator.of(context).pop();
+                                              // ダイアログのアニメーションが完了するまで待つ
+                                              await Future.delayed(const Duration(milliseconds: 300));
+                                              
                                               // 広告を明示的にdisposeしてから遷移
                                               if (mounted) {
                                                 _bannerAd?.dispose();
                                                 _bannerAd = null;
                                               }
-                                              // 少し待ってから遷移
-                                              await Future.delayed(const Duration(milliseconds: 100));
-                                              if (mounted) {
-                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultPage(listNum: widget.listNum,isHard: widget.isHard,)));
+                                              // 広告の破棄処理が完了するまで待つ
+                                              await Future.delayed(const Duration(milliseconds: 200));
+                                              
+                                              // 遷移前に再度mountedチェック
+                                              if (mounted && context.mounted) {
+                                                Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => ResultPage(listNum: widget.listNum, isHard: widget.isHard)
+                                                  ),
+                                                );
                                               }
                                             } else if(widget.isHard){
+                                              // ダイアログを閉じる
                                               Navigator.of(context).pop();
+                                              // ダイアログのアニメーションが完了するまで待つ
+                                              await Future.delayed(const Duration(milliseconds: 300));
+                                              
                                               // 広告を明示的にdisposeしてから遷移
                                               if (mounted) {
                                                 _bannerAd?.dispose();
                                                 _bannerAd = null;
                                               }
-                                              // 少し待ってから遷移
-                                              await Future.delayed(const Duration(milliseconds: 100));
-                                              if (mounted) {
-                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultPage(listNum: widget.listNum,isHard: widget.isHard,)));
+                                              // 広告の破棄処理が完了するまで待つ
+                                              await Future.delayed(const Duration(milliseconds: 200));
+                                              
+                                              // 遷移前に再度mountedチェック
+                                              if (mounted && context.mounted) {
+                                                Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => ResultPage(listNum: widget.listNum, isHard: widget.isHard)
+                                                  ),
+                                                );
                                               }
                                             }else{
                                               setState(() {
