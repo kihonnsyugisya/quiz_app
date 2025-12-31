@@ -112,6 +112,7 @@ flutter_native_splash:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "images/logo.png"
+  image_path: "images/logo.png"  # Android用（デフォルト）
+  image_path_ios: "images/logo_ios.png"  # iOS専用（1024x1024px推奨）
   adaptive_icon_background: "#1A1A2E"
   adaptive_icon_foreground: "images/logo.png"
