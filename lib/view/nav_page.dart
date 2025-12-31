@@ -66,10 +66,15 @@ class _NavPageState extends State<NavPage> {
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: OriginalThemeColor.themeColor,
-        body: Column(
+    return WillPopScope(
+      onWillPop: () async {
+        // HOMEページでは戻る操作を無効化（スワイプジェスチャーも含む）
+        return false;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: OriginalThemeColor.themeColor,
+          body: Column(
           children: [
             Container(
               child: Center(
@@ -122,6 +127,7 @@ class _NavPageState extends State<NavPage> {
           ],
         ),
         bottomNavigationBar: Navigation.bottomItems(_onItemTapped),
+        ),
       ),
     );
   }

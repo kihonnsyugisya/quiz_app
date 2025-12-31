@@ -64,9 +64,14 @@ class _ResultPageState extends State<ResultPage> {
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double deviceHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: OriginalThemeColor.secondColor,
-      body: SafeArea(
+    return WillPopScope(
+      onWillPop: () async {
+        // 結果ページでは戻る操作を無効化（スワイプジェスチャーも含む）
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: OriginalThemeColor.secondColor,
+        body: SafeArea(
         child: SizedBox(
           width: deviceWidth,
           height: deviceHeight * 0.6,
@@ -251,6 +256,7 @@ class _ResultPageState extends State<ResultPage> {
             ],
           ),
         ),
+      ),
       ),
     );
   }
