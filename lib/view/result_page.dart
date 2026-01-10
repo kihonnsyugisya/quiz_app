@@ -13,6 +13,8 @@ import '../utils/adMob.dart';
 import '../utils/buttons.dart';
 import '../utils/dialogs.dart';
 import '../utils/quiz/quiz_list.dart';
+import '../utils/package_info.dart';
+import 'package:jujutsu_kaisen_quiz/utils/shared_preference.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
 class ResultPage extends StatefulWidget {
@@ -46,6 +48,8 @@ class _ResultPageState extends State<ResultPage> {
     }
     // 名言を一度取得して保存（Twitter投稿で同じ名言を使用するため）
     displayedQuote = Result.getResultQuote();
+    // クイズ完了回数をカウント
+    SharedPreference().incrementQuizCompletionCount();
   }
 
   @override
@@ -138,10 +142,8 @@ class _ResultPageState extends State<ResultPage> {
                           : Buttons.normalModeList[widget.listNum].buttonText;
                       final quote = displayedQuote ?? Result.getResultQuote();
                       final correctMessage = '$modeTextで${quizLength}問中${Result.resultCount}問正解しました！';
-                      // TODO: iOSアプリのリンクを取得して設定
-                      final iosUrl = 'iOS\nアプリのリンク';
-                      // TODO: Androidアプリのリンクを取得して設定
-                      final androidUrl = 'Android\nアプリのリンク';
+                      final iosUrl = 'iOS\nhttps://x.gd/rSEDH';
+                      final androidUrl = 'Android\nhttps://x.gd/47K1Y';
                       final hashtag1 = '#${UrlLauncher.twitterHashTags[0]}';
                       final hashtag2 = '#${UrlLauncher.twitterHashTags[1]}';
                       
@@ -150,6 +152,14 @@ class _ResultPageState extends State<ResultPage> {
                       
                       // urlパラメータに空文字列を指定して、自動リンク追加を防ぐ
                       UrlLauncher.tweet(text: tweetText, url: '');
+                    }
+                  ),
+                  Buttons.reviewButton(
+                    onPressed: ()async{
+                      UrlLauncher.launchAppReview(
+                        iOSAppId: PackageInfo.iOSAppId,
+                        androidPackageId: PackageInfo.androidPackageId,
+                      );
                     }
                   ),
                   widget.isHard == true && QuizList.hardList[widget.listNum].length != Result.resultCount
