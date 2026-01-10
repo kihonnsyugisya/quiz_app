@@ -46,7 +46,7 @@ class MorePage extends StatelessWidget {
                 MoreButton(
                     text: const Text('アプリを評価する'),
                     onTap: (){
-                      UrlLauncher.launchAppStore(
+                      UrlLauncher.launchAppReview(
                         iOSAppId: PackageInfo.iOSAppId,
                         androidPackageId: PackageInfo.androidPackageId,
                       );
@@ -56,7 +56,7 @@ class MorePage extends StatelessWidget {
                 MoreButton(
                   text: const Text('シェアする'), 
                   onTap: (){
-                    UrlLauncher.tweet(text: '死滅回游編を中心としたクイズを楽しめます。\n\n#呪術廻戦 #呪術廻戦クイズ');
+                    UrlLauncher.tweet(text: '死滅回游編を中心としたクイズを楽しめます。\n\niOS\nhttps://x.gd/rSEDH\n\nAndroid\nhttps://x.gd/47K1Y\n\n#呪術廻戦 #呪術廻戦クイズ', url: '');
                   }, 
                   icon: Icon(FontAwesomeIcons.twitter,size: 20,color: OriginalThemeColor.twitter,),),
                 MoreButton.bottomLine,

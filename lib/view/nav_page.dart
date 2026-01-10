@@ -6,7 +6,6 @@ import 'package:marquee/marquee.dart';
 import 'package:jujutsu_kaisen_quiz/utils/color/original_theme_color.dart';
 import 'package:jujutsu_kaisen_quiz/utils/shared_preference.dart';
 import '../utils/adMob.dart';
-import '../utils/info.dart';
 import '../utils/navigation.dart';
 
 class NavPage extends StatefulWidget {
@@ -48,11 +47,21 @@ class _NavPageState extends State<NavPage> {
       // if(await Info.isShowInfoDialog()){
       //   SchedulerBinding.instance.addPostFrameCallback((_) => Dialogs.infoDialog(context));
       // }
-      // ハードモードで全問正解した場合にレビューを表示
-      if(widget.isPerfect != null && widget.isPerfect == true){
-        final InAppReview inAppReview = InAppReview.instance;
-        if(await inAppReview.isAvailable()){
-          await inAppReview.requestReview();
+      // クイズ完了回数が3の倍数の時にレビューを表示
+      final completionCount = await SharedPreference().getQuizCompletionCount();
+      if (completionCount > 0 && completionCount % 3 == 0) {
+        // 最後にレビュー依頼してから30日以上経過している場合のみ表示（過度な表示を防ぐ）
+        final lastReviewDate = await SharedPreference().getLastReviewRequestDate();
+        final shouldShowReview = lastReviewDate == null || 
+            DateTime.now().difference(lastReviewDate).inDays >= 30;
+        
+        if (shouldShowReview) {
+          final InAppReview inAppReview = InAppReview.instance;
+          if (await inAppReview.isAvailable()) {
+            await inAppReview.requestReview();
+            // レビュー依頼日時を保存
+            await SharedPreference().setLastReviewRequestDate(DateTime.now());
+          }
         }
       }
       // アダプティブバナー広告を読み込む

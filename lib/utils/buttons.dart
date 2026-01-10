@@ -102,6 +102,22 @@ class Buttons{
       ),
     );
   }
+  
+  static TextButton reviewButton({VoidCallback? onPressed}){
+    return TextButton(
+      onPressed: onPressed,
+      style: ButtonStyle(overlayColor: WidgetStateProperty.all(OriginalThemeColor.transparent),),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.star,size: 20,color: OriginalThemeColor.star,),
+          const SizedBox(width: 4,),
+          Text('レビューを書く',style: OriginalThemeFont.moderateFont,),
+        ],
+      ),
+    );
+  }
 }
 
 class ModeButtonEntity{

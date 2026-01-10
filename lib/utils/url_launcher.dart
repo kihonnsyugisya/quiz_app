@@ -107,4 +107,40 @@ class UrlLauncher  {
     }
   }
 
+  // アプリストアのレビュー書き込みページを開く
+  static Future<void> launchAppReview({
+    required String iOSAppId,
+    String? androidPackageId,
+  }) async {
+    Uri url;
+    
+    if (Platform.isIOS) {
+      // iOS App Store - レビュー書き込みページ
+      url = Uri.parse('https://apps.apple.com/jp/app/id$iOSAppId?action=write-review');
+    } else if (Platform.isAndroid) {
+      // Android Play Store - レビューセクションを表示
+      final packageId = androidPackageId ?? PackageInfo.androidPackageId;
+      // market://スキームを試し、失敗した場合はhttpsを使用
+      final marketUrl = Uri.parse('market://details?id=$packageId');
+      if (await canLaunchUrl(marketUrl)) {
+        await launchUrl(marketUrl, mode: LaunchMode.externalApplication);
+        return;
+      } else {
+        // レビューセクションに直接スクロールするためのURL
+        url = Uri.parse('https://play.google.com/store/apps/details?id=$packageId&showAllReviews=true');
+      }
+    } else {
+      // ignore: avoid_print
+      print('Unsupported platform');
+      return;
+    }
+    
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      // ignore: avoid_print
+      print('Failed to launch app review URL');
+    }
+  }
+
 }
